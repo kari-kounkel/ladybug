@@ -114,8 +114,9 @@ section{position:relative}
 .flower.you{background:linear-gradient(160deg,#FFFBF1,#FBEFD0);border-color:var(--gold);box-shadow:0 14px 30px rgba(194,154,59,.22)}
 .flower.you .bloom{background:radial-gradient(circle at 35% 30%,#F2D98C,#C29A3B)}
 /* GIVEAWAY KIT */
-.gift-band{background:linear-gradient(180deg,transparent,rgba(194,154,59,.12) 25%,rgba(194,154,59,.08))}
-.kit{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+.gift-band{background:linear-gradient(180deg,transparent,rgba(194,154,59,.14) 18%,rgba(194,154,59,.10) 82%,transparent);padding:88px 60px;border-radius:26px;margin:30px auto}
+@media(max-width:760px){.gift-band{padding:56px 28px;border-radius:20px}}
+.kit{display:grid;grid-template-columns:1fr 1fr;gap:52px;align-items:center}
 @media(max-width:760px){.kit{grid-template-columns:1fr;gap:30px}}
 .kit-art{aspect-ratio:1/1;border-radius:18px;background:linear-gradient(155deg,#FFFBF1,#F6E6BE);border:2px solid var(--gold);display:flex;align-items:center;justify-content:center;padding:14px;box-shadow:0 24px 44px rgba(158,122,36,.22);overflow:hidden}
 .kit-art img{width:100%;height:100%;object-fit:contain;display:block}
@@ -229,7 +230,7 @@ footer a:hover{border-color:var(--gold-deep)}
     <p class="song-eyebrow">The Anthem</p>
     <p class="song-title">Ladybug, Ladybug</p>
     <p class="song-meta">A song for the buggy ones</p>
-    <video class="song-video" controls preload="metadata" playsinline poster="images/cover-front.jpg">
+    <video class="song-video" controls preload="metadata" playsinline>
       <source src="/audio/ladybug-ladybug.mp4" type="video/mp4">
       Your browser doesn't support video. <a href="/audio/ladybug-ladybug.mp3">Listen to the audio</a>.
     </video>
