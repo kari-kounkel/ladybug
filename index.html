@@ -353,23 +353,12 @@ footer a:hover{border-color:var(--gold-deep)}
 </section>
 
 <!-- ===== SHOW US YOUR GARDEN ===== -->
-<section class="block wrap io">
+<section class="block wrap io" style="text-align:center">
   <p class="eyebrow">We&#x2019;d Love to See What You Grew</p>
   <h2 class="h2">Show us your garden</h2>
   <p class="lede">When your garden is complete — or your story is ready — send it our way. Your bloom might be the one that encourages the next lady still finding her petals.</p>
-  <div class="form-card">
-    <!-- ============================================================ -->
-    <!--  ⚠️ NOT YET WIRED. Connect to Supabase before launch:        -->
-    <!--  insert-only RLS on a `ladybug_gardens` table, then POST     -->
-    <!--  these fields from the handler below. (Jotform retired.)     -->
-    <!-- ============================================================ -->
-    <div class="field"><label for="g-name">Your name</label><input id="g-name" type="text" placeholder="What should we call you?"></div>
-    <div class="field"><label for="g-email">Email</label><input id="g-email" type="email" placeholder="So we can say thank you"></div>
-    <div class="field"><label for="g-story">Your garden / your story</label><textarea id="g-story" placeholder="Which bloom found you this season? Tell us what you grew."></textarea></div>
-    <label class="consent"><input type="checkbox" id="g-consent"><span>Yes — you may feature my story and my garden. I planted it on purpose.</span></label>
-    <div style="text-align:center"><button class="btn" id="g-submit">Send my garden 🐞</button></div>
-    <p class="form-note">Every garden is read by a real human before anything is ever shared.</p>
-  </div>
+  <div style="margin-top:8px"><a class="btn" href="/share-your-garden">Share your story →</a></div>
+  <p class="form-note" style="margin-top:18px">Read by a real human. Featured only if you say yes.</p>
 </section>
 
 <!-- ===== THINGS I DIDN'T TELL YOU — 13-part Substack series ===== -->
@@ -444,9 +433,6 @@ function tick(){
 }
 tick();const timer=setInterval(tick,1000);
 document.getElementById('yr').textContent=new Date().getFullYear();
-document.getElementById('g-submit').addEventListener('click',function(){
-  alert("Thank you! (Heads up: the garden mailbox isn't connected yet — wire it to Supabase before launch.)");
-});
 const io=new IntersectionObserver((e)=>{e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target)}})},{threshold:.1});
 document.querySelectorAll('.io').forEach(el=>io.observe(el));
 

@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Share Your Garden — Ladybug, Ladybug</title>
+<meta name="description" content="Send your story. The Ladybug Garden is a slow, quiet inbox — read by a real human before anything is ever shared.">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,400;1,9..144,500;1,9..144,600&family=Mulish:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#FFFFFF;--bg-soft:#FDF8F8;--card:#FFFFFF;--card-edge:rgba(177,18,38,.13);
+  --red:#B11226;--red-deep:#861019;--red-soft:#C8324A;
+  --gold:#C29A3B;--gold-deep:#9E7A24;
+  --ink:#1A1614;--ink-soft:#6B5E52;--ink-dim:#9A8C7C;
+  --cream:#FBF3E2;--paper:#FFFFFF;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Mulish',sans-serif;color:var(--ink);background:var(--bg);line-height:1.65;-webkit-font-smoothing:antialiased;min-height:100vh;display:flex;flex-direction:column}
+body::before{content:"";position:fixed;inset:0;z-index:-2;pointer-events:none;background:radial-gradient(ellipse at 50% -8%,#FFFFFF 0%,#FFFAFA 40%,#FBEDEF 100%)}
+body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.4;background-image:radial-gradient(circle at 8% 16%,rgba(177,18,38,.10) 0 9px,transparent 10px),radial-gradient(circle at 92% 12%,rgba(14,12,10,.05) 0 7px,transparent 8px),radial-gradient(circle at 20% 78%,rgba(177,18,38,.07) 0 6px,transparent 7px),radial-gradient(circle at 82% 72%,rgba(177,18,38,.08) 0 8px,transparent 9px);background-repeat:no-repeat}
+.nav{padding:22px 28px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(177,18,38,.08)}
+.nav a.back{text-decoration:none;color:var(--ink-soft);font-family:'Mulish',sans-serif;font-weight:700;letter-spacing:.18em;text-transform:uppercase;font-size:.7rem;transition:color .2s}
+.nav a.back:hover{color:var(--red)}
+.nav .brand{font-family:'Fraunces',serif;font-style:italic;font-weight:600;color:var(--red);font-size:.95rem}
+.wrap{max-width:700px;width:100%;margin:0 auto;padding:48px 28px 80px;flex:1}
+.kicker{font-family:'Mulish',sans-serif;font-weight:800;letter-spacing:.3em;text-transform:uppercase;font-size:.72rem;color:var(--red);text-align:center;margin-bottom:18px}
+h1{font-family:'Fraunces',serif;font-weight:700;color:var(--ink);font-size:clamp(2.1rem,6.5vw,3.4rem);line-height:1.02;letter-spacing:-.015em;text-align:center;margin-bottom:18px}
+.lede{font-family:'Fraunces',serif;font-style:italic;color:var(--ink-soft);font-size:clamp(1.1rem,2.6vw,1.3rem);text-align:center;max-width:50ch;margin:0 auto 38px;line-height:1.5}
+form{background:var(--paper);border:1.5px solid var(--card-edge);border-radius:22px;padding:38px 32px 32px;box-shadow:0 18px 40px rgba(177,18,38,.07)}
+@media(max-width:560px){form{padding:28px 22px 24px;border-radius:18px}}
+.field{margin-bottom:22px}
+.field label{display:block;font-family:'Mulish',sans-serif;font-weight:700;font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:8px}
+.field .hint{display:block;font-family:'Fraunces',serif;font-style:italic;font-weight:400;color:var(--ink-dim);font-size:.78rem;letter-spacing:0;text-transform:none;margin-top:-4px;margin-bottom:8px}
+.field input,.field textarea{width:100%;font-family:'Mulish',sans-serif;font-size:1rem;color:var(--ink);background:#FDFCFA;border:1.5px solid rgba(28,22,20,.16);border-radius:12px;padding:14px 16px;transition:border .2s,box-shadow .2s}
+.field input:focus,.field textarea:focus{outline:none;border-color:var(--red);box-shadow:0 0 0 3px rgba(177,18,38,.08);background:#fff}
+.field textarea#story{font-family:'Fraunces',serif;font-size:1.06rem;line-height:1.7;color:var(--ink);min-height:360px;resize:vertical;padding:20px 22px}
+@media(max-width:560px){.field textarea#story{min-height:280px;font-size:1rem;padding:16px 18px}}
+.counter{text-align:right;font-family:'Mulish',sans-serif;font-size:.74rem;color:var(--ink-dim);margin-top:6px}
+.consent{display:flex;gap:12px;align-items:flex-start;font-size:.92rem;color:var(--ink-soft);margin:6px 0 26px}
+.consent input{margin-top:4px;width:18px;height:18px;accent-color:var(--red);flex:0 0 auto;cursor:pointer}
+.consent label{cursor:pointer;line-height:1.45}
+.actions{display:flex;justify-content:center}
+.btn{display:inline-block;text-decoration:none;font-family:'Mulish',sans-serif;font-weight:800;letter-spacing:.08em;text-transform:uppercase;font-size:.84rem;background:var(--red);color:#FFF8E8;padding:17px 42px;border-radius:999px;box-shadow:0 12px 26px rgba(134,16,25,.28);transition:all .25s;border:2px solid var(--red);cursor:pointer}
+.btn:hover{background:var(--red-deep);transform:translateY(-2px);box-shadow:0 16px 32px rgba(134,16,25,.36)}
+.btn:disabled{opacity:.55;cursor:wait;transform:none}
+.form-note{text-align:center;font-size:.84rem;color:var(--ink-soft);margin-top:18px;font-style:italic;font-family:'Fraunces',serif}
+.error{margin-top:14px;padding:12px 16px;background:rgba(177,18,38,.06);border:1px solid rgba(177,18,38,.25);border-radius:10px;color:var(--red-deep);font-size:.92rem;display:none}
+.error.show{display:block}
+.thanks{display:none;text-align:center;padding:20px 0 10px}
+.thanks.show{display:block}
+.thanks .bug{font-size:3.2rem;margin-bottom:12px;line-height:1}
+.thanks h2{font-family:'Fraunces',serif;font-weight:700;color:var(--red);font-size:clamp(1.6rem,5vw,2.2rem);margin-bottom:14px}
+.thanks p{font-size:1.05rem;color:var(--ink-soft);max-width:42ch;margin:0 auto 8px;line-height:1.55}
+.thanks .home-link{display:inline-block;margin-top:24px;font-family:'Mulish',sans-serif;font-weight:700;letter-spacing:.14em;text-transform:uppercase;font-size:.78rem;color:var(--red);text-decoration:none;border-bottom:1.5px solid var(--red);padding-bottom:2px;transition:color .2s}
+.thanks .home-link:hover{color:var(--red-deep)}
+footer{text-align:center;padding:30px 28px;color:var(--ink-dim);font-size:.78rem;font-family:'Fraunces',serif;font-style:italic}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a class="back" href="/">← Back to the book</a>
+  <span class="brand">Ladybug, Ladybug</span>
+</nav>
+
+<main class="wrap">
+  <p class="kicker">Show us your garden</p>
+  <h1>Tell me what you grew.</h1>
+  <p class="lede">Which bloom found you this season? Which one are you still tending? Take your time — the page won't run out of room.</p>
+
+  <form id="garden-form" autocomplete="on">
+    <div class="field">
+      <label for="name">Your name</label>
+      <input id="name" name="name" type="text" placeholder="What should we call you?" required maxlength="120" autocomplete="name">
+    </div>
+
+    <div class="field">
+      <label for="email">Email</label>
+      <span class="hint">Optional. Only used if I want to write back and say thank you.</span>
+      <input id="email" name="email" type="email" placeholder="you@somewhere.com" maxlength="200" autocomplete="email">
+    </div>
+
+    <div class="field">
+      <label for="story">Your garden / your story</label>
+      <textarea id="story" name="story" placeholder="Start anywhere. The first sentence is allowed to be a mess. So is the second one." required minlength="10" maxlength="20000"></textarea>
+      <div class="counter"><span id="count">0</span> characters</div>
+    </div>
+
+    <div class="consent">
+      <input type="checkbox" id="consent" name="consent">
+      <label for="consent">Yes — Kari may feature my story (and my garden) on the Ladybug site. I planted it on purpose.</label>
+    </div>
+
+    <div class="actions">
+      <button class="btn" type="submit" id="submit">Send my garden 🐞</button>
+    </div>
+
+    <div class="error" id="error" role="alert"></div>
+    <p class="form-note">Every garden is read by a real human before anything is ever shared.</p>
+  </form>
+
+  <div class="thanks" id="thanks" aria-live="polite">
+    <div class="bug">🐞</div>
+    <h2>Your garden is in the inbox.</h2>
+    <p>Thank you for sending it. I'll read every word.</p>
+    <p>If you said yes to being featured, I'll let you know if your bloom finds a home on the site.</p>
+    <a class="home-link" href="/">← Back to the book</a>
+  </div>
+</main>
+
+<footer>The ladybugs have been waiting for you.</footer>
+
+<script type="module">
+import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
+
+const SUPABASE_URL = 'https://fufhjraudksavfncpdrm.supabase.co';
+// Publishable (anon) key — safe to embed; RLS only permits INSERT into ladybug_gardens.
+const SUPABASE_KEY = 'sb_publishable_zhgNH17s2IK1X0wesXKieA_3suOKEp1';
+const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+
+const $ = (id) => document.getElementById(id);
+const form = $('garden-form');
+const story = $('story');
+const counter = $('count');
+const submitBtn = $('submit');
+const errBox = $('error');
+const thanks = $('thanks');
+
+story.addEventListener('input', () => {
+  counter.textContent = story.value.length.toLocaleString();
+});
+
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  errBox.classList.remove('show');
+  errBox.textContent = '';
+
+  const name = $('name').value.trim();
+  const email = $('email').value.trim();
+  const storyText = story.value.trim();
+  const consent = $('consent').checked;
+
+  if (name.length < 1) { showError('I need a name to call you by.'); return; }
+  if (storyText.length < 10) { showError('Tell me a little more — the story field is too short.'); return; }
+  if (storyText.length > 20000) { showError("That's a beautiful amount of words, but we're over the cap. Trim it a bit?"); return; }
+
+  submitBtn.disabled = true;
+  submitBtn.textContent = 'Sending…';
+
+  const payload = {
+    name,
+    email: email || null,
+    story: storyText,
+    consent,
+    user_agent: navigator.userAgent.slice(0, 400)
+  };
+
+  const { error } = await supabase.from('ladybug_gardens').insert(payload);
+
+  if (error) {
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Send my garden 🐞';
+    showError("Something went sideways saving your story. Try again? If it keeps failing, email kari@karikounkel.com and we'll catch it that way.");
+    console.error(error);
+    return;
+  }
+
+  form.style.display = 'none';
+  thanks.classList.add('show');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+function showError(msg) {
+  errBox.textContent = msg;
+  errBox.classList.add('show');
+}
+</script>
+
+</body>
+</html>
