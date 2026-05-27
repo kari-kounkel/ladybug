@@ -321,11 +321,12 @@ footer a:hover{border-color:var(--gold-deep)}
   </div>
 </section>
 
-<!-- ===== MANIFESTO PULL — pull-quote wording TBD with Kari ===== -->
-<section class="block wrap io" style="text-align:center;display:none">
+<!-- ===== MANIFESTO PULL — lyric from "Ladybug, Ladybug" (the anthem) ===== -->
+<section class="block wrap io" style="text-align:center">
+  <p class="eyebrow" style="margin-bottom:18px">From the anthem</p>
   <div class="pull">
-    <p class="big">We <span style="font-style:italic;font-weight:500;color:var(--ink-soft);font-size:.55em">whatttttttttttttt</span></p>
-    <p class="small">We were made to bloom anyway.</p>
+    <p class="big">Don&#x2019;t you fly away.</p>
+    <p class="small">You were built to stay.</p>
   </div>
 </section>
 
@@ -388,11 +389,11 @@ footer a:hover{border-color:var(--gold-deep)}
     <a class="tidty-card" href="https://karikounkel.substack.com/p/i-miss-bookstores-the-way-some-people" target="_blank" rel="noopener"><span class="num">7</span><span class="meta"><span class="date">May 24</span><span class="ttl">I Miss Bookstores the Way Some People Miss Exes</span></span></a>
     <a class="tidty-card" href="https://karikounkel.substack.com/p/the-problem-with-being-the-strong" target="_blank" rel="noopener"><span class="num">8</span><span class="meta"><span class="date">May 25</span><span class="ttl">The Problem with Being &#x201C;The Strong One&#x201D;</span></span></a>
     <a class="tidty-card" href="https://karikounkel.substack.com/p/my-nervous-system-thinks-email-is" target="_blank" rel="noopener"><span class="num">9</span><span class="meta"><span class="date">May 26</span><span class="ttl">My Nervous System Thinks Email is a Bear Attack</span></span></a>
-    <!-- ▼ SCHEDULED: paste the real Substack URLs here once each one publishes -->
-    <span class="tidty-card scheduled"><span class="num">10</span><span class="meta"><span class="date">May 27</span><span class="ttl">Why I Rearrange Furniture When My Brain Gets Loud</span></span></span>
-    <span class="tidty-card scheduled"><span class="num">11</span><span class="meta"><span class="date">May 28</span><span class="ttl">The Deeply Spiritual Experience of Throwing Something Away</span></span></span>
-    <span class="tidty-card scheduled"><span class="num">12</span><span class="meta"><span class="date">May 29</span><span class="ttl">What Sobriety Feels Like After the Applause Dies Down</span></span></span>
-    <span class="tidty-card scheduled"><span class="num">13</span><span class="meta"><span class="date">May 30</span><span class="ttl">Anyway, I Survived Another Friday</span></span></span>
+    <!-- SCHEDULED — these auto-link the moment each post publishes (see /api/series + the inline script below) -->
+    <span class="tidty-card scheduled" data-day="27"><span class="num">10</span><span class="meta"><span class="date">May 27</span><span class="ttl">Why I Rearrange Furniture When My Brain Gets Loud</span></span></span>
+    <span class="tidty-card scheduled" data-day="28"><span class="num">11</span><span class="meta"><span class="date">May 28</span><span class="ttl">The Deeply Spiritual Experience of Throwing Something Away</span></span></span>
+    <span class="tidty-card scheduled" data-day="29"><span class="num">12</span><span class="meta"><span class="date">May 29</span><span class="ttl">What Sobriety Feels Like After the Applause Dies Down</span></span></span>
+    <span class="tidty-card scheduled" data-day="30"><span class="num">13</span><span class="meta"><span class="date">May 30</span><span class="ttl">Anyway, I Survived Another Friday</span></span></span>
   </div>
 </section>
 
@@ -448,6 +449,32 @@ document.getElementById('g-submit').addEventListener('click',function(){
 });
 const io=new IntersectionObserver((e)=>{e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target)}})},{threshold:.1});
 document.querySelectorAll('.io').forEach(el=>io.observe(el));
+
+/* Hydrate the 4 scheduled "Things I Didn't Tell You" cards once their
+   Substack posts publish. /api/series proxies the RSS feed server-side
+   (no CORS issue) and returns {posts: [{day, url, title}]}. We match by
+   day-of-month and swap the dashed span for a real <a>. */
+(function hydrateSeries(){
+  fetch('/api/series')
+    .then(r => r.ok ? r.json() : null)
+    .then(data => {
+      if (!data || !Array.isArray(data.posts)) return;
+      const byDay = Object.fromEntries(data.posts.map(p => [p.day, p]));
+      document.querySelectorAll('.tidty-card.scheduled[data-day]').forEach(card => {
+        const day = parseInt(card.getAttribute('data-day'), 10);
+        const match = byDay[day];
+        if (!match || !match.url) return;
+        const a = document.createElement('a');
+        a.href = match.url;
+        a.target = '_blank';
+        a.rel = 'noopener';
+        a.className = 'tidty-card';
+        a.innerHTML = card.innerHTML;
+        card.replaceWith(a);
+      });
+    })
+    .catch(() => { /* leave scheduled placeholders as-is on any error */ });
+})();
 </script>
 
 <!-- Ask Kari widget -->
