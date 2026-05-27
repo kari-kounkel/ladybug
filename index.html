@@ -134,12 +134,26 @@ section{position:relative}
 .consent input{margin-top:4px;width:18px;height:18px;accent-color:var(--red);flex:0 0 auto}
 .form-note{text-align:center;font-size:.82rem;color:var(--ink-soft);margin-top:14px;font-style:italic;font-family:'Fraunces',serif}
 /* TIDTY */
-.tidty{max-width:680px;margin:0 auto;text-align:center;background:linear-gradient(160deg,var(--red),var(--red-deep));border-radius:22px;padding:46px 36px;color:var(--cream);box-shadow:0 24px 48px rgba(134,16,25,.3)}
+.tidty{max-width:680px;margin:0 auto 38px;text-align:center;background:linear-gradient(160deg,var(--red),var(--red-deep));border-radius:22px;padding:42px 36px 38px;color:var(--cream);box-shadow:0 24px 48px rgba(134,16,25,.3)}
 .tidty .eyebrow{color:rgba(251,243,226,.8)}
 .tidty h3{font-family:'Fraunces',serif;font-weight:700;font-size:clamp(1.6rem,5vw,2.4rem);line-height:1.05;margin-bottom:14px}
-.tidty p{font-size:1.05rem;opacity:.94;max-width:46ch;margin:0 auto 26px}
+.tidty p{font-size:1.05rem;opacity:.94;max-width:46ch;margin:0 auto}
 .tidty .btn{background:var(--cream);color:var(--red);border-color:var(--cream)}
 .tidty .btn:hover{background:#fff}
+/* TIDTY grid — 13 post cards */
+.tidty-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;max-width:780px;margin:0 auto;padding:0 4px}
+@media(max-width:560px){.tidty-grid{grid-template-columns:1fr}}
+.tidty-card{display:flex;align-items:center;gap:14px;text-decoration:none;color:var(--ink);background:var(--paper);border:1.5px solid var(--card-edge);border-radius:12px;padding:12px 14px;transition:all .25s}
+.tidty-card:hover{border-color:var(--red);transform:translateX(3px);box-shadow:0 8px 20px rgba(177,18,38,.10)}
+.tidty-card .num{flex:0 0 32px;width:32px;height:32px;border-radius:50%;background:var(--red);color:var(--cream);font-family:'Fraunces',serif;font-weight:700;font-size:.92rem;display:flex;align-items:center;justify-content:center}
+.tidty-card .meta{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.tidty-card .date{font-family:'Mulish',sans-serif;font-weight:700;font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-deep)}
+.tidty-card .ttl{font-family:'Fraunces',serif;font-weight:500;font-size:.92rem;line-height:1.25;color:var(--ink)}
+.tidty-card.scheduled{background:transparent;border-style:dashed;cursor:default;pointer-events:none}
+.tidty-card.scheduled .num{background:transparent;color:var(--gold-deep);border:1.5px solid var(--gold)}
+.tidty-card.scheduled .date{color:var(--ink-dim)}
+.tidty-card.scheduled .ttl{color:var(--ink-soft)}
+.tidty-card.scheduled::after{content:"publishes soon";font-family:'Mulish',sans-serif;font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-dim);font-weight:700;align-self:flex-start;margin-top:6px}
 /* LINKS */
 .link-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;max-width:680px;margin:0 auto}
 @media(max-width:620px){.link-grid{grid-template-columns:1fr}}
@@ -332,14 +346,28 @@ footer a:hover{border-color:var(--gold-deep)}
   </div>
 </section>
 
-<!-- ===== THINGS I DIDN'T TELL YOU ===== -->
+<!-- ===== THINGS I DIDN'T TELL YOU — 13-part Substack series ===== -->
 <section class="block wrap io">
   <div class="tidty">
     <p class="eyebrow">The Series</p>
     <h3>Things I Didn&#x2019;t Tell You</h3>
-    <p>The gentle, sideways-honest series running alongside the launch. Read the things that didn&#x2019;t make the book — then, when you&#x2019;re ready, tell me yours.</p>
-    <!-- ▼ EDIT: point at the Substack (or Facebook) home for the series -->
-    <a class="btn" href="#">Read the series</a>
+    <p>Thirteen days. Thirteen quiet confessions. The sideways-honest series running alongside the launch — the things that didn&#x2019;t make the book.</p>
+  </div>
+  <div class="tidty-grid">
+    <a class="tidty-card" href="https://karikounkel.substack.com/p/apparently-the-soul-can-go-into-airplane" target="_blank" rel="noopener"><span class="num">1</span><span class="meta"><span class="date">May 18</span><span class="ttl">Apparently the Soul Can Go Into Airplane Mode</span></span></a>
+    <a class="tidty-card" href="https://karikounkel.substack.com/p/why-i-keep-buying-notebooks-like" target="_blank" rel="noopener"><span class="num">2</span><span class="meta"><span class="date">May 19</span><span class="ttl">Why I Keep Buying Notebooks Like Salvation is Spiral-Bound</span></span></a>
+    <a class="tidty-card" href="https://karikounkel.substack.com/p/some-interests-are-calling-some-are" target="_blank" rel="noopener"><span class="num">3</span><span class="meta"><span class="date">May 20</span><span class="ttl">Some Interests Are Calling. Some Are Just Curiosity Wearing a Clever Costume</span></span></a>
+    <a class="tidty-card" href="https://karikounkel.substack.com/p/the-emotional-support-rotisserie" target="_blank" rel="noopener"><span class="num">4</span><span class="meta"><span class="date">May 21</span><span class="ttl">The Emotional Support Rotisserie Chicken</span></span></a>
+    <a class="tidty-card" href="https://karikounkel.substack.com/p/i-think-god-understands-weird-women" target="_blank" rel="noopener"><span class="num">5</span><span class="meta"><span class="date">May 22</span><span class="ttl">I Think God Understands Weird Women Very Well</span></span></a>
+    <a class="tidty-card" href="https://karikounkel.substack.com/p/the-tyranny-of-tiny-decisions" target="_blank" rel="noopener"><span class="num">6</span><span class="meta"><span class="date">May 23</span><span class="ttl">The Tyranny of Tiny Decisions</span></span></a>
+    <a class="tidty-card" href="https://karikounkel.substack.com/p/i-miss-bookstores-the-way-some-people" target="_blank" rel="noopener"><span class="num">7</span><span class="meta"><span class="date">May 24</span><span class="ttl">I Miss Bookstores the Way Some People Miss Exes</span></span></a>
+    <a class="tidty-card" href="https://karikounkel.substack.com/p/the-problem-with-being-the-strong" target="_blank" rel="noopener"><span class="num">8</span><span class="meta"><span class="date">May 25</span><span class="ttl">The Problem with Being &#x201C;The Strong One&#x201D;</span></span></a>
+    <a class="tidty-card" href="https://karikounkel.substack.com/p/my-nervous-system-thinks-email-is" target="_blank" rel="noopener"><span class="num">9</span><span class="meta"><span class="date">May 26</span><span class="ttl">My Nervous System Thinks Email is a Bear Attack</span></span></a>
+    <!-- ▼ SCHEDULED: paste the real Substack URLs here once each one publishes -->
+    <span class="tidty-card scheduled"><span class="num">10</span><span class="meta"><span class="date">May 27</span><span class="ttl">Why I Rearrange Furniture When My Brain Gets Loud</span></span></span>
+    <span class="tidty-card scheduled"><span class="num">11</span><span class="meta"><span class="date">May 28</span><span class="ttl">The Deeply Spiritual Experience of Throwing Something Away</span></span></span>
+    <span class="tidty-card scheduled"><span class="num">12</span><span class="meta"><span class="date">May 29</span><span class="ttl">What Sobriety Feels Like After the Applause Dies Down</span></span></span>
+    <span class="tidty-card scheduled"><span class="num">13</span><span class="meta"><span class="date">May 30</span><span class="ttl">Anyway, I Survived Another Friday</span></span></span>
   </div>
 </section>
 
@@ -350,7 +378,7 @@ footer a:hover{border-color:var(--gold-deep)}
   <!-- ▼ EDIT THESE LINKS -->
   <div class="link-grid">
     <a class="lnk" href="https://karikounkel.com"><span class="ic">K</span><span class="tx"><b>Kari Kounkel</b><span>Home base — all the books &amp; mischief</span></span></a>
-    <a class="lnk" href="#"><span class="ic">📖</span><span class="tx"><b>The 13th Room</b><span>The Substack</span></span></a>
+    <a class="lnk" href="https://karikounkel.substack.com" target="_blank" rel="noopener"><span class="ic">📖</span><span class="tx"><b>karikounkel.substack.com</b><span>Daily essays &amp; the full archive</span></span></a>
     <a class="lnk" href="#"><span class="ic">🎙️</span><span class="tx"><b>Everything Under the Sun</b><span>The podcast</span></span></a>
     <a class="lnk" href="#"><span class="ic">🐪</span><span class="tx"><b>Fast Camel Press</b><span>The full bookshelf</span></span></a>
   </div>
