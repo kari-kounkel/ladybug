@@ -59,6 +59,15 @@ section{position:relative}
 .cd-cell .num{font-family:'Fraunces',serif;font-weight:700;color:var(--red);font-size:clamp(1.6rem,6vw,2.5rem);line-height:1;font-variant-numeric:tabular-nums}
 .cd-cell .unit{font-family:'Mulish',sans-serif;font-weight:600;letter-spacing:.14em;text-transform:uppercase;font-size:.62rem;color:var(--ink-soft);margin-top:7px}
 .launched{font-family:'Fraunces',serif;font-style:italic;font-size:clamp(1.4rem,5vw,2rem);color:var(--red);text-align:center}
+/* SONG */
+.song-band{padding:42px 0 18px}
+.song{max-width:680px;margin:0 auto;display:flex;flex-direction:column;align-items:center;gap:14px;background:var(--paper);border:1.5px solid var(--card-edge);border-radius:18px;padding:30px 28px;box-shadow:0 14px 30px rgba(177,18,38,.08)}
+.song-eyebrow{font-family:'Mulish',sans-serif;font-weight:800;letter-spacing:.26em;text-transform:uppercase;font-size:.68rem;color:var(--red)}
+.song-title{font-family:'Fraunces',serif;font-style:italic;font-weight:700;font-size:clamp(1.4rem,4vw,1.85rem);color:var(--ink);line-height:1.1;text-align:center}
+.song-meta{font-family:'Mulish',sans-serif;font-size:.84rem;color:var(--ink-soft);text-align:center;margin-bottom:4px}
+.song-player{width:100%;max-width:520px;height:44px;accent-color:var(--red);border-radius:999px}
+.song-player::-webkit-media-controls-panel{background:#FDF6F6;border-radius:999px}
+.song-credit{font-family:'Mulish',sans-serif;font-size:.68rem;color:var(--ink-dim);letter-spacing:.12em;text-transform:uppercase;margin-top:4px}
 /* SECTION SHELL */
 .block{padding:60px 0}
 .eyebrow{font-family:'Mulish',sans-serif;font-weight:800;letter-spacing:.26em;text-transform:uppercase;font-size:.72rem;color:var(--red);text-align:center;margin-bottom:14px}
@@ -210,6 +219,20 @@ footer a:hover{border-color:var(--gold-deep)}
     <span class="line"></span><span class="dot"></span>
     <svg viewBox="0 0 24 24" fill="none"><ellipse cx="12" cy="14" rx="8" ry="9" fill="#B11226"/><line x1="12" y1="5" x2="12" y2="23" stroke="#1C1614" stroke-width="1.5"/><circle cx="8" cy="12" r="2" fill="#1C1614"/><circle cx="16" cy="12" r="2" fill="#1C1614"/><circle cx="12" cy="3" r="3" fill="#1C1614"/></svg>
     <span class="dot"></span><span class="line r"></span>
+  </div>
+</section>
+
+<!-- ===== SONG ===== -->
+<section class="song-band wrap io">
+  <div class="song">
+    <p class="song-eyebrow">The Anthem</p>
+    <p class="song-title">Ladybug, Ladybug</p>
+    <p class="song-meta">A song for the buggy ones</p>
+    <audio class="song-player" controls preload="metadata">
+      <source src="/audio/ladybug-ladybug.mp3" type="audio/mpeg">
+      Your browser doesn't support audio. <a href="/audio/ladybug-ladybug.mp3">Download the song</a>.
+    </audio>
+    <p class="song-credit">Composed with Suno</p>
   </div>
 </section>
 
