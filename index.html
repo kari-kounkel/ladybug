@@ -165,6 +165,32 @@ section{position:relative}
 .tidty-card.scheduled .date{color:var(--ink-dim)}
 .tidty-card.scheduled .ttl{color:var(--ink-soft)}
 .tidty-card.scheduled::after{content:"publishes soon";font-family:'Mulish',sans-serif;font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-dim);font-weight:700;align-self:flex-start;margin-top:6px}
+/* BUY MODAL */
+.modal-backdrop{position:fixed;inset:0;background:rgba(14,12,10,.55);backdrop-filter:blur(4px);z-index:200;display:none;align-items:center;justify-content:center;padding:24px;overflow-y:auto}
+.modal-backdrop.open{display:flex}
+.modal{background:#fff;border-radius:24px;max-width:880px;width:100%;padding:36px 36px 30px;box-shadow:0 30px 60px rgba(0,0,0,.35);position:relative;animation:popin .22s cubic-bezier(.2,.8,.2,1)}
+@keyframes popin{from{opacity:0;transform:translateY(14px) scale(.98)}to{opacity:1;transform:none}}
+@media(max-width:600px){.modal{padding:28px 22px 22px;border-radius:20px}}
+.modal-close{position:absolute;top:14px;right:16px;width:38px;height:38px;border-radius:50%;border:none;background:transparent;color:var(--ink-soft);font-size:1.8rem;line-height:1;cursor:pointer;font-family:'Mulish',sans-serif;font-weight:300;transition:all .2s}
+.modal-close:hover{background:rgba(177,18,38,.07);color:var(--red)}
+.modal .eyebrow{margin-bottom:8px}
+.modal .h2{font-size:clamp(1.7rem,4.5vw,2.4rem);margin-bottom:24px}
+.buy-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:8px}
+@media(max-width:720px){.buy-grid{grid-template-columns:1fr}}
+.buy-card{background:var(--paper);border:1.5px solid var(--card-edge);border-radius:18px;padding:24px 20px 22px;display:flex;flex-direction:column;text-align:center;transition:border-color .25s,transform .25s,box-shadow .25s}
+.buy-card:hover{border-color:var(--red);transform:translateY(-3px);box-shadow:0 14px 26px rgba(177,18,38,.10)}
+.buy-card.featured{background:linear-gradient(160deg,#FFFBF1,#FBEFD0);border-color:var(--gold);box-shadow:0 14px 30px rgba(194,154,59,.22)}
+.buy-card .buy-badge{font-family:'Mulish',sans-serif;font-weight:800;font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--red);margin-bottom:8px}
+.buy-card.featured .buy-badge{color:var(--gold-deep)}
+.buy-card h3{font-family:'Fraunces',serif;font-weight:700;color:var(--ink);font-size:1.32rem;line-height:1.1;margin-bottom:6px}
+.buy-card .price{font-family:'Fraunces',serif;font-weight:900;color:var(--red);font-size:2.6rem;line-height:1;letter-spacing:-.02em;margin:6px 0 14px;font-variant-numeric:tabular-nums}
+.buy-card.featured .price{color:var(--red-deep)}
+.buy-card ul{list-style:none;padding:0;margin:0 0 22px;text-align:left;font-size:.92rem;color:var(--ink-soft);flex:1}
+.buy-card ul li{padding:4px 0 4px 22px;position:relative;line-height:1.4}
+.buy-card ul li::before{content:"🐞";position:absolute;left:0;font-size:.82rem;top:6px}
+.buy-card .btn{font-size:.78rem;padding:14px 24px;width:100%}
+.modal .legal{font-family:'Mulish',sans-serif;font-size:.74rem;color:var(--ink-dim);text-align:center;margin-top:22px;line-height:1.45}
+body.modal-open{overflow:hidden}
 /* LINKS */
 .link-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;max-width:680px;margin:0 auto}
 @media(max-width:620px){.link-grid{grid-template-columns:1fr}}
@@ -205,8 +231,7 @@ footer a:hover{border-color:var(--gold-deep)}
   </div>
   <h1 class="sr-title reveal d3">Ladybug, Ladybug: Keeping It Classy in a Buggy World</h1>
   <p class="hero-meta reveal d4">Compiled by <strong>Kari Hoglund Kounkel</strong> <span class="dot">·</span> 13 Chapters by 13 Women</p>
-  <!-- ▼ EDIT: this button will open the Stripe 3-option modal once price IDs land -->
-  <div class="hero-cta reveal d5"><button class="btn" type="button" onclick="alert('Pre-orders open soon — the buy button gets wired the moment we have the Stripe prices.');">Get the Book →</button></div>
+  <div class="hero-cta reveal d5"><button class="btn" type="button" data-open-buy="1">Get the Book →</button></div>
   <div class="coming reveal d5">
     <p class="label" style="margin-top:36px">Blooming into the world</p>
     <p class="date" id="launch-date">Coming Soon</p>
@@ -463,7 +488,69 @@ document.querySelectorAll('.io').forEach(el=>io.observe(el));
 })();
 </script>
 
+<!-- ===== BUY MODAL ===== -->
+<div class="modal-backdrop" id="buy-modal" aria-hidden="true">
+  <div class="modal" role="dialog" aria-labelledby="buy-title" aria-modal="true">
+    <button class="modal-close" type="button" aria-label="Close" data-close-buy="1">×</button>
+    <p class="eyebrow">Choose your edition</p>
+    <h2 class="h2" id="buy-title">Get the Book</h2>
+    <div class="buy-grid">
+      <article class="buy-card">
+        <div class="buy-badge">Print</div>
+        <h3>The Book</h3>
+        <p class="price">$35</p>
+        <ul>
+          <li>Hardcover, 8.5 × 8.5</li>
+          <li>13 chapters, 13 women</li>
+          <li>Ships late June</li>
+        </ul>
+        <a class="btn" href="https://buy.stripe.com/00wfZh7Nla9Ibzd1Q818c0b" target="_blank" rel="noopener">Pre-order →</a>
+      </article>
+      <article class="buy-card featured">
+        <div class="buy-badge">Best value · Print + Digital</div>
+        <h3>Bundle</h3>
+        <p class="price">$50</p>
+        <ul>
+          <li>Hardcover, ships late June</li>
+          <li>PDF download right after checkout</li>
+          <li>Save $10</li>
+        </ul>
+        <a class="btn" href="https://buy.stripe.com/6oUaEX5Fd3LkeLp66o18c0c" target="_blank" rel="noopener">Get the bundle →</a>
+      </article>
+      <article class="buy-card">
+        <div class="buy-badge">Digital</div>
+        <h3>PDF Only</h3>
+        <p class="price">$25</p>
+        <ul>
+          <li>Instant download after checkout</li>
+          <li>Read on any device</li>
+          <li>No shipping wait</li>
+        </ul>
+        <a class="btn" href="https://buy.stripe.com/8x2dR94B93Lk9r5cuM18c0a" target="_blank" rel="noopener">Buy PDF →</a>
+      </article>
+    </div>
+    <p class="legal">Secure checkout by Stripe. Receipts emailed automatically. Pre-orders ship late June 2026.</p>
+  </div>
+</div>
+
 <!-- Ask Kari widget -->
 <script src="https://chat.karikounkel.com/widget.js" defer></script>
+<!-- Vercel Web Analytics + Speed Insights (no-ops if not enabled on the project) -->
+<script defer src="/_vercel/insights/script.js"></script>
+<script defer src="/_vercel/speed-insights/script.js"></script>
+
+<script>
+/* Buy modal — open/close, ESC-to-close, scroll-lock */
+(function(){
+  const modal = document.getElementById('buy-modal');
+  if (!modal) return;
+  function open(){ modal.classList.add('open'); modal.setAttribute('aria-hidden','false'); document.body.classList.add('modal-open'); }
+  function close(){ modal.classList.remove('open'); modal.setAttribute('aria-hidden','true'); document.body.classList.remove('modal-open'); }
+  document.querySelectorAll('[data-open-buy]').forEach(el => el.addEventListener('click', open));
+  document.querySelectorAll('[data-close-buy]').forEach(el => el.addEventListener('click', close));
+  modal.addEventListener('click', (e) => { if (e.target === modal) close(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && modal.classList.contains('open')) close(); });
+})();
+</script>
 </body>
 </html>
