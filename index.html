@@ -111,19 +111,17 @@ section{position:relative}
 .flower .like{font-family:'Fraunces',serif;font-style:italic;font-size:1.08rem;color:var(--red);margin-top:6px}
 .flower .author{font-family:'Mulish',sans-serif;font-weight:600;font-size:.78rem;color:var(--ink);margin-top:8px;letter-spacing:.04em}
 .flower .verse{font-family:'Mulish',sans-serif;font-size:.74rem;color:var(--ink-soft);margin-top:5px;font-style:italic}
-.flower.you{grid-column:1/-1;background:linear-gradient(160deg,#FFFBF1,#FBEFD0);border-color:var(--gold);box-shadow:0 18px 38px rgba(194,154,59,.28);padding:36px 38px;display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:30px;text-align:left;margin-top:8px}
-@media(max-width:780px){.flower.you{grid-template-columns:1fr;text-align:center;padding:30px 26px;gap:18px}}
-.flower.you .bloom{width:120px;height:160px;margin:0;flex:0 0 auto}
-.flower.you .ch{grid-column:1/-1;margin-bottom:0;text-align:center;color:var(--gold-deep)}
-@media(min-width:781px){.flower.you .ch{grid-column:2;text-align:left;margin-bottom:6px}}
-.flower.you .body{display:flex;flex-direction:column;gap:6px}
-.flower.you .fname{font-size:1.6rem;color:var(--ink);font-style:italic;font-weight:600}
-.flower.you .like{font-size:clamp(1.4rem,3.2vw,1.85rem);color:var(--red);font-style:italic;margin:0}
-.flower.you .recipe{font-family:'Fraunces',serif;font-style:italic;color:var(--ink-soft);font-size:1.02rem;margin-top:4px;line-height:1.5}
-.flower.you .verse{font-family:'Mulish',sans-serif;font-weight:700;letter-spacing:.14em;font-size:.7rem;text-transform:uppercase;color:var(--gold-deep);margin-top:8px;font-style:normal}
-.flower.you .cta{flex:0 0 auto;display:flex;flex-direction:column;align-items:center;gap:8px}
-.flower.you .cta .btn{font-size:.78rem;padding:14px 26px;white-space:nowrap}
-.flower.you .cta .small-note{font-family:'Fraunces',serif;font-style:italic;font-size:.78rem;color:var(--ink-dim);text-align:center;max-width:18ch}
+.flower.you{grid-column:1/-1;background:#fff;border:1.5px solid var(--card-edge);box-shadow:0 14px 30px rgba(177,18,38,.08);padding:42px 32px 38px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px;margin-top:8px}
+@media(max-width:560px){.flower.you{padding:34px 22px 30px}}
+.flower.you .ch{margin-bottom:2px;color:var(--red)}
+.flower.you .bloom{width:96px;height:120px;margin:0 0 6px}
+.flower.you .like{font-family:'Fraunces',serif;font-style:italic;color:var(--red);font-size:clamp(1.4rem,3.4vw,1.95rem);margin:0;line-height:1.1}
+.flower.you .fname{font-family:'Fraunces',serif;font-weight:700;color:var(--ink);font-size:clamp(1.15rem,2.6vw,1.45rem);margin-top:4px}
+.flower.you .recipe{font-family:'Fraunces',serif;font-style:italic;color:var(--ink-soft);font-size:1.06rem;max-width:38ch;margin-top:8px;line-height:1.5}
+.flower.you .verse{font-family:'Mulish',sans-serif;font-weight:700;letter-spacing:.16em;font-size:.7rem;text-transform:uppercase;color:var(--gold-deep);margin-top:10px;font-style:normal}
+.flower.you .cta-row{margin-top:24px;display:flex;flex-direction:column;align-items:center;gap:8px}
+.flower.you .cta-row .btn{font-size:.82rem;padding:16px 34px}
+.flower.you .cta-row .small-note{font-family:'Fraunces',serif;font-style:italic;font-size:.78rem;color:var(--ink-dim);text-align:center}
 /* GIVEAWAY KIT */
 .gift-band{background:linear-gradient(180deg,transparent,rgba(194,154,59,.14) 18%,rgba(194,154,59,.10) 82%,transparent);padding:88px 60px;border-radius:26px;margin:30px auto}
 @media(max-width:760px){.gift-band{padding:56px 28px;border-radius:20px}}
@@ -318,13 +316,11 @@ footer a:hover{border-color:var(--gold-deep)}
     <div class="flower you">
       <div class="ch">Chapter Thirteen · You</div>
       <div class="bloom"><svg viewBox="0 0 120 140" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><g fill="none" stroke="#C29A3B" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="60" cy="50" r="14"/><ellipse cx="60" cy="28" rx="9" ry="14"/><ellipse cx="60" cy="72" rx="9" ry="14"/><ellipse cx="38" cy="50" rx="14" ry="9"/><ellipse cx="82" cy="50" rx="14" ry="9"/><ellipse cx="44" cy="34" rx="11" ry="8" transform="rotate(-40 44 34)"/><ellipse cx="76" cy="34" rx="11" ry="8" transform="rotate(40 76 34)"/><ellipse cx="44" cy="66" rx="11" ry="8" transform="rotate(40 44 66)"/><ellipse cx="76" cy="66" rx="11" ry="8" transform="rotate(-40 76 66)"/><path d="M60 86 Q56 110 50 132 M60 86 Q64 110 70 132"/></g></svg></div>
-      <div class="body">
-        <div class="like">Sparkle Like a Lady</div>
-        <div class="fname">The Thirteenth flower is you.</div>
-        <div class="recipe">Pick the flower. Tell the story. You belong.</div>
-        <div class="verse">1 Peter 2:9</div>
-      </div>
-      <div class="cta">
+      <div class="like">Sparkle Like a Lady</div>
+      <div class="fname">The Thirteenth flower is you.</div>
+      <div class="recipe">Pick the flower. Tell the story. You belong.</div>
+      <div class="verse">1 Peter 2:9</div>
+      <div class="cta-row">
         <a class="btn" href="/ladybug-garden-kit.pdf" download>Download the Flower Packet 🌸</a>
         <span class="small-note">Print it. Plant it. Make it yours.</span>
       </div>
