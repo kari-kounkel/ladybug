@@ -438,25 +438,50 @@ footer a:hover{border-color:var(--gold-deep)}
 </footer>
 
 <script>
-/* ★★★ EDIT ONE LINE — launch date drives countdown + "Coming" text ★★★ */
-const LAUNCH_DATE = "2026-05-31T09:00:00";   // ← Launch day
+/* ★★★ EDIT ONE LINE — countdown target. Set this to the podcast launch day. ★★★ */
+const LAUNCH_DATE  = ""; // e.g. "2026-07-15T09:00:00" — leave blank to hide the countdown
+const LAUNCH_LABEL = "On the air in";  // small line above the date
+const LAUNCH_VERB  = "Drops";          // becomes "Drops July 15, 2026"
 
-const target = new Date(LAUNCH_DATE).getTime();
-const fmt = new Date(LAUNCH_DATE).toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'});
-document.getElementById('launch-date').textContent = "Coming " + fmt;
-const els={days:document.getElementById('cd-days'),hours:document.getElementById('cd-hours'),mins:document.getElementById('cd-mins'),secs:document.getElementById('cd-secs')};
-const cdWrap=document.getElementById('countdown');
-function pad(n){return String(n).padStart(2,'0')}
-function tick(){
-  let diff=target-Date.now();
-  if(diff<=0){cdWrap.innerHTML='<div class="launched" style="grid-column:1/-1">She has bloomed. 🐞 It\'s here!</div>';document.getElementById('launch-date').textContent="Out now — "+fmt;clearInterval(timer);return;}
-  const d=Math.floor(diff/86400000);diff-=d*86400000;
-  const h=Math.floor(diff/3600000);diff-=h*3600000;
-  const m=Math.floor(diff/60000);diff-=m*60000;
-  const s=Math.floor(diff/1000);
-  els.days.textContent=d;els.hours.textContent=pad(h);els.mins.textContent=pad(m);els.secs.textContent=pad(s);
-}
-tick();const timer=setInterval(tick,1000);
+(function runCountdown(){
+  const coming = document.querySelector('.coming');
+  const ms = LAUNCH_DATE ? new Date(LAUNCH_DATE).getTime() : NaN;
+  // No date, invalid date, or already past → hide the whole band gracefully.
+  if (!Number.isFinite(ms) || ms - Date.now() <= 0) {
+    if (coming) coming.style.display = 'none';
+    return;
+  }
+  const fmt = new Date(ms).toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'});
+  const labelEl = document.querySelector('.coming .label');
+  if (labelEl) labelEl.textContent = LAUNCH_LABEL;
+  document.getElementById('launch-date').textContent = LAUNCH_VERB + ' ' + fmt;
+  const els = {
+    days:  document.getElementById('cd-days'),
+    hours: document.getElementById('cd-hours'),
+    mins:  document.getElementById('cd-mins'),
+    secs:  document.getElementById('cd-secs')
+  };
+  const cdWrap = document.getElementById('countdown');
+  const pad = (n) => String(n).padStart(2,'0');
+  let timer;
+  function tick(){
+    let diff = ms - Date.now();
+    if (diff <= 0) {
+      if (cdWrap) cdWrap.innerHTML = '<div class="launched" style="grid-column:1/-1">It\'s here. 🐞</div>';
+      document.getElementById('launch-date').textContent = 'Live now — ' + fmt;
+      clearInterval(timer);
+      return;
+    }
+    const d = Math.floor(diff/86400000); diff -= d*86400000;
+    const h = Math.floor(diff/3600000);  diff -= h*3600000;
+    const m = Math.floor(diff/60000);    diff -= m*60000;
+    const s = Math.floor(diff/1000);
+    els.days.textContent=d; els.hours.textContent=pad(h); els.mins.textContent=pad(m); els.secs.textContent=pad(s);
+  }
+  tick();
+  timer = setInterval(tick, 1000);
+})();
+
 document.getElementById('yr').textContent=new Date().getFullYear();
 const io=new IntersectionObserver((e)=>{e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target)}})},{threshold:.1});
 document.querySelectorAll('.io').forEach(el=>io.observe(el));
