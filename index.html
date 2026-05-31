@@ -87,8 +87,8 @@ section{position:relative}
 @media(max-width:480px){.ladies{grid-template-columns:1fr}}
 .lady{background:var(--paper);border:1.5px solid var(--card-edge);border-radius:18px;padding:20px 14px 22px;text-align:center;box-shadow:0 10px 22px rgba(177,18,38,.06);transition:transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s,border-color .35s}
 .lady:hover{transform:translateY(-6px);box-shadow:0 18px 32px rgba(177,18,38,.14);border-color:var(--red)}
-.lady .photo{width:100%;aspect-ratio:1/1;border-radius:14px;margin:0 auto 14px;overflow:hidden;background:#FBF5EB;border:1px solid rgba(194,154,59,.18)}
-.lady .photo img{width:100%;height:100%;object-fit:cover;display:block}
+.lady .photo{width:100%;aspect-ratio:4/5;border-radius:14px;margin:0 auto 14px;overflow:hidden;background:#FBF5EB;border:1px solid rgba(194,154,59,.18)}
+.lady .photo img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block}
 .lady .ln{font-family:'Fraunces',serif;font-weight:700;font-size:1.05rem;color:var(--ink);line-height:1.12}
 .lady .lv{font-family:'Mulish',sans-serif;font-size:.72rem;color:var(--gold-deep);margin-top:9px;letter-spacing:.04em}
 /* RHYTHM STRIP */
@@ -111,8 +111,19 @@ section{position:relative}
 .flower .like{font-family:'Fraunces',serif;font-style:italic;font-size:1.08rem;color:var(--red);margin-top:6px}
 .flower .author{font-family:'Mulish',sans-serif;font-weight:600;font-size:.78rem;color:var(--ink);margin-top:8px;letter-spacing:.04em}
 .flower .verse{font-family:'Mulish',sans-serif;font-size:.74rem;color:var(--ink-soft);margin-top:5px;font-style:italic}
-.flower.you{background:linear-gradient(160deg,#FFFBF1,#FBEFD0);border-color:var(--gold);box-shadow:0 14px 30px rgba(194,154,59,.22)}
-.flower.you .bloom{background:radial-gradient(circle at 35% 30%,#F2D98C,#C29A3B)}
+.flower.you{grid-column:1/-1;background:linear-gradient(160deg,#FFFBF1,#FBEFD0);border-color:var(--gold);box-shadow:0 18px 38px rgba(194,154,59,.28);padding:36px 38px;display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:30px;text-align:left;margin-top:8px}
+@media(max-width:780px){.flower.you{grid-template-columns:1fr;text-align:center;padding:30px 26px;gap:18px}}
+.flower.you .bloom{width:120px;height:160px;margin:0;flex:0 0 auto}
+.flower.you .ch{grid-column:1/-1;margin-bottom:0;text-align:center;color:var(--gold-deep)}
+@media(min-width:781px){.flower.you .ch{grid-column:2;text-align:left;margin-bottom:6px}}
+.flower.you .body{display:flex;flex-direction:column;gap:6px}
+.flower.you .fname{font-size:1.6rem;color:var(--ink);font-style:italic;font-weight:600}
+.flower.you .like{font-size:clamp(1.4rem,3.2vw,1.85rem);color:var(--red);font-style:italic;margin:0}
+.flower.you .recipe{font-family:'Fraunces',serif;font-style:italic;color:var(--ink-soft);font-size:1.02rem;margin-top:4px;line-height:1.5}
+.flower.you .verse{font-family:'Mulish',sans-serif;font-weight:700;letter-spacing:.14em;font-size:.7rem;text-transform:uppercase;color:var(--gold-deep);margin-top:8px;font-style:normal}
+.flower.you .cta{flex:0 0 auto;display:flex;flex-direction:column;align-items:center;gap:8px}
+.flower.you .cta .btn{font-size:.78rem;padding:14px 26px;white-space:nowrap}
+.flower.you .cta .small-note{font-family:'Fraunces',serif;font-style:italic;font-size:.78rem;color:var(--ink-dim);text-align:center;max-width:18ch}
 /* GIVEAWAY KIT */
 .gift-band{background:linear-gradient(180deg,transparent,rgba(194,154,59,.14) 18%,rgba(194,154,59,.10) 82%,transparent);padding:88px 60px;border-radius:26px;margin:30px auto}
 @media(max-width:760px){.gift-band{padding:56px 28px;border-radius:20px}}
@@ -293,7 +304,20 @@ footer a:hover{border-color:var(--gold-deep)}
     <div class="flower"><div class="ch">Chapter Ten · Work</div><div class="bloom"><img src="images/flowers/10-violet-work-april.png" alt="The Violet" loading="lazy"></div><div class="fname">The Violet</div><div class="like">Work Like a Lady</div><div class="author">April Beachem</div><div class="verse">Colossians 3:23–24</div></div>
     <div class="flower"><div class="ch">Chapter Eleven · Shine</div><div class="bloom"><img src="images/flowers/11-morning-glory-nicole.png" alt="The Morning Glory" loading="lazy"></div><div class="fname">The Morning Glory</div><div class="like">Shine Like a Lady</div><div class="author">Nicole Kounkel</div><div class="verse">Matthew 5:14–16</div></div>
     <div class="flower"><div class="ch">Chapter Twelve · Build</div><div class="bloom"><img src="images/flowers/12-poppy-build-zona.png" alt="The Poppy" loading="lazy"></div><div class="fname">The Poppy</div><div class="like">Build Like a Lady</div><div class="author">Zona Gutzwiller</div><div class="verse">Proverbs 14:1</div></div>
-    <div class="flower you"><div class="ch">Chapter Thirteen · You</div><div class="bloom"><svg viewBox="0 0 120 140" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><g fill="none" stroke="#C29A3B" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="60" cy="50" r="14"/><ellipse cx="60" cy="28" rx="9" ry="14"/><ellipse cx="60" cy="72" rx="9" ry="14"/><ellipse cx="38" cy="50" rx="14" ry="9"/><ellipse cx="82" cy="50" rx="14" ry="9"/><ellipse cx="44" cy="34" rx="11" ry="8" transform="rotate(-40 44 34)"/><ellipse cx="76" cy="34" rx="11" ry="8" transform="rotate(40 76 34)"/><ellipse cx="44" cy="66" rx="11" ry="8" transform="rotate(40 44 66)"/><ellipse cx="76" cy="66" rx="11" ry="8" transform="rotate(-40 76 66)"/><path d="M60 86 Q56 110 50 132 M60 86 Q64 110 70 132"/></g></svg></div><div class="fname">The Thirteenth</div><div class="like">Sparkle Like a Lady</div><div class="author">YOU</div><div class="verse">1 Peter 2:9</div></div>
+    <div class="flower you">
+      <div class="ch">Chapter Thirteen · You</div>
+      <div class="bloom"><svg viewBox="0 0 120 140" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><g fill="none" stroke="#C29A3B" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="60" cy="50" r="14"/><ellipse cx="60" cy="28" rx="9" ry="14"/><ellipse cx="60" cy="72" rx="9" ry="14"/><ellipse cx="38" cy="50" rx="14" ry="9"/><ellipse cx="82" cy="50" rx="14" ry="9"/><ellipse cx="44" cy="34" rx="11" ry="8" transform="rotate(-40 44 34)"/><ellipse cx="76" cy="34" rx="11" ry="8" transform="rotate(40 76 34)"/><ellipse cx="44" cy="66" rx="11" ry="8" transform="rotate(40 44 66)"/><ellipse cx="76" cy="66" rx="11" ry="8" transform="rotate(-40 76 66)"/><path d="M60 86 Q56 110 50 132 M60 86 Q64 110 70 132"/></g></svg></div>
+      <div class="body">
+        <div class="like">Sparkle Like a Lady</div>
+        <div class="fname">The Thirteenth flower is you.</div>
+        <div class="recipe">Pick the flower. Tell the story. You belong.</div>
+        <div class="verse">1 Peter 2:9</div>
+      </div>
+      <div class="cta">
+        <a class="btn" href="/ladybug-garden-kit.pdf" download>Download the Flower Packet 🌸</a>
+        <span class="small-note">Print it. Plant it. Make it yours.</span>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -324,25 +348,68 @@ footer a:hover{border-color:var(--gold-deep)}
   </div>
 </section>
 
-<!-- ===== LADYBUG WISDOM ===== -->
+<!-- ===== LADYBUG WISDOM — 43 cards from the 5 Legacy Ladies across all 13 chapters ===== -->
 <section class="block wrap io">
   <p class="eyebrow">From the Legacy Ladies</p>
   <h2 class="h2">Ladybug Wisdom</h2>
-  <p class="lede">A word from the Ladies &mdash; one for every chapter. Swipe the garden. 🪲</p>
+  <p class="lede">Wisdom drops throughout the book — 43 cards across 13 chapters. Five voices, one garden. Swipe through. 🪲</p>
   <div class="wisdom-rail">
-    <img src="images/wisdom-01.png" alt="Ladybug wisdom card, chapter 1" loading="lazy" onerror="this.remove()">
-    <img src="images/wisdom-02.png" alt="Ladybug wisdom card, chapter 2" loading="lazy" onerror="this.remove()">
-    <img src="images/wisdom-03.png" alt="Ladybug wisdom card, chapter 3" loading="lazy" onerror="this.remove()">
-    <img src="images/wisdom-04.png" alt="Ladybug wisdom card, chapter 4" loading="lazy" onerror="this.remove()">
-    <img src="images/wisdom-05.png" alt="Ladybug wisdom card, chapter 5" loading="lazy" onerror="this.remove()">
-    <img src="images/wisdom-06.png" alt="Ladybug wisdom card, chapter 6" loading="lazy" onerror="this.remove()">
-    <img src="images/wisdom-07.png" alt="Ladybug wisdom card, chapter 7" loading="lazy" onerror="this.remove()">
-    <img src="images/wisdom-08.png" alt="Ladybug wisdom card, chapter 8" loading="lazy" onerror="this.remove()">
-    <img src="images/wisdom-09.png" alt="Ladybug wisdom card, chapter 9" loading="lazy" onerror="this.remove()">
-    <img src="images/wisdom-10.png" alt="Ladybug wisdom card, chapter 10" loading="lazy" onerror="this.remove()">
-    <img src="images/wisdom-11.png" alt="Ladybug wisdom card, chapter 11" loading="lazy" onerror="this.remove()">
-    <img src="images/wisdom-12.png" alt="Ladybug wisdom card, chapter 12" loading="lazy" onerror="this.remove()">
-    <img src="images/wisdom-13.png" alt="Ladybug wisdom card, chapter 13" loading="lazy" onerror="this.remove()">
+    <!-- Chapter 1 · Trust -->
+    <img src="images/wisdom/junebug-01.png" alt="Junebug · Trust" loading="lazy" onerror="this.remove()">
+    <img src="images/wisdom/trixie-01.png"  alt="Trixie · Trust"  loading="lazy" onerror="this.remove()">
+    <img src="images/wisdom/latoya-01.png"  alt="LaToya · Trust"  loading="lazy" onerror="this.remove()">
+    <!-- Chapter 2 · Think -->
+    <img src="images/wisdom/junebug-02.png"  alt="Junebug · Think"  loading="lazy" onerror="this.remove()">
+    <img src="images/wisdom/meera-02.png"    alt="Meera · Think"    loading="lazy" onerror="this.remove()">
+    <img src="images/wisdom/charlene-02.png" alt="Charlene · Think" loading="lazy" onerror="this.remove()">
+    <img src="images/wisdom/trixie-02.png"   alt="Trixie · Think"   loading="lazy" onerror="this.remove()">
+    <!-- Chapter 3 · Act -->
+    <img src="images/wisdom/junebug-03.png"  alt="Junebug · Act"  loading="lazy" onerror="this.remove()">
+    <img src="images/wisdom/meera-03.png"    alt="Meera · Act"    loading="lazy" onerror="this.remove()">
+    <img src="images/wisdom/charlene-03.png" alt="Charlene · Act" loading="lazy" onerror="this.remove()">
+    <!-- Chapter 4 · Dress -->
+    <img src="images/wisdom/meera-04.png"  alt="Meera · Dress"  loading="lazy" onerror="this.remove()">
+    <img src="images/wisdom/trixie-04.png" alt="Trixie · Dress" loading="lazy" onerror="this.remove()">
+    <!-- Chapter 5 · Speak -->
+    <img src="images/wisdom/junebug-05.png"  alt="Junebug · Speak"  loading="lazy" onerror="this.remove()">
+    <img src="images/wisdom/charlene-05.png" alt="Charlene · Speak" loading="lazy" onerror="this.remove()">
+    <img src="images/wisdom/latoya-05.png"   alt="LaToya · Speak"   loading="lazy" onerror="this.remove()">
+    <!-- Chapter 6 · Wait -->
+    <img src="images/wisdom/meera-06.png"  alt="Meera · Wait"  loading="lazy" onerror="this.remove()">
+    <img src="images/wisdom/trixie-06.png" alt="Trixie · Wait" loading="lazy" onerror="this.remove()">
+    <img src="images/wisdom/latoya-06.png" alt="LaToya · Wait" loading="lazy" onerror="this.remove()">
+    <!-- Chapter 7 · Walk -->
+    <img src="images/wisdom/junebug-07.png"  alt="Junebug · Walk"  loading="lazy" onerror="this.remove()">
+    <img src="images/wisdom/meera-07.png"    alt="Meera · Walk"    loading="lazy" onerror="this.remove()">
+    <img src="images/wisdom/charlene-07.png" alt="Charlene · Walk" loading="lazy" onerror="this.remove()">
+    <!-- Chapter 8 · Heal -->
+    <img src="images/wisdom/meera-08.png"    alt="Meera · Heal"    loading="lazy" onerror="this.remove()">
+    <img src="images/wisdom/charlene-08.png" alt="Charlene · Heal" loading="lazy" onerror="this.remove()">
+    <img src="images/wisdom/trixie-08.png"   alt="Trixie · Heal"   loading="lazy" onerror="this.remove()">
+    <img src="images/wisdom/latoya-08.png"   alt="LaToya · Heal"   loading="lazy" onerror="this.remove()">
+    <!-- Chapter 9 · Hope -->
+    <img src="images/wisdom/junebug-09.png" alt="Junebug · Hope" loading="lazy" onerror="this.remove()">
+    <img src="images/wisdom/meera-09.png"   alt="Meera · Hope"   loading="lazy" onerror="this.remove()">
+    <img src="images/wisdom/trixie-09.png"  alt="Trixie · Hope"  loading="lazy" onerror="this.remove()">
+    <img src="images/wisdom/latoya-09.png"  alt="LaToya · Hope"  loading="lazy" onerror="this.remove()">
+    <!-- Chapter 10 · Work -->
+    <img src="images/wisdom/junebug-10.png"  alt="Junebug · Work"  loading="lazy" onerror="this.remove()">
+    <img src="images/wisdom/meera-10.png"    alt="Meera · Work"    loading="lazy" onerror="this.remove()">
+    <img src="images/wisdom/charlene-10.png" alt="Charlene · Work" loading="lazy" onerror="this.remove()">
+    <img src="images/wisdom/latoya-10.png"   alt="LaToya · Work"   loading="lazy" onerror="this.remove()">
+    <!-- Chapter 11 · Shine -->
+    <img src="images/wisdom/junebug-11.png"  alt="Junebug · Shine"  loading="lazy" onerror="this.remove()">
+    <img src="images/wisdom/charlene-11.png" alt="Charlene · Shine" loading="lazy" onerror="this.remove()">
+    <img src="images/wisdom/trixie-11.png"   alt="Trixie · Shine"   loading="lazy" onerror="this.remove()">
+    <img src="images/wisdom/latoya-11.png"   alt="LaToya · Shine"   loading="lazy" onerror="this.remove()">
+    <!-- Chapter 12 · Build -->
+    <img src="images/wisdom/junebug-12.png"  alt="Junebug · Build"  loading="lazy" onerror="this.remove()">
+    <img src="images/wisdom/meera-12.png"    alt="Meera · Build"    loading="lazy" onerror="this.remove()">
+    <img src="images/wisdom/charlene-12.png" alt="Charlene · Build" loading="lazy" onerror="this.remove()">
+    <img src="images/wisdom/trixie-12.png"   alt="Trixie · Build"   loading="lazy" onerror="this.remove()">
+    <!-- Chapter 13 · Sparkle / YOU -->
+    <img src="images/wisdom/trixie-13.png" alt="Trixie · Sparkle" loading="lazy" onerror="this.remove()">
+    <img src="images/wisdom/latoya-13.png" alt="LaToya · Sparkle" loading="lazy" onerror="this.remove()">
   </div>
 </section>
 
@@ -382,7 +449,7 @@ footer a:hover{border-color:var(--gold-deep)}
   <p class="eyebrow">We&#x2019;d Love to See What You Grew</p>
   <h2 class="h2">Show us your garden</h2>
   <p class="lede">When your garden is complete — or your story is ready — send it our way. Your bloom might be the one that encourages the next lady still finding her petals.</p>
-  <div style="margin-top:8px"><a class="btn" href="/share-your-garden">Share your story →</a></div>
+  <div style="margin-top:8px"><a class="btn" href="/share-your-garden.html" target="_blank" rel="noopener">Share your story →</a></div>
   <p class="form-note" style="margin-top:18px">Read by a real human. Featured only if you say yes.</p>
 </section>
 
@@ -439,9 +506,9 @@ footer a:hover{border-color:var(--gold-deep)}
 
 <script>
 /* ★★★ EDIT ONE LINE — countdown target. Set this to the podcast launch day. ★★★ */
-const LAUNCH_DATE  = ""; // e.g. "2026-07-15T09:00:00" — leave blank to hide the countdown
-const LAUNCH_LABEL = "On the air in";  // small line above the date
-const LAUNCH_VERB  = "Drops";          // becomes "Drops July 15, 2026"
+const LAUNCH_DATE  = "2026-06-21T09:00:00"; // First Sunday on/after Kari's June 17 target
+const LAUNCH_LABEL = "On the air in";       // small line above the date
+const LAUNCH_VERB  = "Drops";               // becomes "Drops June 21, 2026"
 
 (function runCountdown(){
   const coming = document.querySelector('.coming');
