@@ -225,10 +225,21 @@ footer a:hover{border-color:var(--gold-deep)}
 @media(prefers-reduced-motion:reduce){.reveal{animation:none;opacity:1;transform:none}.bug-stage{animation:none}}
 .io{opacity:0;transform:translateY(28px);transition:opacity .8s,transform .8s}
 .io.in{opacity:1;transform:none}
-.wisdom-rail{display:flex;gap:18px;overflow-x:auto;scroll-snap-type:x mandatory;padding:6px 4px 20px;scrollbar-width:thin;scrollbar-color:var(--gold) transparent}
-.wisdom-rail::-webkit-scrollbar{height:8px}.wisdom-rail::-webkit-scrollbar-thumb{background:var(--gold);border-radius:8px}
-.wisdom-rail img{flex:0 0 86%;max-width:760px;scroll-snap-align:center;border-radius:14px;display:block;box-shadow:0 14px 30px rgba(134,16,25,.12)}
-@media(min-width:760px){.wisdom-rail img{flex-basis:60%}}
+/* Wisdom rail — slow auto-scrolling marquee. Pauses on hover/focus.
+   JS at the bottom of the page clones the track contents once so the
+   loop reads as seamless. Falls back to a manual horizontal scroll if
+   the visitor prefers reduced motion. */
+.wisdom-rail{overflow:hidden;padding:6px 0 20px;position:relative;mask-image:linear-gradient(90deg,transparent 0,#000 6%,#000 94%,transparent 100%);-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 6%,#000 94%,transparent 100%)}
+.wisdom-track{display:flex;gap:18px;width:max-content;animation:wisdom-scroll 360s linear infinite;will-change:transform}
+.wisdom-rail:hover .wisdom-track,.wisdom-rail:focus-within .wisdom-track{animation-play-state:paused}
+@keyframes wisdom-scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.wisdom-track img{flex:0 0 auto;width:clamp(280px,68vw,560px);border-radius:14px;display:block;box-shadow:0 14px 30px rgba(134,16,25,.12)}
+@media(prefers-reduced-motion:reduce){
+  .wisdom-rail{overflow-x:auto;scroll-snap-type:x mandatory;mask-image:none;-webkit-mask-image:none;scrollbar-width:thin;scrollbar-color:var(--gold) transparent}
+  .wisdom-rail::-webkit-scrollbar{height:8px}.wisdom-rail::-webkit-scrollbar-thumb{background:var(--gold);border-radius:8px}
+  .wisdom-track{animation:none;width:auto}
+  .wisdom-track img{scroll-snap-align:center}
+}
 </style>
 </head>
 <body>
@@ -352,8 +363,9 @@ footer a:hover{border-color:var(--gold-deep)}
 <section class="block wrap io">
   <p class="eyebrow">From the Legacy Ladies</p>
   <h2 class="h2">Ladybug Wisdom</h2>
-  <p class="lede">Wisdom drops throughout the book — 43 cards across 13 chapters. Five voices, one garden. Swipe through. 🪲</p>
-  <div class="wisdom-rail">
+  <p class="lede">Wisdom drops throughout the book — 43 cards across 13 chapters. Five voices, one garden. Watch them drift by, or hover to pause. 🪲</p>
+  <div class="wisdom-rail" aria-label="Ladybug wisdom cards — slow auto-scroll, pauses on hover">
+    <div class="wisdom-track" id="wisdom-track">
     <!-- Chapter 1 · Trust -->
     <img src="images/wisdom/junebug-01.png" alt="Junebug · Trust" loading="lazy" onerror="this.remove()">
     <img src="images/wisdom/trixie-01.png"  alt="Trixie · Trust"  loading="lazy" onerror="this.remove()">
@@ -410,6 +422,7 @@ footer a:hover{border-color:var(--gold-deep)}
     <!-- Chapter 13 · Sparkle / YOU -->
     <img src="images/wisdom/trixie-13.png" alt="Trixie · Sparkle" loading="lazy" onerror="this.remove()">
     <img src="images/wisdom/latoya-13.png" alt="LaToya · Sparkle" loading="lazy" onerror="this.remove()">
+    </div>
   </div>
 </section>
 
@@ -553,6 +566,23 @@ const LAUNCH_VERB  = "Drops";               // becomes "Drops June 17, 2026"
 document.getElementById('yr').textContent=new Date().getFullYear();
 const io=new IntersectionObserver((e)=>{e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target)}})},{threshold:.1});
 document.querySelectorAll('.io').forEach(el=>io.observe(el));
+
+/* Clone wisdom-track contents once so the CSS marquee loops seamlessly.
+   The CSS animation moves the track by -50%, so the duplicate has to be
+   exactly the same set of cards. Skipped if the visitor prefers
+   reduced motion (the CSS falls back to manual scroll in that case). */
+(function seamlessWisdomLoop(){
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const track = document.getElementById('wisdom-track');
+  if (!track) return;
+  Array.from(track.children).forEach(node => {
+    const dupe = node.cloneNode(true);
+    dupe.setAttribute('aria-hidden', 'true');
+    // Mark duplicates as eager so they're ready when they scroll into view
+    if (dupe.tagName === 'IMG') dupe.removeAttribute('loading');
+    track.appendChild(dupe);
+  });
+})();
 
 /* Hydrate the 4 scheduled "Things I Didn't Tell You" cards once their
    Substack posts publish. /api/series proxies the RSS feed server-side
