@@ -26,8 +26,11 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: "missing_or_invalid_session_id" });
   }
 
-  const stripeKey = process.env.STRIPE_SECRET_KEY;
-  const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  // Strip leading BOM / whitespace — happens when env vars are piped in
+  // from a PowerShell stdin, which prepends ﻿.
+  const clean = (s) => (s || "").replace(/^[﻿\s]+|\s+$/g, "");
+  const stripeKey = clean(process.env.STRIPE_SECRET_KEY);
+  const supabaseKey = clean(process.env.SUPABASE_SERVICE_ROLE_KEY);
 
   if (!stripeKey) {
     return res.status(500).json({ error: "server_misconfigured", detail: "STRIPE_SECRET_KEY not set" });
