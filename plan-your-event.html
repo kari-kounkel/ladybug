@@ -120,8 +120,14 @@ footer{text-align:center;padding:30px 28px;color:var(--ink-dim);font-size:.78rem
   <form id="event-form" autocomplete="on">
 
     <section class="step">
-      <h2>1 · How much time do you have?</h2>
-      <p class="sub">Pick the length and the rest of the choices unlock.</p>
+      <h2>1 · What do you want in the day?</h2>
+      <p class="sub">Pick everything that sounds good — don't worry about whether it fits yet. Click "DIY decor &amp; supplies" on any row to see what you can pull off yourselves.</p>
+      <div class="activities" id="activities"><!-- rendered by JS --></div>
+    </section>
+
+    <section class="step">
+      <h2>2 · How much time do you have?</h2>
+      <p class="sub">This is just so Kari can figure out which of your picks actually fit — she'll help you negotiate down to a schedule that works.</p>
       <div class="durations" id="durations" role="radiogroup">
         <div class="dur" data-hours="1"><div class="h">1 hr</div><div class="lbl">Taste &amp; book</div></div>
         <div class="dur" data-hours="2"><div class="h">2 hr</div><div class="lbl">Talk &amp; craft</div></div>
@@ -129,12 +135,6 @@ footer{text-align:center;padding:30px 28px;color:var(--ink-dim);font-size:.78rem
         <div class="dur" data-hours="4"><div class="h">4 hr</div><div class="lbl">Half-day</div></div>
         <div class="dur" data-hours="6"><div class="h">6 hr</div><div class="lbl">Whole shebang</div></div>
       </div>
-    </section>
-
-    <section class="step">
-      <h2>2 · What's the day made of?</h2>
-      <p class="sub">Anything <strong>longer than your event window</strong> stays grayed out. Click "decor &amp; supplies" on any row to see what you can DIY yourselves.</p>
-      <div class="activities" id="activities"><!-- rendered by JS --></div>
     </section>
 
     <section class="step">
@@ -348,25 +348,15 @@ const checked = new Set(); // activities the host has picked (none auto-included
 function renderActivities(){
   actRoot.innerHTML = '';
   ACTIVITIES.forEach(a => {
-    const fits = chosenHours >= (a.minHours || 0);
     const isChecked = checked.has(a.id);
     const div = document.createElement('div');
-    div.className = 'act' + (!fits ? ' locked' : '') + (a.coordinated ? ' coordinated' : '');
+    div.className = 'act' + (a.coordinated ? ' coordinated' : '');
     const minsLabel = a.mins > 0 ? `${a.mins} min` : 'all event';
-
-    // Coordinated activities show a gold info icon instead of a checkbox —
-    // the host can't directly pick these; Kari assembles the lineup.
-    const leadCell = a.coordinated
-      ? `<span class="coord-icon" aria-hidden="true">★</span>`
-      : `<input type="checkbox" id="act-${a.id}" ${isChecked ? 'checked' : ''} ${!fits ? 'disabled' : ''} data-id="${a.id}">`;
-
-    const titleTag = a.coordinated ? 'div' : 'label';
-    const titleAttr = a.coordinated ? '' : ` for="act-${a.id}"`;
 
     div.innerHTML = `
       <div class="act-row">
-        ${leadCell}
-        <${titleTag}${titleAttr} style="flex:1${a.coordinated ? ';cursor:default' : ''}">
+        <input type="checkbox" id="act-${a.id}" ${isChecked ? 'checked' : ''} data-id="${a.id}">
+        <label for="act-${a.id}" style="flex:1">
           <div class="act-title">
             <span>${a.title}</span>
             <span class="act-mins">${minsLabel} · ${a.costLabel}</span>
@@ -377,7 +367,7 @@ function renderActivities(){
             <h4>Decor &amp; supply ideas</h4>
             <ul>${a.tips.map(t => `<li>${t}</li>`).join('')}</ul>
           </div>
-        </${titleTag}>
+        </label>
       </div>`;
     actRoot.appendChild(div);
   });
@@ -403,12 +393,12 @@ function updateTotal(){
   const bookTotal = books * BOOK_PRICE;
   totalEl.textContent = '$' + bookTotal.toLocaleString();
 
+  const pickedCount = checked.size;
   if (chosenHours === 0) {
-    durSummaryEl.textContent = 'Pick a duration to start';
-    breakdownEl.innerHTML = "Plus free-will offering for Kari's time";
-    return;
+    durSummaryEl.textContent = `${pickedCount} thing${pickedCount === 1 ? '' : 's'} picked · ${attendees} ladies · time TBD`;
+  } else {
+    durSummaryEl.textContent = `${pickedCount} thing${pickedCount === 1 ? '' : 's'} picked · ${attendees} ladies · ${chosenHours} hr`;
   }
-  durSummaryEl.textContent = `${chosenHours}-hour event · ${attendees} ladies`;
   const parts = [];
   if (books > 0) parts.push(`<strong>${books} books</strong> × $${BOOK_PRICE}`);
   parts.push("plus free-will offering for Kari's time");
@@ -420,9 +410,6 @@ durRoot.addEventListener('click', (e) => {
   if (!tile) return;
   chosenHours = parseFloat(tile.dataset.hours);
   durRoot.querySelectorAll('.dur').forEach(d => d.classList.toggle('active', d === tile));
-  // Drop checks for activities no longer fitting
-  ACTIVITIES.forEach(a => { if ((a.minHours || 0) > chosenHours) checked.delete(a.id); });
-  renderActivities();
   updateTotal();
 });
 
@@ -443,7 +430,6 @@ form.addEventListener('submit', async (e) => {
   const errBox = $('error');
   errBox.classList.remove('show'); errBox.textContent = '';
 
-  if (chosenHours === 0) { showError('Pick how long your event will run first.'); return; }
   const hostName = $('host-name').value.trim();
   const hostEmail = $('email').value.trim();
   if (!hostName) { showError('We need a name to put on the inquiry.'); return; }
