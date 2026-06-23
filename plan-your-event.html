@@ -136,11 +136,17 @@ footer{text-align:center;padding:30px 28px;color:var(--ink-dim);font-size:.78rem
     </section>
 
     <section class="step">
-      <h2>3 · How many ladies?</h2>
-      <p class="sub">Each ticket is <strong>$80</strong> and includes Kari, her book ($35 retail value), and everything you picked above.</p>
-      <div class="field" style="max-width:240px">
-        <label for="attendees">Estimated attendees</label>
-        <input id="attendees" name="attendees" type="number" min="5" max="200" value="20" required>
+      <h2>3 · How many ladies + how many books?</h2>
+      <p class="sub">For groups under 100, Kari speaks for a <strong>free-will offering</strong>. Books are <strong>$20 each</strong>, and you choose how many to provide (some groups give one per attendee, some make them optional, some sell them at the door).</p>
+      <div class="row" style="max-width:520px">
+        <div class="field">
+          <label for="attendees">Estimated attendees</label>
+          <input id="attendees" name="attendees" type="number" min="5" max="500" value="20" required>
+        </div>
+        <div class="field">
+          <label for="books">Books for guests (at $20 each)</label>
+          <input id="books" name="books" type="number" min="0" max="500" value="20">
+        </div>
       </div>
     </section>
 
@@ -185,9 +191,9 @@ footer{text-align:center;padding:30px 28px;color:var(--ink-dim);font-size:.78rem
 
     <div class="total-bar" id="total-bar">
       <div class="left">
-        <span class="summary"><span id="dur-summary">Pick a duration</span></span>
+        <span class="summary"><span id="dur-summary">Pick a duration to start</span></span>
         <span class="amount" id="total">$0</span>
-        <span class="per" id="breakdown">—</span>
+        <span class="per" id="breakdown">Plus free-will offering for Kari's time</span>
       </div>
       <div class="right">
         <button class="btn" type="submit" id="submit">Send to Kari →</button>
@@ -195,7 +201,7 @@ footer{text-align:center;padding:30px 28px;color:var(--ink-dim);font-size:.78rem
     </div>
 
     <div class="error" id="error" role="alert"></div>
-    <p class="note">$80/ticket includes Kari + the book + everything you picked. Decor + supplies for things you DIY are estimates only — your final cost depends on what your group chooses to provide vs. ask Kari to bring.</p>
+    <p class="note">Numbers above cover hard costs only (books, supplies you ask Kari to bring). Kari's time is a free-will offering for groups under 100 — you decide what's fair. For groups over 100, Kari will scope a custom quote when she replies.</p>
   </form>
 
   <div class="thanks" id="thanks" aria-live="polite">
@@ -216,32 +222,28 @@ const SUPABASE_URL = 'https://lheytkgixafdhluuvrbg.supabase.co';
 const SUPABASE_KEY = 'sb_publishable_rX_Sim_EpCNyPpBL7pbH0w_FUr_DVce';
 const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 
-/* Activity catalog — minutes is wall-clock duration the activity adds
-   to the day. `included` = baked into every event regardless of length
-   (book + Kari herself). `minHours` = won't appear in shorter events. */
+/* Activity catalog. Everything is a choice. Most pieces are free / free-will
+   offering / host-DIY — only books (handled separately as a numeric input,
+   not in this list) carry a hard per-attendee price. The `costLabel` is
+   what the host sees on each row; the tally only sums things with positive
+   `costPerAttendee` or `flatCost`. */
 const ACTIVITIES = [
   {
-    id: 'book', title: 'A copy of the book for every guest', mins: 0,
-    included: true, minHours: 1,
-    desc: 'Every attendee leaves with Ladybug, Ladybug: Keeping It Classy in a Buggy World. Signed if Kari is on site.',
-    tips: ['No DIY here — this is baked into your ticket price.']
-  },
-  {
-    id: 'song', title: 'Welcome circle + theme song', mins: 10,
-    included: true, minHours: 1,
+    id: 'song', title: 'Welcome circle + theme song', mins: 10, minHours: 1,
     desc: 'Open with the anthem and a short welcome. Sets the tone in under ten minutes.',
+    costLabel: 'Free',
     tips: ['String lights overhead set the mood instantly', 'Round tables of 6–8 work better than long banquet rows']
   },
   {
-    id: 'open', title: 'Kari opens — "The Halfsies, the holy aunties, and you"', mins: 25,
-    included: true, minHours: 1,
+    id: 'open', title: 'Kari opens — "The Halfsies, the holy aunties, and you"', mins: 25, minHours: 1,
     desc: "Kari's keynote: meet the Legacy Ladies, hear the heart of the book, find your seat at the table.",
+    costLabel: 'Free-will offering',
     tips: ['Single handheld mic is plenty for groups under 80', 'A small flower arrangement on the speaker table is all the staging you need']
   },
   {
-    id: 'boxes', title: 'Decorate your own Bug-Off Box™', mins: 35,
-    minHours: 2,
+    id: 'boxes', title: 'Decorate your own Bug-Off Box™', mins: 35, minHours: 2,
     desc: 'Every guest decorates a small box that fills throughout the event with crafts, verses, and keepsakes from each speaker.',
+    costLabel: 'Host DIY (tips below)',
     tips: [
       'Plain cardboard boxes ($1 at any craft store, or save shipping boxes)',
       'Scrapbook paper, mod podge, foam brushes, glue dots, ribbons',
@@ -251,9 +253,9 @@ const ACTIVITIES = [
     ]
   },
   {
-    id: 'station-pick', title: 'Pick 2–4 contributor craft stations', mins: 45,
-    minHours: 3,
+    id: 'station-pick', title: 'Pick 2–4 contributor craft stations', mins: 45, minHours: 3,
     desc: 'Each of the 12 contributors has her own chapter and her own small craft to add to the Bug-Off Box. You and Kari pick which ones based on who comes (and what they need).',
+    costLabel: 'Coordinated with Kari · free-will per contributor',
     tips: [
       'Iris — Trust: a tiny iris pressed into a verse card',
       'Marigold — Think: a pocket affirmation deck',
@@ -270,9 +272,9 @@ const ACTIVITIES = [
     ]
   },
   {
-    id: 'aphid', title: 'Aphid Alley — snack + mini-vendor lounge', mins: 30,
-    minHours: 3,
+    id: 'aphid', title: 'Aphid Alley — snack + mini-vendor lounge', mins: 30, minHours: 3,
     desc: 'A scattered "garden" perimeter with picnic snacks, vendor tables, mini nail / hand-massage stations. Built-in social break between speakers.',
+    costLabel: 'Host DIY (tips below)',
     tips: [
       'Tulle draped low overhead = instant grass canopy',
       'String lights + paper lanterns + a few mismatched picnic blankets',
@@ -283,9 +285,9 @@ const ACTIVITIES = [
     ]
   },
   {
-    id: 'rotation', title: 'Speaker rotation — 2–3 contributors share', mins: 60,
-    minHours: 4,
+    id: 'rotation', title: 'Speaker rotation — 2–3 contributors share', mins: 60, minHours: 4,
     desc: 'Short talks from contributors, each tied to her flower and her chapter. We pick the rotation together based on what your group needs.',
+    costLabel: 'Free-will offering per speaker',
     tips: [
       'Each speaker = 15–18 minutes, with a 5-minute station-craft break after',
       "Keep all speakers on the same mic — don't keep swapping audio gear",
@@ -293,9 +295,9 @@ const ACTIVITIES = [
     ]
   },
   {
-    id: 'meal', title: 'Catered or potluck lunch in the gathering space', mins: 50,
-    minHours: 4,
+    id: 'meal', title: 'Catered or potluck lunch in the gathering space', mins: 50, minHours: 4,
     desc: 'Sit-down meal at the round tables. Kari mingles. Conversation deepens.',
+    costLabel: 'Host arranges',
     tips: [
       'Potluck assignment by table is easier than a centralized buffet',
       'Light fare wins: salads, sandwiches, a few warm sides',
@@ -304,18 +306,18 @@ const ACTIVITIES = [
     ]
   },
   {
-    id: 'parade', title: 'Closing parade through the building', mins: 15,
-    minHours: 6,
+    id: 'parade', title: 'Closing parade through the building', mins: 15, minHours: 6,
     desc: 'A short walk-with-music procession through your space — out to evening service, into the dining hall, wherever fits your venue. The book\'s closing image, made real.',
+    costLabel: 'Free',
     tips: [
       'Hand each lady a paper flower as she walks out',
       'Cue up the anthem on a portable Bluetooth speaker',
       'Stage someone with a phone-camera for the keepsake photo']
   },
   {
-    id: 'dinner', title: 'Surprise dinner — served by the men in their lives', mins: 75,
-    minHours: 6,
+    id: 'dinner', title: 'Surprise dinner — served by the men in their lives', mins: 75, minHours: 6,
     desc: 'Quietly coordinated with your husbands / sons / brothers ahead of time. They prep a simple dinner while the women event happens; when the ladies parade back in, dinner is on the table and they serve.',
+    costLabel: 'Host coordinates',
     tips: [
       'Two-week heads-up to the men, plus a Google Doc with the menu',
       'Simple wins: pasta bar, taco bar, soup + bread',
@@ -324,35 +326,36 @@ const ACTIVITIES = [
   }
 ];
 
-const TICKET_PRICE = 80;
+const BOOK_PRICE = 20;
 
 const $ = (id) => document.getElementById(id);
 const form = $('event-form');
 const durRoot = $('durations');
 const actRoot = $('activities');
 const attendeesEl = $('attendees');
+const booksEl = $('books');
 const totalEl = $('total');
 const durSummaryEl = $('dur-summary');
 const breakdownEl = $('breakdown');
 
 let chosenHours = 0;
-const checked = new Set(ACTIVITIES.filter(a => a.included).map(a => a.id));
+const checked = new Set(); // activities the host has picked (none auto-included anymore)
 
 function renderActivities(){
   actRoot.innerHTML = '';
   ACTIVITIES.forEach(a => {
     const fits = chosenHours >= (a.minHours || 0);
-    const isChecked = a.included || checked.has(a.id);
+    const isChecked = checked.has(a.id);
     const div = document.createElement('div');
-    div.className = 'act' + (a.included ? ' included' : '') + (!fits && !a.included ? ' locked' : '');
+    div.className = 'act' + (!fits ? ' locked' : '');
     const minsLabel = a.mins > 0 ? `${a.mins} min` : 'all event';
     div.innerHTML = `
       <div class="act-row">
-        <input type="checkbox" id="act-${a.id}" ${isChecked ? 'checked' : ''} ${a.included || !fits ? 'disabled' : ''} data-id="${a.id}">
+        <input type="checkbox" id="act-${a.id}" ${isChecked ? 'checked' : ''} ${!fits ? 'disabled' : ''} data-id="${a.id}">
         <label for="act-${a.id}">
           <div class="act-title">
-            <span>${a.title}${a.included ? '<span class="badge-included">always included</span>' : ''}</span>
-            <span class="act-mins">${minsLabel}</span>
+            <span>${a.title}</span>
+            <span class="act-mins">${minsLabel} · ${a.costLabel}</span>
           </div>
           <div class="desc">${a.desc}</div>
           <button type="button" class="tips-toggle" data-tips="${a.id}">↓ DIY decor &amp; supplies</button>
@@ -364,20 +367,16 @@ function renderActivities(){
       </div>`;
     actRoot.appendChild(div);
   });
-  // Wire checkbox changes
   actRoot.querySelectorAll('input[type=checkbox][data-id]').forEach(cb => {
-    cb.addEventListener('change', (e) => {
-      const id = cb.dataset.id;
-      if (cb.checked) checked.add(id); else checked.delete(id);
+    cb.addEventListener('change', () => {
+      if (cb.checked) checked.add(cb.dataset.id); else checked.delete(cb.dataset.id);
       updateTotal();
     });
   });
-  // Wire tips toggles
   actRoot.querySelectorAll('.tips-toggle').forEach(btn => {
     btn.addEventListener('click', (e) => {
       e.preventDefault();
-      const id = btn.dataset.tips;
-      const tips = $(`tips-${id}`);
+      const tips = $(`tips-${btn.dataset.tips}`);
       tips.classList.toggle('show');
       btn.textContent = tips.classList.contains('show') ? '↑ Hide ideas' : '↓ DIY decor & supplies';
     });
@@ -386,19 +385,20 @@ function renderActivities(){
 
 function updateTotal(){
   const attendees = Math.max(0, parseInt(attendeesEl.value, 10) || 0);
-  const total = attendees * TICKET_PRICE;
-  const pickedCount = Array.from(checked).filter(id => {
-    const a = ACTIVITIES.find(x => x.id === id);
-    return a && !a.included;
-  }).length;
-  totalEl.textContent = '$' + total.toLocaleString();
+  const books = Math.max(0, parseInt(booksEl.value, 10) || 0);
+  const bookTotal = books * BOOK_PRICE;
+  totalEl.textContent = '$' + bookTotal.toLocaleString();
+
   if (chosenHours === 0) {
     durSummaryEl.textContent = 'Pick a duration to start';
-    breakdownEl.textContent = '—';
-  } else {
-    durSummaryEl.textContent = `${chosenHours}-hour event · ${attendees} ladies`;
-    breakdownEl.innerHTML = `<strong>$${TICKET_PRICE}/ticket</strong> × ${attendees} · ${pickedCount} add-on activit${pickedCount === 1 ? 'y' : 'ies'} picked`;
+    breakdownEl.innerHTML = "Plus free-will offering for Kari's time";
+    return;
   }
+  durSummaryEl.textContent = `${chosenHours}-hour event · ${attendees} ladies`;
+  const parts = [];
+  if (books > 0) parts.push(`<strong>${books} books</strong> × $${BOOK_PRICE}`);
+  parts.push("plus free-will offering for Kari's time");
+  breakdownEl.innerHTML = parts.join(' · ');
 }
 
 durRoot.addEventListener('click', (e) => {
@@ -412,7 +412,13 @@ durRoot.addEventListener('click', (e) => {
   updateTotal();
 });
 
-attendeesEl.addEventListener('input', updateTotal);
+attendeesEl.addEventListener('input', () => {
+  // Helpful default: if books still equals the previous attendees value, follow it.
+  const a = parseInt(attendeesEl.value, 10) || 0;
+  if (booksEl.dataset.user !== '1') booksEl.value = a;
+  updateTotal();
+});
+booksEl.addEventListener('input', () => { booksEl.dataset.user = '1'; updateTotal(); });
 
 // Initial render
 renderActivities();
@@ -429,12 +435,14 @@ form.addEventListener('submit', async (e) => {
   if (!hostName) { showError('We need a name to put on the inquiry.'); return; }
   if (!hostEmail || !hostEmail.includes('@')) { showError('Email looks off — Kari will reply by email so it needs to work.'); return; }
   const attendees = Math.max(5, parseInt(attendeesEl.value, 10) || 0);
+  const books = Math.max(0, parseInt(booksEl.value, 10) || 0);
+  const bookTotal = books * BOOK_PRICE;
 
   const submit = $('submit');
   submit.disabled = true;
   submit.textContent = 'Sending…';
 
-  const pickedActivities = ACTIVITIES.filter(a => checked.has(a.id)).map(a => ({ id: a.id, title: a.title, mins: a.mins, included: !!a.included }));
+  const pickedActivities = ACTIVITIES.filter(a => checked.has(a.id)).map(a => ({ id: a.id, title: a.title, mins: a.mins, costLabel: a.costLabel }));
 
   const payload = {
     host_name: hostName,
@@ -445,9 +453,11 @@ form.addEventListener('submit', async (e) => {
     target_date: $('target-date').value || null,
     duration_hours: chosenHours,
     est_attendees: attendees,
-    estimated_total: attendees * TICKET_PRICE,
+    estimated_total: bookTotal,
     selections: {
-      ticket_price: TICKET_PRICE,
+      book_price: BOOK_PRICE,
+      books_ordered: books,
+      kari_time: 'free-will offering',
       activities: pickedActivities
     },
     notes: $('notes').value.trim() || null,
@@ -468,7 +478,7 @@ form.addEventListener('submit', async (e) => {
   $('thanks').classList.add('show');
   window.scrollTo({ top: 0, behavior: 'smooth' });
   if (typeof gtag === 'function') {
-    gtag('event', 'event_inquiry_submitted', { duration_hours: chosenHours, est_attendees: attendees, estimated_total: attendees * TICKET_PRICE });
+    gtag('event', 'event_inquiry_submitted', { duration_hours: chosenHours, est_attendees: attendees, books_ordered: books, estimated_total: bookTotal });
   }
 });
 
