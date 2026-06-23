@@ -63,6 +63,8 @@ section.step{background:#fff;border:1.5px solid var(--card-edge);border-radius:2
 .act-mins{font-family:'Mulish',sans-serif;font-weight:600;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-deep);white-space:nowrap}
 .act .desc{font-size:.94rem;color:var(--ink-soft);margin-top:4px;line-height:1.5}
 .act .badge-included{display:inline-block;font-family:'Mulish',sans-serif;font-weight:800;font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-deep);background:rgba(194,154,59,.15);padding:3px 8px;border-radius:999px;margin-left:6px;vertical-align:middle}
+.act.coordinated{background:linear-gradient(180deg,#fff,#FBF5EB);border-color:rgba(194,154,59,.4)}
+.act.coordinated .coord-icon{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;flex:0 0 32px;border-radius:50%;background:rgba(194,154,59,.15);color:var(--gold-deep);font-family:'Fraunces',serif;font-weight:700;font-size:1rem;margin-top:2px}
 .act .tips-toggle{display:inline-block;font-family:'Mulish',sans-serif;font-weight:700;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--red);background:none;border:none;cursor:pointer;padding:8px 0 0;margin-top:4px}
 .act .tips-toggle:hover{text-decoration:underline}
 .act .tips{display:none;margin-top:10px;padding:14px 16px;background:#FBF5EB;border-radius:10px;border:1px dashed rgba(194,154,59,.4)}
@@ -253,9 +255,10 @@ const ACTIVITIES = [
     ]
   },
   {
-    id: 'station-pick', title: 'Pick 2–4 contributor craft stations', mins: 45, minHours: 3,
-    desc: 'Each of the 12 contributors has her own chapter and her own small craft to add to the Bug-Off Box. You and Kari pick which ones based on who comes (and what they need).',
-    costLabel: 'Coordinated with Kari · free-will per contributor',
+    id: 'station-pick', title: 'Contributor craft stations', mins: 45, minHours: 3,
+    coordinated: true,
+    desc: 'Each of the 12 contributors has her own chapter and her own small craft to add to the Bug-Off Box. Kari arranges the lineup with you based on which contributors can travel to your event.',
+    costLabel: 'Kari coordinates · free-will per contributor',
     tips: [
       'Iris — Trust: a tiny iris pressed into a verse card',
       'Marigold — Think: a pocket affirmation deck',
@@ -286,8 +289,9 @@ const ACTIVITIES = [
   },
   {
     id: 'rotation', title: 'Speaker rotation — 2–3 contributors share', mins: 60, minHours: 4,
-    desc: 'Short talks from contributors, each tied to her flower and her chapter. We pick the rotation together based on what your group needs.',
-    costLabel: 'Free-will offering per speaker',
+    coordinated: true,
+    desc: 'Short talks from contributors, each tied to her flower and her chapter. Lineup depends on who can travel — Kari sorts this out after you confirm the date.',
+    costLabel: 'Kari coordinates · free-will per speaker',
     tips: [
       'Each speaker = 15–18 minutes, with a 5-minute station-craft break after',
       "Keep all speakers on the same mic — don't keep swapping audio gear",
@@ -347,12 +351,22 @@ function renderActivities(){
     const fits = chosenHours >= (a.minHours || 0);
     const isChecked = checked.has(a.id);
     const div = document.createElement('div');
-    div.className = 'act' + (!fits ? ' locked' : '');
+    div.className = 'act' + (!fits ? ' locked' : '') + (a.coordinated ? ' coordinated' : '');
     const minsLabel = a.mins > 0 ? `${a.mins} min` : 'all event';
+
+    // Coordinated activities show a gold info icon instead of a checkbox —
+    // the host can't directly pick these; Kari assembles the lineup.
+    const leadCell = a.coordinated
+      ? `<span class="coord-icon" aria-hidden="true">★</span>`
+      : `<input type="checkbox" id="act-${a.id}" ${isChecked ? 'checked' : ''} ${!fits ? 'disabled' : ''} data-id="${a.id}">`;
+
+    const titleTag = a.coordinated ? 'div' : 'label';
+    const titleAttr = a.coordinated ? '' : ` for="act-${a.id}"`;
+
     div.innerHTML = `
       <div class="act-row">
-        <input type="checkbox" id="act-${a.id}" ${isChecked ? 'checked' : ''} ${!fits ? 'disabled' : ''} data-id="${a.id}">
-        <label for="act-${a.id}">
+        ${leadCell}
+        <${titleTag}${titleAttr} style="flex:1${a.coordinated ? ';cursor:default' : ''}">
           <div class="act-title">
             <span>${a.title}</span>
             <span class="act-mins">${minsLabel} · ${a.costLabel}</span>
@@ -363,7 +377,7 @@ function renderActivities(){
             <h4>Decor &amp; supply ideas</h4>
             <ul>${a.tips.map(t => `<li>${t}</li>`).join('')}</ul>
           </div>
-        </label>
+        </${titleTag}>
       </div>`;
     actRoot.appendChild(div);
   });
