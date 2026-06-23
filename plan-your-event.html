@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-T1PLCXES2Y"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-T1PLCXES2Y');
+</script>
+<title>Plan Your Ladybug Event — Ladybug, Ladybug</title>
+<meta name="description" content="Design your own Ladybug, Ladybug event — pick the length, the activities, the vibe. Each guest gets the book and a Bug-Off Box she made herself. Inquire with Kari.">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,400;1,9..144,500;1,9..144,600&family=Mulish:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#FFFFFF;--bg-soft:#FDF8F8;--card:#FFFFFF;--card-edge:rgba(177,18,38,.13);
+  --red:#B11226;--red-deep:#861019;--red-soft:#C8324A;
+  --gold:#C29A3B;--gold-deep:#9E7A24;
+  --ink:#1A1614;--ink-soft:#6B5E52;--ink-dim:#9A8C7C;
+  --cream:#FBF3E2;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Mulish',sans-serif;color:var(--ink);background:var(--bg);line-height:1.6;-webkit-font-smoothing:antialiased;min-height:100vh;display:flex;flex-direction:column}
+body::before{content:"";position:fixed;inset:0;z-index:-2;pointer-events:none;background:radial-gradient(ellipse at 50% -8%,#FFFFFF 0%,#FFFAFA 40%,#FBEDEF 100%)}
+body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.35;background-image:radial-gradient(circle at 6% 10%,rgba(177,18,38,.10) 0 9px,transparent 10px),radial-gradient(circle at 94% 8%,rgba(14,12,10,.05) 0 7px,transparent 8px),radial-gradient(circle at 18% 78%,rgba(177,18,38,.07) 0 6px,transparent 7px),radial-gradient(circle at 84% 84%,rgba(177,18,38,.08) 0 8px,transparent 9px);background-repeat:no-repeat}
+.nav{padding:22px 28px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(177,18,38,.08)}
+.nav a.back{text-decoration:none;color:var(--ink-soft);font-family:'Mulish',sans-serif;font-weight:700;letter-spacing:.18em;text-transform:uppercase;font-size:.7rem;transition:color .2s}
+.nav a.back:hover{color:var(--red)}
+.nav .brand{font-family:'Fraunces',serif;font-style:italic;font-weight:600;color:var(--red);font-size:.95rem}
+.wrap{max-width:980px;width:100%;margin:0 auto;padding:48px 28px 80px;flex:1}
+.kicker{font-family:'Mulish',sans-serif;font-weight:800;letter-spacing:.3em;text-transform:uppercase;font-size:.72rem;color:var(--red);text-align:center;margin-bottom:18px}
+h1{font-family:'Fraunces',serif;font-weight:700;color:var(--ink);font-size:clamp(2.2rem,6vw,3.4rem);line-height:1.02;letter-spacing:-.015em;text-align:center;margin-bottom:18px}
+.lede{font-family:'Fraunces',serif;font-style:italic;color:var(--ink-soft);font-size:clamp(1.1rem,2.6vw,1.3rem);text-align:center;max-width:54ch;margin:0 auto 44px;line-height:1.55}
+section.step{background:#fff;border:1.5px solid var(--card-edge);border-radius:20px;padding:30px 30px 26px;box-shadow:0 14px 30px rgba(177,18,38,.06);margin-bottom:22px}
+@media(max-width:600px){section.step{padding:24px 20px 22px;border-radius:16px}}
+.step h2{font-family:'Fraunces',serif;font-weight:700;font-size:clamp(1.3rem,3vw,1.6rem);color:var(--ink);margin-bottom:6px}
+.step .sub{font-family:'Fraunces',serif;font-style:italic;color:var(--ink-soft);font-size:.98rem;margin-bottom:18px}
+/* duration tiles */
+.durations{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+@media(max-width:760px){.durations{grid-template-columns:repeat(2,1fr)}}
+.dur{background:#fff;border:1.5px solid var(--card-edge);border-radius:14px;padding:18px 12px;text-align:center;cursor:pointer;transition:all .2s;user-select:none}
+.dur:hover{border-color:var(--red-soft);transform:translateY(-2px)}
+.dur.active{border-color:var(--red);background:linear-gradient(180deg,#fff,#FCF1F2);box-shadow:0 8px 18px rgba(177,18,38,.18)}
+.dur .h{font-family:'Fraunces',serif;font-weight:700;font-size:1.4rem;color:var(--ink)}
+.dur .lbl{font-family:'Mulish',sans-serif;font-weight:600;font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);margin-top:4px}
+.dur.active .lbl{color:var(--red)}
+/* activities list */
+.activities{display:flex;flex-direction:column;gap:12px}
+.act{border:1.5px solid var(--card-edge);border-radius:14px;padding:18px 20px;background:#fff;transition:all .2s}
+.act.locked{opacity:.45;background:#FAFAF7;cursor:not-allowed}
+.act.included{border-color:var(--gold);background:linear-gradient(180deg,#fff,#FFFBF1)}
+.act-row{display:flex;align-items:flex-start;gap:14px}
+.act-row input[type=checkbox]{margin-top:5px;width:20px;height:20px;accent-color:var(--red);flex:0 0 auto;cursor:pointer}
+.act-row label{flex:1;cursor:pointer}
+.act-title{font-family:'Fraunces',serif;font-weight:700;color:var(--ink);font-size:1.06rem;display:flex;justify-content:space-between;gap:12px;align-items:baseline;flex-wrap:wrap}
+.act-mins{font-family:'Mulish',sans-serif;font-weight:600;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-deep);white-space:nowrap}
+.act .desc{font-size:.94rem;color:var(--ink-soft);margin-top:4px;line-height:1.5}
+.act .badge-included{display:inline-block;font-family:'Mulish',sans-serif;font-weight:800;font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-deep);background:rgba(194,154,59,.15);padding:3px 8px;border-radius:999px;margin-left:6px;vertical-align:middle}
+.act .tips-toggle{display:inline-block;font-family:'Mulish',sans-serif;font-weight:700;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--red);background:none;border:none;cursor:pointer;padding:8px 0 0;margin-top:4px}
+.act .tips-toggle:hover{text-decoration:underline}
+.act .tips{display:none;margin-top:10px;padding:14px 16px;background:#FBF5EB;border-radius:10px;border:1px dashed rgba(194,154,59,.4)}
+.act .tips.show{display:block}
+.act .tips h4{font-family:'Mulish',sans-serif;font-weight:800;font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-deep);margin-bottom:6px}
+.act .tips ul{list-style:none;padding:0;margin:0}
+.act .tips li{font-family:'Fraunces',serif;font-size:.94rem;color:var(--ink);padding-left:20px;position:relative;margin-bottom:4px;line-height:1.4}
+.act .tips li::before{content:"🐞";position:absolute;left:0;font-size:.7rem;top:5px}
+/* attendees + your info */
+.row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:560px){.row{grid-template-columns:1fr}}
+.field{margin-bottom:14px}
+.field label{display:block;font-family:'Mulish',sans-serif;font-weight:700;font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:6px}
+.field input,.field textarea{width:100%;font-family:'Mulish',sans-serif;font-size:1rem;color:var(--ink);background:#FDFCFA;border:1.5px solid rgba(28,22,20,.16);border-radius:11px;padding:12px 14px;transition:border .2s,box-shadow .2s}
+.field input:focus,.field textarea:focus{outline:none;border-color:var(--red);box-shadow:0 0 0 3px rgba(177,18,38,.08);background:#fff}
+.field textarea{resize:vertical;min-height:110px;font-family:'Fraunces',serif;font-size:1.02rem;line-height:1.55}
+/* sticky total bar */
+.total-bar{position:sticky;bottom:14px;z-index:30;background:#fff;border:1.5px solid var(--gold);border-radius:18px;padding:18px 22px;margin:24px 0 14px;display:flex;justify-content:space-between;align-items:center;gap:18px;box-shadow:0 14px 32px rgba(177,18,38,.18);flex-wrap:wrap}
+.total-bar .left{display:flex;flex-direction:column;gap:2px;min-width:0}
+.total-bar .summary{font-family:'Mulish',sans-serif;font-weight:700;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft)}
+.total-bar .amount{font-family:'Fraunces',serif;font-weight:900;color:var(--red);font-size:clamp(1.6rem,4.5vw,2.2rem);line-height:1;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.total-bar .per{font-family:'Fraunces',serif;font-style:italic;color:var(--ink-soft);font-size:.92rem;margin-top:4px}
+.total-bar .right{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end}
+/* button */
+.btn{display:inline-block;text-decoration:none;font-family:'Mulish',sans-serif;font-weight:800;letter-spacing:.08em;text-transform:uppercase;font-size:.8rem;background:var(--red);color:#FFF8E8;padding:16px 32px;border-radius:999px;box-shadow:0 12px 26px rgba(134,16,25,.28);transition:all .25s;border:2px solid var(--red);cursor:pointer}
+.btn:hover{background:var(--red-deep);transform:translateY(-2px);box-shadow:0 16px 32px rgba(134,16,25,.36)}
+.btn:disabled{opacity:.55;cursor:wait;transform:none}
+.note{font-family:'Mulish',sans-serif;font-size:.8rem;color:var(--ink-dim);text-align:center;margin-top:10px;line-height:1.5;font-style:italic;font-family:'Fraunces',serif}
+.error{margin-top:12px;padding:12px 16px;background:rgba(177,18,38,.06);border:1px solid rgba(177,18,38,.25);border-radius:10px;color:var(--red-deep);font-size:.92rem;display:none}
+.error.show{display:block}
+.thanks{display:none;text-align:center;padding:32px 24px}
+.thanks.show{display:block}
+.thanks .bug{font-size:3.2rem;margin-bottom:14px;line-height:1}
+.thanks h2{font-family:'Fraunces',serif;font-weight:700;color:var(--red);font-size:clamp(1.7rem,5vw,2.3rem);margin-bottom:14px}
+.thanks p{font-size:1.05rem;color:var(--ink-soft);max-width:46ch;margin:0 auto 8px;line-height:1.55}
+.home-link{display:inline-block;margin-top:24px;font-family:'Mulish',sans-serif;font-weight:700;letter-spacing:.14em;text-transform:uppercase;font-size:.78rem;color:var(--red);text-decoration:none;border-bottom:1.5px solid var(--red);padding-bottom:2px;transition:color .2s}
+.home-link:hover{color:var(--red-deep)}
+footer{text-align:center;padding:30px 28px;color:var(--ink-dim);font-size:.78rem;font-family:'Fraunces',serif;font-style:italic}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a class="back" href="/">← Back to the book</a>
+  <span class="brand">Ladybug, Ladybug</span>
+</nav>
+
+<main class="wrap">
+  <p class="kicker">Plan your event</p>
+  <h1>Bring the Ladybugs to your ladies.</h1>
+  <p class="lede">A women's day, a retreat, a Sunday-school cap-off, a fundraiser. Pick the shape that fits your time and your group — every attendee leaves with the book and a Bug-Off Box she decorated herself.</p>
+
+  <form id="event-form" autocomplete="on">
+
+    <section class="step">
+      <h2>1 · How much time do you have?</h2>
+      <p class="sub">Pick the length and the rest of the choices unlock.</p>
+      <div class="durations" id="durations" role="radiogroup">
+        <div class="dur" data-hours="1"><div class="h">1 hr</div><div class="lbl">Taste &amp; book</div></div>
+        <div class="dur" data-hours="2"><div class="h">2 hr</div><div class="lbl">Talk &amp; craft</div></div>
+        <div class="dur" data-hours="3"><div class="h">3 hr</div><div class="lbl">Mini retreat</div></div>
+        <div class="dur" data-hours="4"><div class="h">4 hr</div><div class="lbl">Half-day</div></div>
+        <div class="dur" data-hours="6"><div class="h">6 hr</div><div class="lbl">Whole shebang</div></div>
+      </div>
+    </section>
+
+    <section class="step">
+      <h2>2 · What's the day made of?</h2>
+      <p class="sub">Anything <strong>longer than your event window</strong> stays grayed out. Click "decor &amp; supplies" on any row to see what you can DIY yourselves.</p>
+      <div class="activities" id="activities"><!-- rendered by JS --></div>
+    </section>
+
+    <section class="step">
+      <h2>3 · How many ladies?</h2>
+      <p class="sub">Each ticket is <strong>$80</strong> and includes Kari, her book ($35 retail value), and everything you picked above.</p>
+      <div class="field" style="max-width:240px">
+        <label for="attendees">Estimated attendees</label>
+        <input id="attendees" name="attendees" type="number" min="5" max="200" value="20" required>
+      </div>
+    </section>
+
+    <section class="step">
+      <h2>4 · Tell us about you</h2>
+      <p class="sub">Kari reads every inquiry herself. She'll reach out within 48 hours.</p>
+      <div class="row">
+        <div class="field">
+          <label for="host-name">Your name</label>
+          <input id="host-name" name="host_name" type="text" required maxlength="120" autocomplete="name">
+        </div>
+        <div class="field">
+          <label for="org">Church / group / venue</label>
+          <input id="org" name="org_name" type="text" maxlength="200" autocomplete="organization">
+        </div>
+      </div>
+      <div class="row">
+        <div class="field">
+          <label for="email">Email</label>
+          <input id="email" name="host_email" type="email" required maxlength="200" autocomplete="email">
+        </div>
+        <div class="field">
+          <label for="phone">Phone (optional)</label>
+          <input id="phone" name="host_phone" type="tel" maxlength="40" autocomplete="tel">
+        </div>
+      </div>
+      <div class="row">
+        <div class="field">
+          <label for="city">City &amp; state</label>
+          <input id="city" name="city_state" type="text" maxlength="120" placeholder="Avon, MN">
+        </div>
+        <div class="field">
+          <label for="target-date">Target date (rough is fine)</label>
+          <input id="target-date" name="target_date" type="date">
+        </div>
+      </div>
+      <div class="field">
+        <label for="notes">Anything else?</label>
+        <textarea id="notes" name="notes" placeholder="Theme, group, hopes, anything Kari should know."></textarea>
+      </div>
+    </section>
+
+    <div class="total-bar" id="total-bar">
+      <div class="left">
+        <span class="summary"><span id="dur-summary">Pick a duration</span></span>
+        <span class="amount" id="total">$0</span>
+        <span class="per" id="breakdown">—</span>
+      </div>
+      <div class="right">
+        <button class="btn" type="submit" id="submit">Send to Kari →</button>
+      </div>
+    </div>
+
+    <div class="error" id="error" role="alert"></div>
+    <p class="note">$80/ticket includes Kari + the book + everything you picked. Decor + supplies for things you DIY are estimates only — your final cost depends on what your group chooses to provide vs. ask Kari to bring.</p>
+  </form>
+
+  <div class="thanks" id="thanks" aria-live="polite">
+    <div class="bug">🐞</div>
+    <h2>Your event request is in.</h2>
+    <p>Thank you. Kari reads every one of these herself.</p>
+    <p>You'll hear back within 48 hours with a more detailed quote, available dates, and what to do next.</p>
+    <a class="home-link" href="/">← Back to the book</a>
+  </div>
+</main>
+
+<footer>The ladybugs love a good party.</footer>
+
+<script type="module">
+import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
+
+const SUPABASE_URL = 'https://lheytkgixafdhluuvrbg.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_rX_Sim_EpCNyPpBL7pbH0w_FUr_DVce';
+const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+
+/* Activity catalog — minutes is wall-clock duration the activity adds
+   to the day. `included` = baked into every event regardless of length
+   (book + Kari herself). `minHours` = won't appear in shorter events. */
+const ACTIVITIES = [
+  {
+    id: 'book', title: 'A copy of the book for every guest', mins: 0,
+    included: true, minHours: 1,
+    desc: 'Every attendee leaves with Ladybug, Ladybug: Keeping It Classy in a Buggy World. Signed if Kari is on site.',
+    tips: ['No DIY here — this is baked into your ticket price.']
+  },
+  {
+    id: 'song', title: 'Welcome circle + theme song', mins: 10,
+    included: true, minHours: 1,
+    desc: 'Open with the anthem and a short welcome. Sets the tone in under ten minutes.',
+    tips: ['String lights overhead set the mood instantly', 'Round tables of 6–8 work better than long banquet rows']
+  },
+  {
+    id: 'open', title: 'Kari opens — "The Halfsies, the holy aunties, and you"', mins: 25,
+    included: true, minHours: 1,
+    desc: "Kari's keynote: meet the Legacy Ladies, hear the heart of the book, find your seat at the table.",
+    tips: ['Single handheld mic is plenty for groups under 80', 'A small flower arrangement on the speaker table is all the staging you need']
+  },
+  {
+    id: 'boxes', title: 'Decorate your own Bug-Off Box™', mins: 35,
+    minHours: 2,
+    desc: 'Every guest decorates a small box that fills throughout the event with crafts, verses, and keepsakes from each speaker.',
+    tips: [
+      'Plain cardboard boxes ($1 at any craft store, or save shipping boxes)',
+      'Scrapbook paper, mod podge, foam brushes, glue dots, ribbons',
+      'Markers, vintage stickers, washi tape, a few rubber stamps',
+      'One tray of supplies per table is cleaner than a free-for-all',
+      'Total DIY supply budget: ~$3–5 per guest if you provide your own'
+    ]
+  },
+  {
+    id: 'station-pick', title: 'Pick 2–4 contributor craft stations', mins: 45,
+    minHours: 3,
+    desc: 'Each of the 12 contributors has her own chapter and her own small craft to add to the Bug-Off Box. You and Kari pick which ones based on who comes (and what they need).',
+    tips: [
+      'Iris — Trust: a tiny iris pressed into a verse card',
+      'Marigold — Think: a pocket affirmation deck',
+      'Sunflower — Act: a "today\'s one brave thing" notepad',
+      'Rose — Dress: an origami dress with a pearl button',
+      'Wildflower — Speak: a "words to keep, words to release" envelope',
+      'Lily — Wait: a paper-cut prayer flag',
+      'Daisy — Walk: a small step-by-step gratitude scroll',
+      'Lotus — Heal: a sealed letter to your past self',
+      'Forget-Me-Not — Hope: a seed packet with planting instructions',
+      'Violet — Work: a tiny "what I built today" journal',
+      'Morning Glory — Shine: a hand-stamped lipstick blot card',
+      'Poppy — Build: a small wooden cross or charm'
+    ]
+  },
+  {
+    id: 'aphid', title: 'Aphid Alley — snack + mini-vendor lounge', mins: 30,
+    minHours: 3,
+    desc: 'A scattered "garden" perimeter with picnic snacks, vendor tables, mini nail / hand-massage stations. Built-in social break between speakers.',
+    tips: [
+      'Tulle draped low overhead = instant grass canopy',
+      'String lights + paper lanterns + a few mismatched picnic blankets',
+      'Astroturf squares from the hardware store as table runners',
+      'Cheese plates, fruit, mini quiches, lemonade in mason jars',
+      'Local vendors (boutique, jewelry, soap maker) split a table; they pay you a vendor fee or trade promo',
+      'Recruit a nail tech / esthetician from your church — 10-min mini services'
+    ]
+  },
+  {
+    id: 'rotation', title: 'Speaker rotation — 2–3 contributors share', mins: 60,
+    minHours: 4,
+    desc: 'Short talks from contributors, each tied to her flower and her chapter. We pick the rotation together based on what your group needs.',
+    tips: [
+      'Each speaker = 15–18 minutes, with a 5-minute station-craft break after',
+      "Keep all speakers on the same mic — don't keep swapping audio gear",
+      'A flower-themed centerpiece per speaker (real or paper) gives each block its own visual'
+    ]
+  },
+  {
+    id: 'meal', title: 'Catered or potluck lunch in the gathering space', mins: 50,
+    minHours: 4,
+    desc: 'Sit-down meal at the round tables. Kari mingles. Conversation deepens.',
+    tips: [
+      'Potluck assignment by table is easier than a centralized buffet',
+      'Light fare wins: salads, sandwiches, a few warm sides',
+      'Themed napkin: ladybug-red gingham works year-round',
+      'If you cater: ~$12–20 per head depending on local vendors'
+    ]
+  },
+  {
+    id: 'parade', title: 'Closing parade through the building', mins: 15,
+    minHours: 6,
+    desc: 'A short walk-with-music procession through your space — out to evening service, into the dining hall, wherever fits your venue. The book\'s closing image, made real.',
+    tips: [
+      'Hand each lady a paper flower as she walks out',
+      'Cue up the anthem on a portable Bluetooth speaker',
+      'Stage someone with a phone-camera for the keepsake photo']
+  },
+  {
+    id: 'dinner', title: 'Surprise dinner — served by the men in their lives', mins: 75,
+    minHours: 6,
+    desc: 'Quietly coordinated with your husbands / sons / brothers ahead of time. They prep a simple dinner while the women event happens; when the ladies parade back in, dinner is on the table and they serve.',
+    tips: [
+      'Two-week heads-up to the men, plus a Google Doc with the menu',
+      'Simple wins: pasta bar, taco bar, soup + bread',
+      'A "Thank you, ladies" note at each place setting from the men',
+      'Make it the moment of the day — no speeches, just service']
+  }
+];
+
+const TICKET_PRICE = 80;
+
+const $ = (id) => document.getElementById(id);
+const form = $('event-form');
+const durRoot = $('durations');
+const actRoot = $('activities');
+const attendeesEl = $('attendees');
+const totalEl = $('total');
+const durSummaryEl = $('dur-summary');
+const breakdownEl = $('breakdown');
+
+let chosenHours = 0;
+const checked = new Set(ACTIVITIES.filter(a => a.included).map(a => a.id));
+
+function renderActivities(){
+  actRoot.innerHTML = '';
+  ACTIVITIES.forEach(a => {
+    const fits = chosenHours >= (a.minHours || 0);
+    const isChecked = a.included || checked.has(a.id);
+    const div = document.createElement('div');
+    div.className = 'act' + (a.included ? ' included' : '') + (!fits && !a.included ? ' locked' : '');
+    const minsLabel = a.mins > 0 ? `${a.mins} min` : 'all event';
+    div.innerHTML = `
+      <div class="act-row">
+        <input type="checkbox" id="act-${a.id}" ${isChecked ? 'checked' : ''} ${a.included || !fits ? 'disabled' : ''} data-id="${a.id}">
+        <label for="act-${a.id}">
+          <div class="act-title">
+            <span>${a.title}${a.included ? '<span class="badge-included">always included</span>' : ''}</span>
+            <span class="act-mins">${minsLabel}</span>
+          </div>
+          <div class="desc">${a.desc}</div>
+          <button type="button" class="tips-toggle" data-tips="${a.id}">↓ DIY decor &amp; supplies</button>
+          <div class="tips" id="tips-${a.id}">
+            <h4>Decor &amp; supply ideas</h4>
+            <ul>${a.tips.map(t => `<li>${t}</li>`).join('')}</ul>
+          </div>
+        </label>
+      </div>`;
+    actRoot.appendChild(div);
+  });
+  // Wire checkbox changes
+  actRoot.querySelectorAll('input[type=checkbox][data-id]').forEach(cb => {
+    cb.addEventListener('change', (e) => {
+      const id = cb.dataset.id;
+      if (cb.checked) checked.add(id); else checked.delete(id);
+      updateTotal();
+    });
+  });
+  // Wire tips toggles
+  actRoot.querySelectorAll('.tips-toggle').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const id = btn.dataset.tips;
+      const tips = $(`tips-${id}`);
+      tips.classList.toggle('show');
+      btn.textContent = tips.classList.contains('show') ? '↑ Hide ideas' : '↓ DIY decor & supplies';
+    });
+  });
+}
+
+function updateTotal(){
+  const attendees = Math.max(0, parseInt(attendeesEl.value, 10) || 0);
+  const total = attendees * TICKET_PRICE;
+  const pickedCount = Array.from(checked).filter(id => {
+    const a = ACTIVITIES.find(x => x.id === id);
+    return a && !a.included;
+  }).length;
+  totalEl.textContent = '$' + total.toLocaleString();
+  if (chosenHours === 0) {
+    durSummaryEl.textContent = 'Pick a duration to start';
+    breakdownEl.textContent = '—';
+  } else {
+    durSummaryEl.textContent = `${chosenHours}-hour event · ${attendees} ladies`;
+    breakdownEl.innerHTML = `<strong>$${TICKET_PRICE}/ticket</strong> × ${attendees} · ${pickedCount} add-on activit${pickedCount === 1 ? 'y' : 'ies'} picked`;
+  }
+}
+
+durRoot.addEventListener('click', (e) => {
+  const tile = e.target.closest('.dur');
+  if (!tile) return;
+  chosenHours = parseFloat(tile.dataset.hours);
+  durRoot.querySelectorAll('.dur').forEach(d => d.classList.toggle('active', d === tile));
+  // Drop checks for activities no longer fitting
+  ACTIVITIES.forEach(a => { if ((a.minHours || 0) > chosenHours) checked.delete(a.id); });
+  renderActivities();
+  updateTotal();
+});
+
+attendeesEl.addEventListener('input', updateTotal);
+
+// Initial render
+renderActivities();
+updateTotal();
+
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const errBox = $('error');
+  errBox.classList.remove('show'); errBox.textContent = '';
+
+  if (chosenHours === 0) { showError('Pick how long your event will run first.'); return; }
+  const hostName = $('host-name').value.trim();
+  const hostEmail = $('email').value.trim();
+  if (!hostName) { showError('We need a name to put on the inquiry.'); return; }
+  if (!hostEmail || !hostEmail.includes('@')) { showError('Email looks off — Kari will reply by email so it needs to work.'); return; }
+  const attendees = Math.max(5, parseInt(attendeesEl.value, 10) || 0);
+
+  const submit = $('submit');
+  submit.disabled = true;
+  submit.textContent = 'Sending…';
+
+  const pickedActivities = ACTIVITIES.filter(a => checked.has(a.id)).map(a => ({ id: a.id, title: a.title, mins: a.mins, included: !!a.included }));
+
+  const payload = {
+    host_name: hostName,
+    host_email: hostEmail,
+    host_phone: $('phone').value.trim() || null,
+    org_name: $('org').value.trim() || null,
+    city_state: $('city').value.trim() || null,
+    target_date: $('target-date').value || null,
+    duration_hours: chosenHours,
+    est_attendees: attendees,
+    estimated_total: attendees * TICKET_PRICE,
+    selections: {
+      ticket_price: TICKET_PRICE,
+      activities: pickedActivities
+    },
+    notes: $('notes').value.trim() || null,
+    user_agent: navigator.userAgent.slice(0, 400)
+  };
+
+  const { error } = await supabase.from('ladybug_events').insert(payload);
+
+  if (error) {
+    submit.disabled = false;
+    submit.textContent = 'Send to Kari →';
+    showError("Something went sideways saving your inquiry. Try again? If it keeps failing, email kari@karikounkel.com directly with your event details.");
+    console.error(error);
+    return;
+  }
+
+  form.style.display = 'none';
+  $('thanks').classList.add('show');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  if (typeof gtag === 'function') {
+    gtag('event', 'event_inquiry_submitted', { duration_hours: chosenHours, est_attendees: attendees, estimated_total: attendees * TICKET_PRICE });
+  }
+});
+
+function showError(msg){ const e = $('error'); e.textContent = msg; e.classList.add('show'); }
+</script>
+
+</body>
+</html>
