@@ -71,8 +71,11 @@ section.step{background:#fff;border:1.5px solid var(--card-edge);border-radius:2
 .act .tips.show{display:block}
 .act .tips h4{font-family:'Mulish',sans-serif;font-weight:800;font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-deep);margin-bottom:6px}
 .act .tips ul{list-style:none;padding:0;margin:0}
-.act .tips li{font-family:'Fraunces',serif;font-size:.94rem;color:var(--ink);padding-left:20px;position:relative;margin-bottom:4px;line-height:1.4}
+.act .tips li{font-family:'Fraunces',serif;font-size:.94rem;color:var(--ink);padding-left:20px;position:relative;margin-bottom:6px;line-height:1.4}
 .act .tips li::before{content:"🐞";position:absolute;left:0;font-size:.7rem;top:5px}
+.act .tips a.amzn{display:inline-block;font-family:'Mulish',sans-serif;font-weight:700;font-size:.74rem;letter-spacing:.06em;color:var(--gold-deep);text-decoration:none;border-bottom:1px solid rgba(194,154,59,.4);margin-left:6px;transition:color .2s,border-color .2s;white-space:nowrap}
+.act .tips a.amzn:hover{color:var(--red);border-bottom-color:var(--red)}
+.act .tips .amzn-note{display:block;font-family:'Mulish',sans-serif;font-size:.66rem;color:var(--ink-dim);font-style:italic;margin-top:8px;letter-spacing:.04em;line-height:1.5}
 /* attendees + your info */
 .row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 @media(max-width:560px){.row{grid-template-columns:1fr}}
@@ -234,22 +237,28 @@ const ACTIVITIES = [
     id: 'song', title: 'Welcome circle + theme song', mins: 10, minHours: 1,
     desc: 'Open with the anthem and a short welcome. Sets the tone in under ten minutes.',
     costLabel: 'Free',
-    tips: ['String lights overhead set the mood instantly', 'Round tables of 6–8 work better than long banquet rows']
+    tips: [
+      'String lights overhead set the mood instantly <a class="amzn" href="https://www.amazon.com/s?k=warm+white+string+lights+indoor&tag=karikounke077-20" target="_blank" rel="noopener nofollow">→ shop string lights</a>',
+      'Round tables of 6–8 work better than long banquet rows'
+    ]
   },
   {
     id: 'open', title: 'Kari opens — "The Halfsies, the holy aunties, and you"', mins: 25, minHours: 1,
     desc: "Kari's keynote: meet the Legacy Ladies, hear the heart of the book, find your seat at the table.",
     costLabel: 'Free-will offering',
-    tips: ['Single handheld mic is plenty for groups under 80', 'A small flower arrangement on the speaker table is all the staging you need']
+    tips: [
+      'Single handheld wireless mic is plenty for groups under 80 <a class="amzn" href="https://www.amazon.com/s?k=wireless+handheld+microphone+system&tag=karikounke077-20" target="_blank" rel="noopener nofollow">→ shop wireless mics</a>',
+      'A small flower arrangement on the speaker table is all the staging you need <a class="amzn" href="https://www.amazon.com/s?k=faux+silk+flower+arrangement&tag=karikounke077-20" target="_blank" rel="noopener nofollow">→ shop faux florals</a>'
+    ]
   },
   {
     id: 'boxes', title: 'Decorate your own Bug-Off Box™', mins: 35, minHours: 2,
     desc: 'Every guest decorates a small brown box (with a lid!) that fills throughout the event with crafts, verses, and keepsakes from each speaker.',
     costLabel: 'Host DIY (tips below)',
     tips: [
-      'Small brown boxes WITH LIDS (kraft jewelry-style boxes ~4–6 inches work perfectly)',
-      'Scrapbook paper, mod podge, foam brushes, glue dots, ribbons',
-      'Markers, vintage stickers, washi tape, a few rubber stamps',
+      'Small brown kraft boxes WITH LIDS (~4–6 inches works perfectly) <a class="amzn" href="https://www.amazon.com/s?k=kraft+gift+boxes+with+lids+small&tag=karikounke077-20" target="_blank" rel="noopener nofollow">→ shop kraft boxes</a>',
+      'Mod podge, foam brushes, glue dots, scrapbook paper, ribbons <a class="amzn" href="https://www.amazon.com/s?k=mod+podge+craft+kit&tag=karikounke077-20" target="_blank" rel="noopener nofollow">→ shop craft basics</a>',
+      'Markers, vintage stickers, washi tape, a few rubber stamps <a class="amzn" href="https://www.amazon.com/s?k=washi+tape+set+vintage&tag=karikounke077-20" target="_blank" rel="noopener nofollow">→ shop washi + stickers</a>',
       'One tray of supplies per table is cleaner than a free-for-all',
       'Total DIY supply budget: ~$3–5 per guest if you provide your own'
     ]
@@ -279,10 +288,10 @@ const ACTIVITIES = [
     desc: 'A scattered "garden" perimeter with picnic snacks, vendor tables, mini nail / hand-massage stations. Built-in social break between speakers.',
     costLabel: 'Host DIY (tips below)',
     tips: [
-      'Tulle draped low overhead = instant grass canopy',
-      'String lights + paper lanterns + a few mismatched picnic blankets',
-      'Astroturf squares from the hardware store as table runners',
-      'Cheese plates, fruit, mini quiches, lemonade in mason jars',
+      'Tulle draped low overhead = instant grass canopy <a class="amzn" href="https://www.amazon.com/s?k=tulle+roll+bolt+green&tag=karikounke077-20" target="_blank" rel="noopener nofollow">→ shop tulle</a>',
+      'String lights + paper lanterns + a few mismatched picnic blankets <a class="amzn" href="https://www.amazon.com/s?k=paper+lanterns+decorative&tag=karikounke077-20" target="_blank" rel="noopener nofollow">→ shop lanterns</a>',
+      'Astroturf squares as table runners <a class="amzn" href="https://www.amazon.com/s?k=artificial+grass+turf+squares&tag=karikounke077-20" target="_blank" rel="noopener nofollow">→ shop turf squares</a>',
+      'Cheese plates, fruit, mini quiches, lemonade in mason jars <a class="amzn" href="https://www.amazon.com/s?k=mason+jars+with+handles+drinking&tag=karikounke077-20" target="_blank" rel="noopener nofollow">→ shop mason jars</a>',
       'Local vendors (boutique, jewelry, soap maker) split a table; they pay you a vendor fee or trade promo',
       'Recruit a nail tech / esthetician from your church — 10-min mini services'
     ]
@@ -294,8 +303,8 @@ const ACTIVITIES = [
     costLabel: 'Kari coordinates · free-will per speaker',
     tips: [
       'Each speaker = 15–18 minutes, with a 5-minute station-craft break after',
-      "Keep all speakers on the same mic — don't keep swapping audio gear",
-      'A flower-themed centerpiece per speaker (real or paper) gives each block its own visual'
+      "Keep all speakers on the same mic — don't keep swapping audio gear <a class=\"amzn\" href=\"https://www.amazon.com/s?k=dual+wireless+handheld+microphone&tag=karikounke077-20\" target=\"_blank\" rel=\"noopener nofollow\">→ shop dual-mic systems</a>",
+      'A flower-themed centerpiece per speaker (real or paper) gives each block its own visual <a class="amzn" href="https://www.amazon.com/s?k=paper+flower+centerpiece+small&tag=karikounke077-20" target="_blank" rel="noopener nofollow">→ shop paper flowers</a>'
     ]
   },
   {
@@ -305,7 +314,7 @@ const ACTIVITIES = [
     tips: [
       'Potluck assignment by table is easier than a centralized buffet',
       'Light fare wins: salads, sandwiches, a few warm sides',
-      'Themed napkin: ladybug-red gingham works year-round',
+      'Themed napkin: ladybug-red gingham works year-round <a class="amzn" href="https://www.amazon.com/s?k=red+gingham+napkins+cloth&tag=karikounke077-20" target="_blank" rel="noopener nofollow">→ shop gingham napkins</a>',
       'If you cater: ~$12–20 per head depending on local vendors'
     ]
   },
@@ -314,8 +323,8 @@ const ACTIVITIES = [
     desc: 'A short walk-with-music procession through your space — out to evening service, into the dining hall, wherever fits your venue. The book\'s closing image, made real.',
     costLabel: 'Free',
     tips: [
-      'Hand each lady a paper flower as she walks out',
-      'Cue up the anthem on a portable Bluetooth speaker',
+      'Hand each lady a paper flower as she walks out <a class="amzn" href="https://www.amazon.com/s?k=paper+flowers+bulk+single+stem&tag=karikounke077-20" target="_blank" rel="noopener nofollow">→ shop paper flowers</a>',
+      'Cue up the anthem on a portable Bluetooth speaker <a class="amzn" href="https://www.amazon.com/s?k=portable+bluetooth+speaker+loud&tag=karikounke077-20" target="_blank" rel="noopener nofollow">→ shop speakers</a>',
       'Stage someone with a phone-camera for the keepsake photo']
   },
   {
@@ -366,6 +375,7 @@ function renderActivities(){
           <div class="tips" id="tips-${a.id}">
             <h4>Decor &amp; supply ideas</h4>
             <ul>${a.tips.map(t => `<li>${t}</li>`).join('')}</ul>
+            <span class="amzn-note">Shop links are Amazon affiliate links — Kari earns a small commission at no cost to you.</span>
           </div>
         </label>
       </div>`;
