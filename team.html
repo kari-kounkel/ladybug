@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -11,7 +11,7 @@
   gtag('js', new Date());
   gtag('config', 'G-T1PLCXES2Y');
 </script>
-<title>Team Sign-Up Â· Ladybug, Ladybug</title>
+<title>Team Sign-Up · Ladybug, Ladybug</title>
 <meta name="robots" content="noindex">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -108,11 +108,11 @@ footer{text-align:center;padding:24px;color:var(--ink-dim);font-size:.76rem;font
 <body>
 
 <nav class="nav">
-  <a class="back" href="/">â† Back to the book</a>
+  <a class="back" href="/">← Back to the book</a>
   <span class="brand">Ladybug, Ladybug</span>
 </nav>
 
-<div class="save-pill" id="save-pill" aria-live="polite">âœ“ Saved</div>
+<div class="save-pill" id="save-pill" aria-live="polite">✓ Saved</div>
 
 <main class="wrap" id="wrap">
   <div class="spinner" id="spinner"></div>
@@ -128,7 +128,7 @@ const wrap = document.getElementById('wrap');
 const pill = document.getElementById('save-pill');
 
 function showSaved(msg, isErr){
-  pill.textContent = isErr ? 'âš  ' + msg : 'âœ“ ' + (msg || 'Saved');
+  pill.textContent = isErr ? '⚠ ' + msg : '✓ ' + (msg || 'Saved');
   pill.classList.toggle('err', !!isErr);
   pill.classList.add('show');
   clearTimeout(showSaved._t);
@@ -139,7 +139,7 @@ function esc(s){ return String(s || '').replace(/[&<>"']/g, c => ({ '&':'&amp;',
 
 async function loadPage(){
   if (!token){
-    // No token â€” show the "pick your name" dropdown for the active event
+    // No token — show the "pick your name" dropdown for the active event
     try {
       const r = await fetch(`${API_BASE}`, {cache:'no-store'});
       if (!r.ok) throw new Error('no active event');
@@ -169,13 +169,13 @@ async function loadPage(){
 
 function renderNamePicker(data){
   const {event, members} = data;
-  const opts = ['<option value="">â€” pick your name â€”</option>']
+  const opts = ['<option value="">— pick your name —</option>']
     .concat(members.map(m => `<option value="${esc(m.token)}">${esc(m.name)}</option>`))
     .join('');
   wrap.innerHTML = `
     <p class="kicker">Team Sign-Up</p>
     <h1>${esc(event.name)}</h1>
-    <p class="event-meta">${esc(event.event_date || '')}${event.time_range ? ' Â· ' + esc(event.time_range) : ''}</p>
+    <p class="event-meta">${esc(event.event_date || '')}${event.time_range ? ' · ' + esc(event.time_range) : ''}</p>
     ${event.location ? `<p class="event-loc">${esc(event.location)}</p>` : ''}
 
     <div class="name-picker">
@@ -204,17 +204,17 @@ function renderPage(data){
   wrap.innerHTML = `
     <p class="kicker">Team Sign-Up</p>
     <h1>${esc(event.name)}</h1>
-    <p class="event-meta">${esc(event.event_date || '')}${event.time_range ? ' Â· ' + esc(event.time_range) : ''}</p>
+    <p class="event-meta">${esc(event.event_date || '')}${event.time_range ? ' · ' + esc(event.time_range) : ''}</p>
     ${event.location ? `<p class="event-loc">${esc(event.location)}</p>` : ''}
-    <p class="greeting">Hi ${esc(member.name || 'friend')} â€” let us know if you can be there and where you'd love to help.</p>
+    <p class="greeting">Hi ${esc(member.name || 'friend')} — let us know if you can be there and where you'd love to help.</p>
 
     <section class="card">
       <h2>Can you make it?</h2>
       <p class="sub">Autosaves the moment you pick.</p>
       <div class="rsvp">
-        <label class="rsvp-yes ${attend==='coming'?'chk':''}"><input type="radio" name="attend" value="coming" ${attend==='coming'?'checked':''}><span>âœ… Yes, I'll be there</span></label>
-        <label class="rsvp-unsure ${attend==='unsure'?'chk':''}"><input type="radio" name="attend" value="unsure" ${attend==='unsure'?'checked':''}><span>â“ Not sure yet</span></label>
-        <label class="rsvp-no ${attend==='not_coming'?'chk no':''}"><input type="radio" name="attend" value="not_coming" ${attend==='not_coming'?'checked':''}><span>âŒ Can't make it</span></label>
+        <label class="rsvp-yes ${attend==='coming'?'chk':''}"><input type="radio" name="attend" value="coming" ${attend==='coming'?'checked':''}><span>✅ Yes, I'll be there</span></label>
+        <label class="rsvp-unsure ${attend==='unsure'?'chk':''}"><input type="radio" name="attend" value="unsure" ${attend==='unsure'?'checked':''}><span>❓ Not sure yet</span></label>
+        <label class="rsvp-no ${attend==='not_coming'?'chk no':''}"><input type="radio" name="attend" value="not_coming" ${attend==='not_coming'?'checked':''}><span>❌ Can't make it</span></label>
       </div>
     </section>
 
@@ -225,27 +225,27 @@ function renderPage(data){
         <div class="field"><label for="phone">Phone</label><input id="phone" name="phone" type="tel" value="${esc(member.phone || '')}" placeholder="(320) 555-0123" autocomplete="tel"></div>
         <div class="field"><label for="email">Email</label><input id="email" name="email" type="email" value="${esc(member.email || '')}" placeholder="you@somewhere.com" autocomplete="email"></div>
       </div>
-      <div class="field"><label for="notes">Notes for Kari (optional)</label><textarea id="notes" name="notes" placeholder="Anything Kari should know â€” allergies, kids you'll bring, times you can't stay">${esc(member.notes || '')}</textarea></div>
+      <div class="field"><label for="notes">Notes for Kari (optional)</label><textarea id="notes" name="notes" placeholder="Anything Kari should know — allergies, kids you'll bring, times you can't stay">${esc(member.notes || '')}</textarea></div>
     </section>
 
-    ${member.is_admin ? `<div class="packet-card" style="background:linear-gradient(180deg,#fff,#FBF5EB);border-color:var(--gold-deep)"><div class="pl"><h3>ðŸ”‘ Admin Overview</h3><p>Jump to the admin dashboard â€” see everyone's signups + tallies.</p></div><a href="/team-admin?t=${esc(token)}" style="background:var(--gold-deep);border-color:var(--gold-deep)">Open Admin â†’</a></div>` : ''}
-    ${member.packet_url ? `<div class="packet-card"><div class="pl"><h3>ðŸ“– Your Rooted Conversation Guide</h3><p>Your podcast packet â€” read before we record. Link expires in 24 hours, so save it to your device.</p></div><a href="${esc(member.packet_url)}" target="_blank" rel="noopener" download>Download PDF</a></div>` : ''}
+    ${member.is_admin ? `<div class="packet-card" style="background:linear-gradient(180deg,#fff,#FBF5EB);border-color:var(--gold-deep)"><div class="pl"><h3>🔑 Admin Overview</h3><p>Jump to the admin dashboard — see everyone's signups + tallies.</p></div><a href="/team-admin?t=${esc(token)}" style="background:var(--gold-deep);border-color:var(--gold-deep)">Open Admin →</a></div>` : ''}
+    ${member.packet_url ? `<div class="packet-card"><div class="pl"><h3>📖 Your Rooted Conversation Guide</h3><p>Your podcast packet — read before we record. Link expires in 24 hours, so save it to your device.</p></div><a href="${esc(member.packet_url)}" target="_blank" rel="noopener" download>Download PDF</a></div>` : ''}
 
     ${event.agenda && event.agenda.length ? `
     <section class="card">
       <h2>The day's agenda</h2>
-      <p class="sub">Here's the flow for October 10th â€” <strong style="color:var(--red-deep)">pending final approval from the hosts.</strong></p>
+      <p class="sub">Here's the flow for October 10th — <strong style="color:var(--red-deep)">pending final approval from the hosts.</strong></p>
       <div class="agenda">
         ${event.agenda.map(item => `<div class="agenda-row"><div class="t">${esc(item.time)}</div><div class="a">${esc(item.activity)}</div></div>`).join('')}
       </div>
     </section>` : ''}
 
-    <div class="callout"><strong>Expected of everyone</strong>The whole day is hands-on. Whether or not you sign up for a specific team, please jump in with crafts + mingling with our ladies â€” that's the whole vibe.</div>
+    <div class="callout"><strong>Expected of everyone</strong>The whole day is hands-on. Whether or not you sign up for a specific team, please jump in with crafts + mingling with our ladies — that's the whole vibe.</div>
 
     <section class="card ${notComing?'':''}">
       <h2>Where would you love to help?</h2>
-      <p class="sub">Check as many as you'd like. Your picks save automatically. Each role has its time slot listed â€” sign up for what fits your day.</p>
-      ${notComing ? '<p class="sub" style="color:var(--red-deep)">You said you can\'t make it â€” role sign-ups are turned off. Change your RSVP above to sign up.</p>' : ''}
+      <p class="sub">Check as many as you'd like. Your picks save automatically. Each role has its time slot listed — sign up for what fits your day.</p>
+      ${notComing ? '<p class="sub" style="color:var(--red-deep)">You said you can\'t make it — role sign-ups are turned off. Change your RSVP above to sign up.</p>' : ''}
       <div class="roles" id="roles"></div>
     </section>
   `;
@@ -259,10 +259,10 @@ function renderPage(data){
     const div = document.createElement('div');
     div.className = 'role' + (mySet.has(role.role_key) ? ' picked' : '') + (notComing ? ' dim' : '');
     div.innerHTML = `
-      <div class="icon">${esc(role.icon || 'Â·')}</div>
+      <div class="icon">${esc(role.icon || '·')}</div>
       <div class="body">
-        <div class="name"><span>${esc(role.name)}</span><span class="need ${filled ? 'filled' : ''}">${tally.count}/${role.min_needed}${role.max_needed > role.min_needed ? 'â€“'+role.max_needed : ''}</span></div>
-        ${role.time_slot ? `<div><span class="time">ðŸ• ${esc(role.time_slot)}</span></div>` : ''}
+        <div class="name"><span>${esc(role.name)}</span><span class="need ${filled ? 'filled' : ''}">${tally.count}/${role.min_needed}${role.max_needed > role.min_needed ? '–'+role.max_needed : ''}</span></div>
+        ${role.time_slot ? `<div><span class="time">🕐 ${esc(role.time_slot)}</span></div>` : ''}
         <div class="desc">${esc(role.description || '')}</div>
         ${others.length ? `<div class="others">Also on this team: ${esc(others.join(', '))}</div>` : ''}
       </div>
@@ -282,12 +282,12 @@ function renderPage(data){
         if (!res.ok) throw new Error();
         const data = await res.json();
         renderPage(data);
-        showSaved(r.value === 'not_coming' ? 'RSVP saved â€” see you next time' : 'RSVP saved');
+        showSaved(r.value === 'not_coming' ? 'RSVP saved — see you next time' : 'RSVP saved');
       } catch { showSaved('Save failed', true); }
     });
   });
 
-  // Wire role toggles â€” optimistic UI, no full re-render, so rapid clicks don't flicker
+  // Wire role toggles — optimistic UI, no full re-render, so rapid clicks don't flicker
   rolesEl.querySelectorAll('input[type=checkbox][data-role]').forEach(cb => {
     cb.addEventListener('change', async (e) => {
       const key = cb.dataset.role;
@@ -307,7 +307,7 @@ function renderPage(data){
         const role = currentRoles.find(x => x.role_key === key);
         const needEl = roleEl.querySelector('.need');
         if (needEl && role){
-          needEl.textContent = `${tally.count}/${role.min_needed}${role.max_needed > role.min_needed ? 'â€“'+role.max_needed : ''}`;
+          needEl.textContent = `${tally.count}/${role.min_needed}${role.max_needed > role.min_needed ? '–'+role.max_needed : ''}`;
           needEl.classList.toggle('filled', tally.count >= role.min_needed);
         }
         const others = tally.names.filter(n => n !== currentMemberName);
@@ -326,7 +326,7 @@ function renderPage(data){
       } catch (err){
         cb.checked = !wasChecked;
         roleEl.classList.toggle('picked', !wasChecked);
-        showSaved('Save failed â€” try again', true);
+        showSaved('Save failed — try again', true);
       }
     });
   });

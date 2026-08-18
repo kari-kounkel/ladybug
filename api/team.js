@@ -83,6 +83,7 @@ async function loadMemberContext(supabase, token) {
     const nm = memberById[s.member_id] || "?";
     if (!tallies[s.role_key].names.includes(nm)) tallies[s.role_key].names.push(nm);
   }
+  for (const k of Object.keys(tallies)) tallies[k].names.sort();
 
   const mySignups = allSignups
     .filter((s) => s.member_id === member.id)

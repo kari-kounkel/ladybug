@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -11,8 +11,8 @@
   gtag('js', new Date());
   gtag('config', 'G-T1PLCXES2Y');
 </script>
-<title>Share Your Garden â€” Ladybug, Ladybug</title>
-<meta name="description" content="Send your story. The Ladybug Garden is a slow, quiet inbox â€” read by a real human before anything is ever shared.">
+<title>Share Your Garden — Ladybug, Ladybug</title>
+<meta name="description" content="Send your story. The Ladybug Garden is a slow, quiet inbox — read by a real human before anything is ever shared.">
 <meta name="robots" content="noindex">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -71,14 +71,14 @@ footer{text-align:center;padding:30px 28px;color:var(--ink-dim);font-size:.78rem
 <body>
 
 <nav class="nav">
-  <a class="back" href="/">â† Back to the book</a>
+  <a class="back" href="/">← Back to the book</a>
   <span class="brand">Ladybug, Ladybug</span>
 </nav>
 
 <main class="wrap">
   <p class="kicker">Show us your garden</p>
   <h1>Tell me what you grew.</h1>
-  <p class="lede">Which bloom found you this season? Which one are you still tending? Take your time â€” the page won't run out of room.</p>
+  <p class="lede">Which bloom found you this season? Which one are you still tending? Take your time — the page won't run out of room.</p>
 
   <form id="garden-form" autocomplete="on">
     <div class="field">
@@ -100,11 +100,11 @@ footer{text-align:center;padding:30px 28px;color:var(--ink-dim);font-size:.78rem
 
     <div class="consent">
       <input type="checkbox" id="consent" name="consent">
-      <label for="consent">Yes â€” Kari may feature my story (and my garden) on the Ladybug site. I planted it on purpose.</label>
+      <label for="consent">Yes — Kari may feature my story (and my garden) on the Ladybug site. I planted it on purpose.</label>
     </div>
 
     <div class="actions">
-      <button class="btn" type="submit" id="submit">Send my garden ðŸž</button>
+      <button class="btn" type="submit" id="submit">Send my garden 🐞</button>
     </div>
 
     <div class="error" id="error" role="alert"></div>
@@ -112,11 +112,11 @@ footer{text-align:center;padding:30px 28px;color:var(--ink-dim);font-size:.78rem
   </form>
 
   <div class="thanks" id="thanks" aria-live="polite">
-    <div class="bug">ðŸž</div>
+    <div class="bug">🐞</div>
     <h2>Your garden is in the inbox.</h2>
     <p>Thank you for sending it. I'll read every word.</p>
     <p>If you said yes to being featured, I'll let you know if your bloom finds a home on the site.</p>
-    <a class="home-link" href="/">â† Back to the book</a>
+    <a class="home-link" href="/">← Back to the book</a>
   </div>
 </main>
 
@@ -126,7 +126,7 @@ footer{text-align:center;padding:30px 28px;color:var(--ink-dim);font-size:.78rem
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
 
 const SUPABASE_URL = 'https://lheytkgixafdhluuvrbg.supabase.co';
-// Publishable (anon) key for the kkstore Supabase project â€” safe to embed;
+// Publishable (anon) key for the kkstore Supabase project — safe to embed;
 // RLS only permits INSERT into ladybug_gardens.
 const SUPABASE_KEY = 'sb_publishable_rX_Sim_EpCNyPpBL7pbH0w_FUr_DVce';
 const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
@@ -154,11 +154,11 @@ form.addEventListener('submit', async (e) => {
   const consent = $('consent').checked;
 
   if (name.length < 1) { showError('I need a name to call you by.'); return; }
-  if (storyText.length < 10) { showError('Tell me a little more â€” the story field is too short.'); return; }
+  if (storyText.length < 10) { showError('Tell me a little more — the story field is too short.'); return; }
   if (storyText.length > 20000) { showError("That's a beautiful amount of words, but we're over the cap. Trim it a bit?"); return; }
 
   submitBtn.disabled = true;
-  submitBtn.textContent = 'Sendingâ€¦';
+  submitBtn.textContent = 'Sending…';
 
   const payload = {
     name,
@@ -172,7 +172,7 @@ form.addEventListener('submit', async (e) => {
 
   if (error) {
     submitBtn.disabled = false;
-    submitBtn.textContent = 'Send my garden ðŸž';
+    submitBtn.textContent = 'Send my garden 🐞';
     showError("Something went sideways saving your story. Try again? If it keeps failing, email kari@karikounkel.com and we'll catch it that way.");
     console.error(error);
     return;

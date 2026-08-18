@@ -79,7 +79,7 @@ async function loadEvent(supabase, slug) {
       .from("ladybug_team_members")
       .select("*")
       .eq("event_id", event.id)
-      .order("created_at"),
+      .order("name"),
     supabase
       .from("ladybug_team_signups")
       .select("member_id, role_key, created_at")
@@ -113,6 +113,7 @@ async function loadEvent(supabase, slug) {
     const nm = memberById[s.member_id];
     if (nm && !tallies[s.role_key].names.includes(nm)) tallies[s.role_key].names.push(nm);
   }
+  for (const k of Object.keys(tallies)) tallies[k].names.sort();
 
   return { events, event, roles, members: enrichedMembers, tallies };
 }
