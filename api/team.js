@@ -31,13 +31,18 @@ async function loadMemberContext(supabase, token) {
   if (mErr) throw mErr;
   if (!member) return { notFound: true };
 
-  // Mint a 24-hr signed URL for the podcast packet (if any)
+  // Mint a 24-hr signed URL for the podcast packet (if any).
+  // Wrap in try/catch so a Storage hiccup can never fail the whole request.
   let packetUrl = null;
   if (member.packet_filename) {
-    const { data: signed } = await supabase.storage
-      .from("ladybug-packets")
-      .createSignedUrl(member.packet_filename, 60 * 60 * 24);
-    if (signed?.signedUrl) packetUrl = signed.signedUrl;
+    try {
+      const { data: signed } = await supabase.storage
+        .from("ladybug-packets")
+        .createSignedUrl(member.packet_filename, 60 * 60 * 24);
+      if (signed?.signedUrl) packetUrl = signed.signedUrl;
+    } catch (e) {
+      console.error("signed url failed:", e);
+    }
   }
   member._packet_url = packetUrl;
 
