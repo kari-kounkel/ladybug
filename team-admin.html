@@ -81,7 +81,7 @@ async function api(method, body){
 function esc(s){ return String(s || '').replace(/[&<>"']/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c])); }
 
 async function boot(){
-  if (!adminKey){ renderLocked(); return; }
+  if (!adminKey && !teamToken){ renderLocked(); return; }
   try {
     const data = await api('GET');
     render(data);

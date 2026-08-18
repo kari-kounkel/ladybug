@@ -139,6 +139,7 @@ export default async function handler(req, res) {
           attendance_status: ctx.member.attendance_status,
           packet_url: ctx.member._packet_url,
           packet_filename: ctx.member.packet_filename,
+          is_admin: !!ctx.member.is_admin,
         },
         my_signups: ctx.mySignups,
         tallies: ctx.tallies,

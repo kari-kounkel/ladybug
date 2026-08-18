@@ -231,6 +231,7 @@ function renderPage(data){
       <div class="field"><label for="notes">Notes for Kari (optional)</label><textarea id="notes" name="notes" placeholder="Anything Kari should know — allergies, kids you'll bring, times you can't stay">${esc(member.notes || '')}</textarea></div>
     </section>
 
+    ${member.is_admin ? `<div class="packet-card" style="background:linear-gradient(180deg,#fff,#FBF5EB);border-color:var(--gold-deep)"><div class="pl"><h3>🔑 Admin Overview</h3><p>Jump to the admin dashboard — see everyone's signups + tallies.</p></div><a href="/team-admin?t=${esc(token)}" style="background:var(--gold-deep);border-color:var(--gold-deep)">Open Admin →</a></div>` : ''}
     ${member.packet_url ? `<div class="packet-card"><div class="pl"><h3>📖 Your Rooted Conversation Guide</h3><p>Your podcast packet — read before we record. Link expires in 24 hours, so save it to your device.</p></div><a href="${esc(member.packet_url)}" target="_blank" rel="noopener" download>Download PDF</a></div>` : ''}
 
     ${event.agenda && event.agenda.length ? `

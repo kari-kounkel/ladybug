@@ -29,10 +29,9 @@ function client() {
 }
 
 // SHA256 of the admin key. Rotating = compute new hash, replace this string.
-// The plaintext key never lives in this repo.
 const ADMIN_KEY_HASH = "fe65181077840d89f0c6437cb4cda92cc187a4e61952ad29a40b76e23f85c67a";
 
-function authed(req) {
+function authedByKey(req) {
   const provided =
     clean(req.headers["x-admin-key"]) ||
     clean((req.query && req.query.k) || "");
@@ -40,6 +39,21 @@ function authed(req) {
   const hash = crypto.createHash("sha256").update(provided).digest("hex");
   if (hash.length !== ADMIN_KEY_HASH.length) return false;
   return crypto.timingSafeEqual(Buffer.from(hash), Buffer.from(ADMIN_KEY_HASH));
+}
+
+// Also allow entry via an admin team member's own token — that way Kari can
+// bounce from her /team page into admin with no key to remember.
+async function authedByToken(req, supabase) {
+  const token =
+    clean(req.headers["x-team-token"]) ||
+    clean((req.query && req.query.t) || "");
+  if (!/^[A-Za-z0-9_-]{8,64}$/.test(token)) return false;
+  const { data } = await supabase
+    .from("ladybug_team_members")
+    .select("is_admin")
+    .eq("token", token)
+    .maybeSingle();
+  return !!(data && data.is_admin);
 }
 
 function newToken() {
@@ -105,7 +119,6 @@ async function loadEvent(supabase, slug) {
 
 export default async function handler(req, res) {
   res.setHeader("Cache-Control", "no-store");
-  if (!authed(req)) return res.status(401).json({ error: "unauthorized" });
 
   let supabase;
   try {
@@ -113,6 +126,11 @@ export default async function handler(req, res) {
   } catch (e) {
     return res.status(500).json({ error: "server_misconfigured", detail: e.message });
   }
+
+  // Auth: either the shared admin key OR an admin member's own team token.
+  const okKey = authedByKey(req);
+  const okTok = okKey ? true : await authedByToken(req, supabase);
+  if (!okKey && !okTok) return res.status(401).json({ error: "unauthorized" });
 
   try {
     if (req.method === "GET") {
