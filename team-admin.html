@@ -66,11 +66,18 @@ tr:hover td{background:#FBF5EB}
 const params = new URLSearchParams(location.search);
 // No browser storage — key lives ONLY in the URL. Bookmark the URL to keep access.
 let adminKey = params.get('k') || '';
+let teamToken = params.get('t') || '';
 let currentSlug = params.get('event') || '';
 
 async function api(method, body){
-  const url = '/api/team-admin' + (currentSlug ? '?event=' + encodeURIComponent(currentSlug) : '');
-  const opt = {method, headers:{'x-admin-key': adminKey, 'Content-Type': 'application/json'}};
+  const qs = new URLSearchParams();
+  if (currentSlug) qs.set('event', currentSlug);
+  if (teamToken) qs.set('t', teamToken);
+  const url = '/api/team-admin' + (qs.toString() ? '?' + qs.toString() : '');
+  const headers = {'Content-Type':'application/json'};
+  if (adminKey) headers['x-admin-key'] = adminKey;
+  if (teamToken) headers['x-team-token'] = teamToken;
+  const opt = {method, headers};
   if (body) opt.body = JSON.stringify(body);
   const r = await fetch(url, opt);
   const j = await r.json().catch(()=>({error:'bad_json'}));
@@ -123,23 +130,23 @@ function render(data){
   }).join('');
 
   const membersHtml = members.length === 0
-    ? `<tr><td colspan="4" style="text-align:center;color:var(--ink-dim);padding:24px;font-style:italic;font-family:'Fraunces',serif">No team members yet. Add one below.</td></tr>`
+    ? `<tr><td colspan="3" style="text-align:center;color:var(--ink-dim);padding:24px;font-style:italic;font-family:'Fraunces',serif">No team members yet. Add one below.</td></tr>`
     : members.map(m => {
-      const url = `${location.origin}/team?t=${m.token}`;
       const chips = m.signups.length
         ? m.signups.map(k => { const r = roles.find(x=>x.role_key===k); return `<span class="chip">${esc(r?.icon || '')} ${esc(r?.name || k)}</span>`; }).join('')
         : '<span class="chip empty">not signed up yet</span>';
+      const rsvp = m.attendance_status === 'coming' ? '<span class="chip" style="background:rgba(91,127,78,.15);color:#3f6438">✅ coming</span>'
+                 : m.attendance_status === 'not_coming' ? '<span class="chip" style="background:rgba(154,140,124,.2);color:#6B5E52">❌ can\'t make it</span>'
+                 : m.attendance_status === 'unsure' ? '<span class="chip" style="background:rgba(194,154,59,.15);color:var(--gold-deep)">❓ unsure</span>'
+                 : '<span class="chip empty">no RSVP</span>';
       return `<tr>
         <td>
           <div style="font-family:'Fraunces',serif;font-weight:700;font-size:1rem">${esc(m.name)}</div>
           <div style="font-size:.78rem;color:var(--ink-soft)">${esc(m.phone || '')}${m.phone && m.email ? ' · ' : ''}${esc(m.email || '')}</div>
+          <div style="margin-top:4px">${rsvp}</div>
         </td>
         <td>${chips}</td>
-        <td>
-          <div class="tok" title="${esc(url)}">${esc(url)}</div>
-        </td>
         <td class="actions">
-          <button class="btn small" onclick="copyUrl('${esc(url)}', this)">Copy link</button>
           <button class="btn small ghost" onclick="resetMember('${esc(m.id)}','${esc(m.name)}')">Reset</button>
           <button class="btn small ghost" style="color:var(--red-deep)" onclick="removeMember('${esc(m.id)}','${esc(m.name)}')">Delete</button>
         </td>
@@ -149,7 +156,7 @@ function render(data){
   document.getElementById('app').innerHTML = `
     <main class="wrap">
       <h1>Team Admin</h1>
-      <p class="sub">Add team members, copy their sign-up links, watch the tallies fill.</p>
+      <p class="sub">Add team members, watch RSVPs + tallies fill. Ladies sign up at <strong>ladybug.karikounkel.com/team</strong>.</p>
 
       <section class="card">
         <h2>Event</h2>
@@ -180,7 +187,7 @@ function render(data){
       <section class="card">
         <h2>Members (${members.length})</h2>
         <table>
-          <thead><tr><th>Name / contact</th><th>Signed up for</th><th>Their unique link</th><th style="text-align:right">Actions</th></tr></thead>
+          <thead><tr><th>Name / contact</th><th>Signed up for</th><th style="text-align:right">Actions</th></tr></thead>
           <tbody>${membersHtml}</tbody>
         </table>
       </section>
@@ -193,10 +200,7 @@ async function addMember(){
   const phone = document.getElementById('add-phone').value.trim();
   const email = document.getElementById('add-email').value.trim();
   try {
-    const r = await api('POST', {action:'add_member', event_slug: currentSlug, name, phone, email});
-    // Copy the new link to clipboard right away
-    try { await navigator.clipboard.writeText(r.url); } catch {}
-    alert('Added ' + name + '.\n\nLink (also copied to clipboard):\n' + r.url);
+    await api('POST', {action:'add_member', event_slug: currentSlug, name, phone, email});
     document.getElementById('add-name').value = '';
     document.getElementById('add-phone').value = '';
     document.getElementById('add-email').value = '';
@@ -205,11 +209,6 @@ async function addMember(){
 }
 
 async function switchEvent(slug){ currentSlug = slug; boot(); }
-
-async function copyUrl(url, btn){
-  try { await navigator.clipboard.writeText(url); btn.textContent = '✓ Copied'; setTimeout(() => btn.textContent = 'Copy link', 1500); }
-  catch { prompt('Copy this link:', url); }
-}
 
 async function resetMember(id, name){
   if (!confirm('Reset all sign-ups for ' + name + '?\n\nTheir link keeps working, they can pick roles again from scratch.')) return;
