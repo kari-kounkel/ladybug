@@ -28,15 +28,18 @@ function client() {
   return createClient(SUPABASE_URL, key, { auth: { persistSession: false } });
 }
 
+// SHA256 of the admin key. Rotating = compute new hash, replace this string.
+// The plaintext key never lives in this repo.
+const ADMIN_KEY_HASH = "fe65181077840d89f0c6437cb4cda92cc187a4e61952ad29a40b76e23f85c67a";
+
 function authed(req) {
-  const expected = clean(process.env.TEAM_ADMIN_KEY);
-  if (!expected) return false;
   const provided =
     clean(req.headers["x-admin-key"]) ||
     clean((req.query && req.query.k) || "");
-  // constant-time compare
-  if (provided.length !== expected.length) return false;
-  return crypto.timingSafeEqual(Buffer.from(provided), Buffer.from(expected));
+  if (!provided) return false;
+  const hash = crypto.createHash("sha256").update(provided).digest("hex");
+  if (hash.length !== ADMIN_KEY_HASH.length) return false;
+  return crypto.timingSafeEqual(Buffer.from(hash), Buffer.from(ADMIN_KEY_HASH));
 }
 
 function newToken() {

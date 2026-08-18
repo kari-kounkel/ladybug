@@ -64,7 +64,8 @@ tr:hover td{background:#FBF5EB}
 
 <script>
 const params = new URLSearchParams(location.search);
-let adminKey = params.get('k') || localStorage.getItem('ladybug-admin-key') || '';
+// No browser storage — key lives ONLY in the URL. Bookmark the URL to keep access.
+let adminKey = params.get('k') || '';
 let currentSlug = params.get('event') || '';
 
 async function api(method, body){
@@ -83,10 +84,9 @@ async function boot(){
   if (!adminKey){ renderLocked(); return; }
   try {
     const data = await api('GET');
-    localStorage.setItem('ladybug-admin-key', adminKey);
     render(data);
   } catch (e){
-    if (e.status === 401){ localStorage.removeItem('ladybug-admin-key'); renderLocked('That key is wrong. Try again.'); }
+    if (e.status === 401){ renderLocked('That key is wrong. Try again.'); }
     else { document.getElementById('app').innerHTML = '<div class="locked"><h2>Something broke.</h2><p>'+esc(e.message)+'</p></div>'; }
   }
 }
@@ -97,7 +97,8 @@ function renderLocked(msg){
       <h2>Team Admin</h2>
       <p style="color:var(--ink-soft);margin-bottom:16px">${esc(msg || 'Paste your admin key to get in.')}</p>
       <div class="field"><input type="password" id="k" placeholder="admin key" autofocus></div>
-      <div style="margin-top:12px"><button class="btn" onclick="const v=document.getElementById('k').value.trim(); if(v){adminKey=v; boot();}">Unlock →</button></div>
+      <div style="margin-top:12px"><button class="btn" onclick="const v=document.getElementById('k').value.trim(); if(v){adminKey=v; const u=new URL(location.href); u.searchParams.set('k',v); history.replaceState({},'',u.toString()); boot();}">Unlock →</button></div>
+      <p style="color:var(--ink-dim);font-family:'Fraunces',serif;font-style:italic;font-size:.82rem;margin-top:16px">Nothing is saved in your browser. Bookmark this page after you unlock (the key stays in the URL) to skip this prompt next time.</p>
     </div>`;
 }
 
