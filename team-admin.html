@@ -1,9 +1,18 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Team Admin · Ladybug, Ladybug</title>
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-T1PLCXES2Y"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-T1PLCXES2Y');
+</script>
+
+<title>Team Admin Â· Ladybug, Ladybug</title>
 <meta name="robots" content="noindex">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -56,15 +65,15 @@ tr:hover td{background:#FBF5EB}
 <body>
 
 <nav class="nav">
-  <a href="/" style="color:var(--ink-soft);text-decoration:none;font-family:'Mulish',sans-serif;font-weight:700;letter-spacing:.16em;text-transform:uppercase;font-size:.68rem">← Back to site</a>
-  <span class="brand">Ladybug · Team Admin</span>
+  <a href="/" style="color:var(--ink-soft);text-decoration:none;font-family:'Mulish',sans-serif;font-weight:700;letter-spacing:.16em;text-transform:uppercase;font-size:.68rem">â† Back to site</a>
+  <span class="brand">Ladybug Â· Team Admin</span>
 </nav>
 
 <div id="app"><div class="spinner"></div></div>
 
 <script>
 const params = new URLSearchParams(location.search);
-// No browser storage — key lives ONLY in the URL. Bookmark the URL to keep access.
+// No browser storage â€” key lives ONLY in the URL. Bookmark the URL to keep access.
 let adminKey = params.get('k') || '';
 let teamToken = params.get('t') || '';
 let currentSlug = params.get('event') || '';
@@ -104,7 +113,7 @@ function renderLocked(msg){
       <h2>Team Admin</h2>
       <p style="color:var(--ink-soft);margin-bottom:16px">${esc(msg || 'Paste your admin key to get in.')}</p>
       <div class="field"><input type="password" id="k" placeholder="admin key" autofocus></div>
-      <div style="margin-top:12px"><button class="btn" onclick="const v=document.getElementById('k').value.trim(); if(v){adminKey=v; const u=new URL(location.href); u.searchParams.set('k',v); history.replaceState({},'',u.toString()); boot();}">Unlock →</button></div>
+      <div style="margin-top:12px"><button class="btn" onclick="const v=document.getElementById('k').value.trim(); if(v){adminKey=v; const u=new URL(location.href); u.searchParams.set('k',v); history.replaceState({},'',u.toString()); boot();}">Unlock â†’</button></div>
       <p style="color:var(--ink-dim);font-family:'Fraunces',serif;font-style:italic;font-size:.82rem;margin-top:16px">Nothing is saved in your browser. Bookmark this page after you unlock (the key stays in the URL) to skip this prompt next time.</p>
     </div>`;
 }
@@ -117,16 +126,16 @@ function render(data){
   }
   currentSlug = event.slug;
 
-  const eventOpts = events.map(e => `<option value="${esc(e.slug)}" ${e.slug===event.slug?'selected':''}>${esc(e.name)} · ${esc(e.event_date||'')}</option>`).join('');
+  const eventOpts = events.map(e => `<option value="${esc(e.slug)}" ${e.slug===event.slug?'selected':''}>${esc(e.name)} Â· ${esc(e.event_date||'')}</option>`).join('');
 
   const tallyHtml = roles.map(r => {
     const t = tallies[r.role_key] || {count:0, names:[]};
     const n = t.count;
     const full = n >= r.min_needed;
     const nameList = (t.names && t.names.length)
-      ? `<div style="margin-top:8px;font-family:'Fraunces',serif;font-size:.85rem;color:var(--ink);line-height:1.4">${t.names.map(nm => `<div>• ${esc(nm)}</div>`).join('')}</div>`
+      ? `<div style="margin-top:8px;font-family:'Fraunces',serif;font-size:.85rem;color:var(--ink);line-height:1.4">${t.names.map(nm => `<div>â€¢ ${esc(nm)}</div>`).join('')}</div>`
       : `<div style="margin-top:8px;font-family:'Fraunces',serif;font-style:italic;font-size:.82rem;color:var(--ink-dim)">no one yet</div>`;
-    return `<div class="tally"><div class="n ${full?'full':''}">${n}/${r.min_needed}${r.max_needed > r.min_needed ? '–'+r.max_needed : ''}</div><div class="l">${esc(r.icon || '')} ${esc(r.name)}${r.time_slot?` · ${esc(r.time_slot)}`:''}</div>${nameList}</div>`;
+    return `<div class="tally"><div class="n ${full?'full':''}">${n}/${r.min_needed}${r.max_needed > r.min_needed ? 'â€“'+r.max_needed : ''}</div><div class="l">${esc(r.icon || '')} ${esc(r.name)}${r.time_slot?` Â· ${esc(r.time_slot)}`:''}</div>${nameList}</div>`;
   }).join('');
 
   const membersHtml = members.length === 0
@@ -135,14 +144,14 @@ function render(data){
       const chips = m.signups.length
         ? m.signups.map(k => { const r = roles.find(x=>x.role_key===k); return `<span class="chip">${esc(r?.icon || '')} ${esc(r?.name || k)}</span>`; }).join('')
         : '<span class="chip empty">not signed up yet</span>';
-      const rsvp = m.attendance_status === 'coming' ? '<span class="chip" style="background:rgba(91,127,78,.15);color:#3f6438">✅ coming</span>'
-                 : m.attendance_status === 'not_coming' ? '<span class="chip" style="background:rgba(154,140,124,.2);color:#6B5E52">❌ can\'t make it</span>'
-                 : m.attendance_status === 'unsure' ? '<span class="chip" style="background:rgba(194,154,59,.15);color:var(--gold-deep)">❓ unsure</span>'
+      const rsvp = m.attendance_status === 'coming' ? '<span class="chip" style="background:rgba(91,127,78,.15);color:#3f6438">âœ… coming</span>'
+                 : m.attendance_status === 'not_coming' ? '<span class="chip" style="background:rgba(154,140,124,.2);color:#6B5E52">âŒ can\'t make it</span>'
+                 : m.attendance_status === 'unsure' ? '<span class="chip" style="background:rgba(194,154,59,.15);color:var(--gold-deep)">â“ unsure</span>'
                  : '<span class="chip empty">no RSVP</span>';
       return `<tr>
         <td>
           <div style="font-family:'Fraunces',serif;font-weight:700;font-size:1rem">${esc(m.name)}</div>
-          <div style="font-size:.78rem;color:var(--ink-soft)">${esc(m.phone || '')}${m.phone && m.email ? ' · ' : ''}${esc(m.email || '')}</div>
+          <div style="font-size:.78rem;color:var(--ink-soft)">${esc(m.phone || '')}${m.phone && m.email ? ' Â· ' : ''}${esc(m.email || '')}</div>
           <div style="margin-top:4px">${rsvp}</div>
         </td>
         <td>${chips}</td>
@@ -165,7 +174,7 @@ function render(data){
           <select onchange="switchEvent(this.value)">${eventOpts}</select>
         </div>
         <div style="margin-top:8px;font-family:'Fraunces',serif;font-style:italic;color:var(--ink-soft)">
-          ${esc(event.name)} · ${esc(event.event_date || '')}${event.time_range ? ' · ' + esc(event.time_range) : ''}${event.location ? ' · ' + esc(event.location) : ''}
+          ${esc(event.name)} Â· ${esc(event.event_date || '')}${event.time_range ? ' Â· ' + esc(event.time_range) : ''}${event.location ? ' Â· ' + esc(event.location) : ''}
         </div>
       </section>
 
@@ -225,5 +234,8 @@ async function removeMember(id, name){
 boot();
 </script>
 
+
+<!-- Ask Kari widget -->
+<script src="https://chat.karikounkel.com/widget.js" defer></script>
 </body>
 </html>

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -11,7 +11,7 @@
   gtag('js', new Date());
   gtag('config', 'G-T1PLCXES2Y');
 </script>
-<title>Thank you — your Ladybug PDF</title>
+<title>Thank you â€” your Ladybug PDF</title>
 <meta name="robots" content="noindex">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -55,22 +55,22 @@ footer{text-align:center;padding:30px 28px;color:var(--ink-dim);font-size:.78rem
 <body>
 
 <nav class="nav">
-  <a class="back" href="/">← Back to the book</a>
+  <a class="back" href="/">â† Back to the book</a>
   <span class="brand">Ladybug, Ladybug</span>
 </nav>
 
 <main class="wrap">
-  <div class="bug">🐞</div>
+  <div class="bug">ðŸž</div>
   <p class="kicker">Thank you</p>
   <h1 id="headline">Your PDF is on the way.</h1>
-  <p class="lede" id="lede">Hang on one breath while we confirm your order with Stripe…</p>
+  <p class="lede" id="lede">Hang on one breath while we confirm your order with Stripeâ€¦</p>
 
   <div class="card" id="card">
     <div class="spinner" id="spinner" aria-hidden="true"></div>
-    <p id="status" style="color:var(--ink-soft);font-family:'Fraunces',serif;font-style:italic">Verifying your purchase…</p>
+    <p id="status" style="color:var(--ink-soft);font-family:'Fraunces',serif;font-style:italic">Verifying your purchaseâ€¦</p>
   </div>
 
-  <a class="home-link" href="/">← Back to the book</a>
+  <a class="home-link" href="/">â† Back to the book</a>
 </main>
 
 <footer>The ladybugs are glad you're here.</footer>
@@ -93,7 +93,7 @@ footer{text-align:center;padding:30px 28px;color:var(--ink-dim);font-size:.78rem
   function escapeHtml(s){return String(s).replace(/[&<>"']/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]));}
 
   if (!sid) {
-    headline.textContent = "Hmm — that link is missing something.";
+    headline.textContent = "Hmm â€” that link is missing something.";
     lede.textContent = "There's no Stripe session in the URL. If you came from a confirmation email, check the link.";
     showError("Missing session ID", "We can't verify a purchase without the session_id parameter in the URL.", false);
     return;
@@ -109,11 +109,11 @@ footer{text-align:center;padding:30px 28px;color:var(--ink-dim);font-size:.78rem
             ' at ' + expires.toLocaleTimeString(undefined, { hour: 'numeric', minute: '2-digit' })
           : 'in 7 days';
         headline.textContent = "Your PDF is ready.";
-        lede.innerHTML = 'Click the button below to download <em>Ladybug, Ladybug: Keeping It Classy in a Buggy World</em>. The link is valid until ' + escapeHtml(expiresStr) + ' — <strong>save the file to your device</strong> once you open it.';
+        lede.innerHTML = 'Click the button below to download <em>Ladybug, Ladybug: Keeping It Classy in a Buggy World</em>. The link is valid until ' + escapeHtml(expiresStr) + ' â€” <strong>save the file to your device</strong> once you open it.';
         card.innerHTML =
-          '<a class="btn" href="' + body.url + '" download="Ladybug-Ladybug.pdf">Download the PDF 🐞</a>' +
+          '<a class="btn" href="' + body.url + '" download="Ladybug-Ladybug.pdf">Download the PDF ðŸž</a>' +
           '<p class="expires">Link expires ' + escapeHtml(expiresStr) + '.</p>' +
-          '<p class="hint">Save the file to your device — once the link expires, this exact URL stops working. Need a fresh one later? Email <a href="mailto:kari@karikounkel.com">kari@karikounkel.com</a> with the email you bought with.</p>';
+          '<p class="hint">Save the file to your device â€” once the link expires, this exact URL stops working. Need a fresh one later? Email <a href="mailto:kari@karikounkel.com">kari@karikounkel.com</a> with the email you bought with.</p>';
       } else if (status === 403 && body && body.error === 'not_paid') {
         headline.textContent = "Stripe says this order isn't paid yet.";
         lede.textContent = "Sometimes the redirect lands a few seconds before Stripe finalizes the charge. Try refreshing in a moment.";
@@ -124,7 +124,7 @@ footer{text-align:center;padding:30px 28px;color:var(--ink-dim);font-size:.78rem
         showError("Invalid session", "The session_id in the URL doesn't look like a real Stripe Checkout Session.", false);
       } else {
         headline.textContent = "We hit a snag.";
-        lede.textContent = "Your purchase looks fine — we just couldn't generate the download link automatically.";
+        lede.textContent = "Your purchase looks fine â€” we just couldn't generate the download link automatically.";
         showError("Couldn't prepare your download", "Error: " + escapeHtml((body && body.error) || ('HTTP ' + status)), true);
       }
     })
@@ -135,5 +135,8 @@ footer{text-align:center;padding:30px 28px;color:var(--ink-dim);font-size:.78rem
 })();
 </script>
 
+
+<!-- Ask Kari widget -->
+<script src="https://chat.karikounkel.com/widget.js" defer></script>
 </body>
 </html>
