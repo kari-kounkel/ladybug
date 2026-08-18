@@ -229,7 +229,7 @@ function renderPage(data){
     ${event.agenda && event.agenda.length ? `
     <section class="card">
       <h2>The day's agenda</h2>
-      <p class="sub">Here's the flow for October 10th.</p>
+      <p class="sub">Here's the flow for October 10th — <strong style="color:var(--red-deep)">pending final approval from the hosts.</strong></p>
       <div class="agenda">
         ${event.agenda.map(item => `<div class="agenda-row"><div class="t">${esc(item.time)}</div><div class="a">${esc(item.activity)}</div></div>`).join('')}
       </div>
