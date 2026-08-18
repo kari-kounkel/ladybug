@@ -285,21 +285,45 @@ function renderPage(data){
     });
   });
 
-  // Wire role toggles
+  // Wire role toggles — optimistic UI, no full re-render, so rapid clicks don't flicker
   rolesEl.querySelectorAll('input[type=checkbox][data-role]').forEach(cb => {
     cb.addEventListener('change', async (e) => {
       const key = cb.dataset.role;
-      const body = cb.checked ? {add_role: key} : {remove_role: key};
+      const wasChecked = cb.checked;
+      const roleEl = cb.closest('.role');
+      // Optimistic visual toggle
+      roleEl.classList.toggle('picked', wasChecked);
+      const body = wasChecked ? {add_role: key} : {remove_role: key};
       try {
         const r = await fetch(`${API_BASE}?t=${encodeURIComponent(token)}`, {
           method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(body)
         });
         if (!r.ok) throw new Error('save failed');
         const data = await r.json();
-        renderPage(data);
+        // Update the tally + others line for JUST this role, in place
+        const tally = data.tallies[key] || {count:0, names:[]};
+        const role = data.roles.find(r => r.role_key === key);
+        const needEl = roleEl.querySelector('.need');
+        if (needEl && role){
+          needEl.textContent = `${tally.count}/${role.min_needed}${role.max_needed > role.min_needed ? '–'+role.max_needed : ''}`;
+          needEl.classList.toggle('filled', tally.count >= role.min_needed);
+        }
+        const others = tally.names.filter(n => n !== data.member.name);
+        let othersEl = roleEl.querySelector('.others');
+        if (others.length){
+          if (!othersEl){
+            othersEl = document.createElement('div');
+            othersEl.className = 'others';
+            roleEl.querySelector('.body').appendChild(othersEl);
+          }
+          othersEl.textContent = 'Also on this team: ' + others.join(', ');
+        } else if (othersEl){
+          othersEl.remove();
+        }
         showSaved();
       } catch (err){
-        cb.checked = !cb.checked;
+        cb.checked = !wasChecked;
+        roleEl.classList.toggle('picked', !wasChecked);
         showSaved('Save failed — try again', true);
       }
     });
