@@ -31,6 +31,16 @@ async function loadMemberContext(supabase, token) {
   if (mErr) throw mErr;
   if (!member) return { notFound: true };
 
+  // Mint a 24-hr signed URL for the podcast packet (if any)
+  let packetUrl = null;
+  if (member.packet_filename) {
+    const { data: signed } = await supabase.storage
+      .from("ladybug-packets")
+      .createSignedUrl(member.packet_filename, 60 * 60 * 24);
+    if (signed?.signedUrl) packetUrl = signed.signedUrl;
+  }
+  member._packet_url = packetUrl;
+
   const { data: event, error: eErr } = await supabase
     .from("ladybug_team_events")
     .select("*")
@@ -127,6 +137,8 @@ export default async function handler(req, res) {
           email: ctx.member.email,
           notes: ctx.member.notes,
           attendance_status: ctx.member.attendance_status,
+          packet_url: ctx.member._packet_url,
+          packet_filename: ctx.member.packet_filename,
         },
         my_signups: ctx.mySignups,
         tallies: ctx.tallies,
@@ -186,6 +198,8 @@ export default async function handler(req, res) {
           email: ctx.member.email,
           notes: ctx.member.notes,
           attendance_status: ctx.member.attendance_status,
+          packet_url: ctx.member._packet_url,
+          packet_filename: ctx.member.packet_filename,
         },
         my_signups: ctx.mySignups,
         tallies: ctx.tallies,

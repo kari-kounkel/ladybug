@@ -62,8 +62,14 @@ section.card{background:#fff;border:1.5px solid var(--card-edge);border-radius:1
 .rsvp input{width:18px;height:18px;accent-color:var(--red);cursor:pointer;flex:0 0 auto}
 .rsvp span{font-family:'Fraunces',serif;font-weight:600}
 /* everyone-helps callout */
-.callout{background:linear-gradient(180deg,#FFFBF1,#FBEFD0);border:1px dashed var(--gold);border-radius:12px;padding:14px 18px;font-family:'Fraunces',serif;font-style:italic;color:var(--ink);font-size:.95rem;margin-bottom:16px;line-height:1.55;text-align:center}
+.callout{background:linear-gradient(180deg,#FFFBF1,#FBEFD0);border:1px dashed var(--gold);border-radius:12px;padding:14px 18px;font-family:'Fraunces',serif;font-style:italic;color:var(--ink);font-size:.95rem;margin-bottom:16px;line-height:1.55;text-align:left}
 .callout strong{color:var(--red-deep);font-style:normal;font-family:'Mulish',sans-serif;font-weight:800;letter-spacing:.06em;font-size:.82rem;text-transform:uppercase;display:block;margin-bottom:4px}
+.packet-card{background:linear-gradient(180deg,#fff,#FCF1F2);border:1.5px solid var(--red);border-radius:14px;padding:16px 18px;display:flex;justify-content:space-between;align-items:center;gap:14px;margin-bottom:16px;flex-wrap:wrap}
+.packet-card .pl{flex:1;min-width:200px}
+.packet-card h3{font-family:'Fraunces',serif;font-weight:700;color:var(--ink);font-size:1.05rem;margin-bottom:2px}
+.packet-card p{font-family:'Fraunces',serif;font-style:italic;color:var(--ink-soft);font-size:.9rem}
+.packet-card a{display:inline-block;font-family:'Mulish',sans-serif;font-weight:800;letter-spacing:.08em;text-transform:uppercase;font-size:.72rem;background:var(--red);color:#FFF8E8;padding:11px 20px;border-radius:999px;text-decoration:none;transition:background .2s;border:2px solid var(--red)}
+.packet-card a:hover{background:var(--red-deep)}
 /* roles */
 .roles{display:flex;flex-direction:column;gap:10px}
 .role{display:flex;align-items:flex-start;gap:14px;background:#fff;border:1.5px solid var(--card-edge);border-radius:14px;padding:14px 16px;cursor:pointer;transition:all .2s}
@@ -211,6 +217,8 @@ function renderPage(data){
       </div>
       <div class="field"><label for="notes">Notes for Kari (optional)</label><textarea id="notes" name="notes" placeholder="Anything Kari should know — allergies, kids you'll bring, times you can't stay">${esc(member.notes || '')}</textarea></div>
     </section>
+
+    ${member.packet_url ? `<div class="packet-card"><div class="pl"><h3>📖 Your Rooted Conversation Guide</h3><p>Your podcast packet — read before we record. Link expires in 24 hours, so save it to your device.</p></div><a href="${esc(member.packet_url)}" target="_blank" rel="noopener" download>Download PDF</a></div>` : ''}
 
     <div class="callout"><strong>Expected of everyone</strong>The whole day is hands-on. Whether or not you sign up for a specific team, please jump in with crafts + mingling with our ladies — that's the whole vibe.</div>
 
