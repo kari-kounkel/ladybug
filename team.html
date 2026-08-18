@@ -194,8 +194,12 @@ function renderNamePicker(data){
   });
 }
 
+let currentRoles = [];    // cached at render time so save handlers can read them
+let currentMemberName = '';
 function renderPage(data){
   const { event, roles, member, my_signups, tallies } = data;
+  currentRoles = roles;
+  currentMemberName = member.name || '';
   const mySet = new Set(my_signups);
   const attend = member.attendance_status || '';
   const notComing = attend === 'not_coming';
@@ -301,14 +305,14 @@ function renderPage(data){
         if (!r.ok) throw new Error('save failed');
         const data = await r.json();
         // Update the tally + others line for JUST this role, in place
-        const tally = data.tallies[key] || {count:0, names:[]};
-        const role = data.roles.find(r => r.role_key === key);
+        const tally = (data.tallies && data.tallies[key]) || {count:0, names:[]};
+        const role = currentRoles.find(x => x.role_key === key);
         const needEl = roleEl.querySelector('.need');
         if (needEl && role){
           needEl.textContent = `${tally.count}/${role.min_needed}${role.max_needed > role.min_needed ? '–'+role.max_needed : ''}`;
           needEl.classList.toggle('filled', tally.count >= role.min_needed);
         }
-        const others = tally.names.filter(n => n !== data.member.name);
+        const others = tally.names.filter(n => n !== currentMemberName);
         let othersEl = roleEl.querySelector('.others');
         if (others.length){
           if (!othersEl){
