@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Team Admin · Ladybug, Ladybug</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,400;1,9..144,500;1,9..144,600&family=Mulish:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#FFFFFF;--card:#FFFFFF;--card-edge:rgba(177,18,38,.13);
+  --red:#B11226;--red-deep:#861019;--red-soft:#C8324A;
+  --gold:#C29A3B;--gold-deep:#9E7A24;
+  --ink:#1A1614;--ink-soft:#6B5E52;--ink-dim:#9A8C7C;--green:#5B7F4E;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Mulish',sans-serif;color:var(--ink);background:var(--bg);line-height:1.5;-webkit-font-smoothing:antialiased;min-height:100vh}
+body::before{content:"";position:fixed;inset:0;z-index:-2;background:radial-gradient(ellipse at 50% -8%,#FFFFFF 0%,#FFFAFA 60%,#FBEDEF 100%)}
+.nav{padding:18px 24px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(177,18,38,.08)}
+.nav .brand{font-family:'Fraunces',serif;font-style:italic;font-weight:600;color:var(--red);font-size:.95rem}
+.wrap{max-width:1100px;width:100%;margin:0 auto;padding:28px 22px 80px}
+h1{font-family:'Fraunces',serif;font-weight:700;color:var(--ink);font-size:clamp(1.7rem,4vw,2.3rem);margin-bottom:6px}
+.sub{font-family:'Fraunces',serif;font-style:italic;color:var(--ink-soft);margin-bottom:20px}
+section.card{background:#fff;border:1.5px solid var(--card-edge);border-radius:16px;padding:20px 22px;box-shadow:0 10px 22px rgba(177,18,38,.05);margin-bottom:16px}
+h2{font-family:'Fraunces',serif;font-weight:700;font-size:1.15rem;color:var(--ink);margin-bottom:12px}
+.field label{display:block;font-family:'Mulish',sans-serif;font-weight:700;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:4px}
+.field input,.field select{width:100%;font-family:'Mulish',sans-serif;font-size:.95rem;color:var(--ink);background:#FDFCFA;border:1.5px solid rgba(28,22,20,.16);border-radius:9px;padding:9px 12px}
+.field input:focus,.field select:focus{outline:none;border-color:var(--red);box-shadow:0 0 0 3px rgba(177,18,38,.08);background:#fff}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:10px;align-items:end}
+@media(max-width:720px){.grid3{grid-template-columns:1fr}}
+.btn{font-family:'Mulish',sans-serif;font-weight:800;letter-spacing:.08em;text-transform:uppercase;font-size:.74rem;background:var(--red);color:#FFF8E8;padding:11px 20px;border-radius:999px;border:2px solid var(--red);cursor:pointer;transition:all .2s}
+.btn:hover{background:var(--red-deep);transform:translateY(-1px)}
+.btn.small{padding:6px 12px;font-size:.66rem}
+.btn.ghost{background:transparent;color:var(--red)}
+.tally-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin-bottom:8px}
+.tally{padding:10px 12px;background:#FBF5EB;border-radius:10px;border:1px dashed rgba(194,154,59,.4)}
+.tally .n{font-family:'Fraunces',serif;font-weight:800;color:var(--ink);font-size:1.1rem}
+.tally .n.full{color:var(--green)}
+.tally .l{font-family:'Mulish',sans-serif;font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft)}
+table{width:100%;border-collapse:collapse;font-size:.9rem}
+th{text-align:left;font-family:'Mulish',sans-serif;font-weight:800;letter-spacing:.08em;text-transform:uppercase;font-size:.66rem;color:var(--ink-soft);padding:8px 6px;border-bottom:1px solid rgba(28,22,20,.1)}
+td{padding:10px 6px;border-bottom:1px solid rgba(28,22,20,.06);vertical-align:top}
+tr:hover td{background:#FBF5EB}
+.tok{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.75rem;color:var(--ink-soft);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:220px;display:inline-block;vertical-align:middle}
+.chip{display:inline-block;font-family:'Mulish',sans-serif;font-weight:700;font-size:.64rem;letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;border-radius:999px;background:rgba(177,18,38,.08);color:var(--red);margin:2px 4px 2px 0}
+.chip.empty{background:#EFEEEC;color:var(--ink-dim);font-style:italic}
+.locked{max-width:420px;margin:100px auto;text-align:center;padding:26px}
+.locked h2{font-family:'Fraunces',serif;font-size:1.4rem;margin-bottom:12px;color:var(--ink)}
+.spinner{width:36px;height:36px;border:3px solid rgba(177,18,38,.18);border-top-color:var(--red);border-radius:50%;margin:80px auto;animation:spin .9s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.actions{display:flex;gap:6px;flex-wrap:wrap}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="/" style="color:var(--ink-soft);text-decoration:none;font-family:'Mulish',sans-serif;font-weight:700;letter-spacing:.16em;text-transform:uppercase;font-size:.68rem">← Back to site</a>
+  <span class="brand">Ladybug · Team Admin</span>
+</nav>
+
+<div id="app"><div class="spinner"></div></div>
+
+<script>
+const params = new URLSearchParams(location.search);
+let adminKey = params.get('k') || localStorage.getItem('ladybug-admin-key') || '';
+let currentSlug = params.get('event') || '';
+
+async function api(method, body){
+  const url = '/api/team-admin' + (currentSlug ? '?event=' + encodeURIComponent(currentSlug) : '');
+  const opt = {method, headers:{'x-admin-key': adminKey, 'Content-Type': 'application/json'}};
+  if (body) opt.body = JSON.stringify(body);
+  const r = await fetch(url, opt);
+  const j = await r.json().catch(()=>({error:'bad_json'}));
+  if (!r.ok) throw Object.assign(new Error(j.error || 'error'), {status:r.status, body:j});
+  return j;
+}
+
+function esc(s){ return String(s || '').replace(/[&<>"']/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c])); }
+
+async function boot(){
+  if (!adminKey){ renderLocked(); return; }
+  try {
+    const data = await api('GET');
+    localStorage.setItem('ladybug-admin-key', adminKey);
+    render(data);
+  } catch (e){
+    if (e.status === 401){ localStorage.removeItem('ladybug-admin-key'); renderLocked('That key is wrong. Try again.'); }
+    else { document.getElementById('app').innerHTML = '<div class="locked"><h2>Something broke.</h2><p>'+esc(e.message)+'</p></div>'; }
+  }
+}
+
+function renderLocked(msg){
+  document.getElementById('app').innerHTML = `
+    <div class="locked">
+      <h2>Team Admin</h2>
+      <p style="color:var(--ink-soft);margin-bottom:16px">${esc(msg || 'Paste your admin key to get in.')}</p>
+      <div class="field"><input type="password" id="k" placeholder="admin key" autofocus></div>
+      <div style="margin-top:12px"><button class="btn" onclick="const v=document.getElementById('k').value.trim(); if(v){adminKey=v; boot();}">Unlock →</button></div>
+    </div>`;
+}
+
+function render(data){
+  const {events, event, roles, members, tallies} = data;
+  if (!event){
+    document.getElementById('app').innerHTML = '<div class="wrap"><h1>No events yet</h1><p>Add one via the API.</p></div>';
+    return;
+  }
+  currentSlug = event.slug;
+
+  const eventOpts = events.map(e => `<option value="${esc(e.slug)}" ${e.slug===event.slug?'selected':''}>${esc(e.name)} · ${esc(e.event_date||'')}</option>`).join('');
+
+  const tallyHtml = roles.map(r => {
+    const n = tallies[r.role_key] || 0;
+    const full = n >= r.min_needed;
+    return `<div class="tally"><div class="n ${full?'full':''}">${n}/${r.min_needed}${r.max_needed > r.min_needed ? '–'+r.max_needed : ''}</div><div class="l">${esc(r.icon || '')} ${esc(r.name)}</div></div>`;
+  }).join('');
+
+  const membersHtml = members.length === 0
+    ? `<tr><td colspan="4" style="text-align:center;color:var(--ink-dim);padding:24px;font-style:italic;font-family:'Fraunces',serif">No team members yet. Add one below.</td></tr>`
+    : members.map(m => {
+      const url = `${location.origin}/team?t=${m.token}`;
+      const chips = m.signups.length
+        ? m.signups.map(k => { const r = roles.find(x=>x.role_key===k); return `<span class="chip">${esc(r?.icon || '')} ${esc(r?.name || k)}</span>`; }).join('')
+        : '<span class="chip empty">not signed up yet</span>';
+      return `<tr>
+        <td>
+          <div style="font-family:'Fraunces',serif;font-weight:700;font-size:1rem">${esc(m.name)}</div>
+          <div style="font-size:.78rem;color:var(--ink-soft)">${esc(m.phone || '')}${m.phone && m.email ? ' · ' : ''}${esc(m.email || '')}</div>
+        </td>
+        <td>${chips}</td>
+        <td>
+          <div class="tok" title="${esc(url)}">${esc(url)}</div>
+        </td>
+        <td class="actions">
+          <button class="btn small" onclick="copyUrl('${esc(url)}', this)">Copy link</button>
+          <button class="btn small ghost" onclick="resetMember('${esc(m.id)}','${esc(m.name)}')">Reset</button>
+          <button class="btn small ghost" style="color:var(--red-deep)" onclick="removeMember('${esc(m.id)}','${esc(m.name)}')">Delete</button>
+        </td>
+      </tr>`;
+    }).join('');
+
+  document.getElementById('app').innerHTML = `
+    <main class="wrap">
+      <h1>Team Admin</h1>
+      <p class="sub">Add team members, copy their sign-up links, watch the tallies fill.</p>
+
+      <section class="card">
+        <h2>Event</h2>
+        <div class="field">
+          <label>Which event</label>
+          <select onchange="switchEvent(this.value)">${eventOpts}</select>
+        </div>
+        <div style="margin-top:8px;font-family:'Fraunces',serif;font-style:italic;color:var(--ink-soft)">
+          ${esc(event.name)} · ${esc(event.event_date || '')}${event.time_range ? ' · ' + esc(event.time_range) : ''}${event.location ? ' · ' + esc(event.location) : ''}
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>Tally by role</h2>
+        <div class="tally-grid">${tallyHtml}</div>
+      </section>
+
+      <section class="card">
+        <h2>Add a team member</h2>
+        <div class="grid3">
+          <div class="field"><label>Name</label><input id="add-name" placeholder="Jane Doe"></div>
+          <div class="field"><label>Phone</label><input id="add-phone" placeholder="(320) 555-0123"></div>
+          <div class="field"><label>Email</label><input id="add-email" placeholder="jane@example.com"></div>
+          <button class="btn" onclick="addMember()">Add + get link</button>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>Members (${members.length})</h2>
+        <table>
+          <thead><tr><th>Name / contact</th><th>Signed up for</th><th>Their unique link</th><th style="text-align:right">Actions</th></tr></thead>
+          <tbody>${membersHtml}</tbody>
+        </table>
+      </section>
+    </main>`;
+}
+
+async function addMember(){
+  const name = document.getElementById('add-name').value.trim();
+  if (!name){ alert('Name is required.'); return; }
+  const phone = document.getElementById('add-phone').value.trim();
+  const email = document.getElementById('add-email').value.trim();
+  try {
+    const r = await api('POST', {action:'add_member', event_slug: currentSlug, name, phone, email});
+    // Copy the new link to clipboard right away
+    try { await navigator.clipboard.writeText(r.url); } catch {}
+    alert('Added ' + name + '.\n\nLink (also copied to clipboard):\n' + r.url);
+    document.getElementById('add-name').value = '';
+    document.getElementById('add-phone').value = '';
+    document.getElementById('add-email').value = '';
+    boot();
+  } catch (e){ alert('Failed: ' + e.message); }
+}
+
+async function switchEvent(slug){ currentSlug = slug; boot(); }
+
+async function copyUrl(url, btn){
+  try { await navigator.clipboard.writeText(url); btn.textContent = '✓ Copied'; setTimeout(() => btn.textContent = 'Copy link', 1500); }
+  catch { prompt('Copy this link:', url); }
+}
+
+async function resetMember(id, name){
+  if (!confirm('Reset all sign-ups for ' + name + '?\n\nTheir link keeps working, they can pick roles again from scratch.')) return;
+  try { await api('POST', {action:'reset_member', member_id:id}); boot(); }
+  catch (e){ alert('Failed: ' + e.message); }
+}
+
+async function removeMember(id, name){
+  if (!confirm('Delete ' + name + ' from the team? Their link will stop working.')) return;
+  try { await api('POST', {action:'remove_member', member_id:id}); boot(); }
+  catch (e){ alert('Failed: ' + e.message); }
+}
+
+boot();
+</script>
+
+</body>
+</html>
