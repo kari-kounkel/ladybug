@@ -34,8 +34,8 @@ h2{font-family:'Fraunces',serif;font-weight:700;font-size:1.15rem;color:var(--in
 .btn:hover{background:var(--red-deep);transform:translateY(-1px)}
 .btn.small{padding:6px 12px;font-size:.66rem}
 .btn.ghost{background:transparent;color:var(--red)}
-.tally-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin-bottom:8px}
-.tally{padding:10px 12px;background:#FBF5EB;border-radius:10px;border:1px dashed rgba(194,154,59,.4)}
+.tally-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px;margin-bottom:8px}
+.tally{padding:12px 14px;background:#FBF5EB;border-radius:12px;border:1px dashed rgba(194,154,59,.4)}
 .tally .n{font-family:'Fraunces',serif;font-weight:800;color:var(--ink);font-size:1.1rem}
 .tally .n.full{color:var(--green)}
 .tally .l{font-family:'Mulish',sans-serif;font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft)}
@@ -113,9 +113,13 @@ function render(data){
   const eventOpts = events.map(e => `<option value="${esc(e.slug)}" ${e.slug===event.slug?'selected':''}>${esc(e.name)} · ${esc(e.event_date||'')}</option>`).join('');
 
   const tallyHtml = roles.map(r => {
-    const n = tallies[r.role_key] || 0;
+    const t = tallies[r.role_key] || {count:0, names:[]};
+    const n = t.count;
     const full = n >= r.min_needed;
-    return `<div class="tally"><div class="n ${full?'full':''}">${n}/${r.min_needed}${r.max_needed > r.min_needed ? '–'+r.max_needed : ''}</div><div class="l">${esc(r.icon || '')} ${esc(r.name)}</div></div>`;
+    const nameList = (t.names && t.names.length)
+      ? `<div style="margin-top:8px;font-family:'Fraunces',serif;font-size:.85rem;color:var(--ink);line-height:1.4">${t.names.map(nm => `<div>• ${esc(nm)}</div>`).join('')}</div>`
+      : `<div style="margin-top:8px;font-family:'Fraunces',serif;font-style:italic;font-size:.82rem;color:var(--ink-dim)">no one yet</div>`;
+    return `<div class="tally"><div class="n ${full?'full':''}">${n}/${r.min_needed}${r.max_needed > r.min_needed ? '–'+r.max_needed : ''}</div><div class="l">${esc(r.icon || '')} ${esc(r.name)}${r.time_slot?` · ${esc(r.time_slot)}`:''}</div>${nameList}</div>`;
   }).join('');
 
   const membersHtml = members.length === 0

@@ -79,15 +79,39 @@ async function loadMemberContext(supabase, token) {
 export default async function handler(req, res) {
   res.setHeader("Cache-Control", "no-store");
   const token = clean(req.query?.t || "");
-  if (!/^[A-Za-z0-9_-]{8,64}$/.test(token)) {
-    return res.status(400).json({ error: "invalid_token" });
-  }
 
   let supabase;
   try {
     supabase = client();
   } catch (e) {
     return res.status(500).json({ error: "server_misconfigured", detail: e.message });
+  }
+
+  // No token = "who are you?" flow. Return the current active event's member
+  // list (name + token) so the shared /team page can render a dropdown.
+  if (!token && req.method === "GET") {
+    try {
+      const { data: event } = await supabase
+        .from("ladybug_team_events")
+        .select("id, name, event_date, time_range, location, slug")
+        .eq("active", true)
+        .order("event_date", { ascending: false })
+        .limit(1)
+        .maybeSingle();
+      if (!event) return res.status(404).json({ error: "no_active_event" });
+      const { data: members } = await supabase
+        .from("ladybug_team_members")
+        .select("name, token")
+        .eq("event_id", event.id)
+        .order("name");
+      return res.status(200).json({ event, members: members || [] });
+    } catch (err) {
+      return res.status(500).json({ error: "server_error", detail: err.message });
+    }
+  }
+
+  if (!/^[A-Za-z0-9_-]{8,64}$/.test(token)) {
+    return res.status(400).json({ error: "invalid_token" });
   }
 
   try {
@@ -102,6 +126,7 @@ export default async function handler(req, res) {
           phone: ctx.member.phone,
           email: ctx.member.email,
           notes: ctx.member.notes,
+          attendance_status: ctx.member.attendance_status,
         },
         my_signups: ctx.mySignups,
         tallies: ctx.tallies,
@@ -118,6 +143,12 @@ export default async function handler(req, res) {
       const patch = {};
       for (const f of ["name", "phone", "email", "notes"]) {
         if (typeof body[f] === "string") patch[f] = body[f].trim() || null;
+      }
+      if (typeof body.attendance_status === "string") {
+        const v = body.attendance_status.trim();
+        if (["coming", "not_coming", "unsure", ""].includes(v)) {
+          patch.attendance_status = v || null;
+        }
       }
       if (Object.keys(patch).length) {
         patch.updated_at = new Date().toISOString();
@@ -154,6 +185,7 @@ export default async function handler(req, res) {
           phone: ctx.member.phone,
           email: ctx.member.email,
           notes: ctx.member.notes,
+          attendance_status: ctx.member.attendance_status,
         },
         my_signups: ctx.mySignups,
         tallies: ctx.tallies,

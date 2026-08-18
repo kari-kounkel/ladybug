@@ -89,9 +89,16 @@ async function loadEvent(supabase, slug) {
     signups: signupsByMember[m.id] || [],
   }));
 
+  // Enrich tallies with the names of who signed up for each role
+  const memberById = Object.fromEntries(members.map((m) => [m.id, m.name]));
   const tallies = {};
-  for (const r of roles) tallies[r.role_key] = 0;
-  for (const s of signups) tallies[s.role_key] = (tallies[s.role_key] || 0) + 1;
+  for (const r of roles) tallies[r.role_key] = { count: 0, names: [] };
+  for (const s of signups) {
+    if (!tallies[s.role_key]) tallies[s.role_key] = { count: 0, names: [] };
+    tallies[s.role_key].count += 1;
+    const nm = memberById[s.member_id];
+    if (nm && !tallies[s.role_key].names.includes(nm)) tallies[s.role_key].names.push(nm);
+  }
 
   return { events, event, roles, members: enrichedMembers, tallies };
 }
