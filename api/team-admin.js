@@ -63,7 +63,7 @@ function newToken() {
 async function loadEvent(supabase, slug) {
   const { data: events, error: evErr } = await supabase
     .from("ladybug_team_events")
-    .select("*")
+    .select("id, slug, name, event_date, time_range, location, active, hosts_token, agenda")
     .order("event_date", { ascending: false });
   if (evErr) throw evErr;
   const event = slug ? events.find((e) => e.slug === slug) : events[0];
@@ -215,6 +215,44 @@ export default async function handler(req, res) {
           .single();
         if (error) throw error;
         return res.status(200).json({ ok: true, event });
+      }
+
+      if (action === "add_attendee") {
+        const { data: event } = await supabase
+          .from("ladybug_team_events")
+          .select("id")
+          .eq("slug", slug)
+          .single();
+        if (!event) return res.status(400).json({ error: "event_not_found" });
+        const name = clean(body.name || "");
+        const email = clean(body.email || "");
+        if (!name || !email) return res.status(400).json({ error: "name_and_email_required" });
+        const { data: attendee, error } = await supabase
+          .from("ladybug_attendees")
+          .insert({
+            event_id: event.id,
+            name,
+            email,
+            phone: clean(body.phone || "") || null,
+            party_size: parseInt(body.party_size, 10) || 1,
+            attending_with: clean(body.attending_with || "") || null,
+            home_church: clean(body.home_church || "") || null,
+            city_state: clean(body.city_state || "") || null,
+            dietary: clean(body.dietary || "") || null,
+            notes: clean(body.notes || "") || null,
+          })
+          .select("*")
+          .single();
+        if (error) throw error;
+        return res.status(200).json({ ok: true, attendee });
+      }
+
+      if (action === "remove_attendee") {
+        const attendeeId = clean(body.attendee_id || "");
+        if (!attendeeId) return res.status(400).json({ error: "attendee_id_required" });
+        const { error } = await supabase.from("ladybug_attendees").delete().eq("id", attendeeId);
+        if (error) throw error;
+        return res.status(200).json({ ok: true });
       }
 
       if (action === "clone_event") {

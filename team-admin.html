@@ -194,8 +194,33 @@ function render(data){
       </section>
 
       <section class="card">
+        <h2>Add an attendee (someone who signed up offline)</h2>
+        <div class="grid3">
+          <div class="field"><label>Name *</label><input id="att-name" placeholder="Jane Doe"></div>
+          <div class="field"><label>Email *</label><input id="att-email" placeholder="jane@example.com"></div>
+          <div class="field"><label>Phone</label><input id="att-phone" placeholder="(320) 555-0123"></div>
+          <button class="btn" onclick="addAttendee()">Add</button>
+        </div>
+        <div class="grid3" style="margin-top:8px">
+          <div class="field"><label>Party size</label><input id="att-party" type="number" min="1" value="1"></div>
+          <div class="field"><label>Attending with</label><input id="att-with" placeholder="Sarah + Mom"></div>
+          <div class="field"><label>Home church / city</label><input id="att-church" placeholder="First Baptist · Avon MN"></div>
+        </div>
+        <p style="font-family:'Fraunces',serif;font-style:italic;color:var(--ink-dim);font-size:.82rem;margin-top:6px">Adding here does NOT send them a confirmation email — no email is triggered on admin-adds.</p>
+      </section>
+
+      <section class="card">
+        <h2>Share the attendee list with the church team</h2>
+        <p class="sub">Read-only link — no editing, no team-member data. Send this to hosts / co-organizers.</p>
+        <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+          <input readonly value="${location.origin}/hosts?t=${esc(event.hosts_token || '')}" style="flex:1;min-width:280px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.82rem;background:#FBF5EB;border:1.5px solid var(--card-edge);border-radius:9px;padding:9px 12px;color:var(--ink-soft)" onclick="this.select()">
+          <button class="btn small" onclick="copyHostsUrl(this)">Copy link</button>
+        </div>
+      </section>
+
+      <section class="card">
         <h2>Registered attendees (${attendees.length}${attendees.length ? ' · ' + attendees.reduce((s,a)=>s+(a.party_size||1),0) + ' people total' : ''})</h2>
-        <p class="sub">Public registrations from <strong>ladybug.karikounkel.com/register</strong>. Newest first.</p>
+        <p class="sub">Registrations from <strong>ladybug.karikounkel.com/register</strong> + admin-added. Newest first.</p>
         ${attendees.length === 0
           ? '<p style="color:var(--ink-dim);font-style:italic;font-family:\'Fraunces\',serif;padding:12px 0">No one has registered yet.</p>'
           : `<table>
@@ -230,6 +255,31 @@ function render(data){
         </table>
       </section>
     </main>`;
+}
+
+async function addAttendee(){
+  const name = document.getElementById('att-name').value.trim();
+  const email = document.getElementById('att-email').value.trim();
+  if (!name || !email) { alert('Name and email are required.'); return; }
+  try {
+    await api('POST', {
+      action:'add_attendee', event_slug: currentSlug,
+      name, email,
+      phone: document.getElementById('att-phone').value.trim(),
+      party_size: parseInt(document.getElementById('att-party').value, 10) || 1,
+      attending_with: document.getElementById('att-with').value.trim(),
+      home_church: document.getElementById('att-church').value.trim()
+    });
+    ['att-name','att-email','att-phone','att-with','att-church'].forEach(id => document.getElementById(id).value = '');
+    document.getElementById('att-party').value = '1';
+    boot();
+  } catch (e){ alert('Failed: ' + e.message); }
+}
+
+async function copyHostsUrl(btn){
+  const inp = btn.previousElementSibling;
+  try { await navigator.clipboard.writeText(inp.value); btn.textContent = '✓ Copied'; setTimeout(() => btn.textContent = 'Copy link', 1500); }
+  catch { inp.select(); }
 }
 
 async function addMember(){
