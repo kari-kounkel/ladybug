@@ -107,7 +107,6 @@ function render(data){
   const already = total_people
     ? (total_people === 1 ? "You'll be the first to register. 🐞" : `You'll be joining ${total_people} others already registered.`)
     : "";
-  const agenda = (event.agenda || []).slice(0, 5); // first 5 rows as a teaser
 
   wrap.innerHTML = `
     <p class="kicker">Register</p>
@@ -118,24 +117,14 @@ function render(data){
 
     <section class="card" style="background:linear-gradient(180deg,#fff,#FCF1F2);border-color:var(--red-soft)">
       <h2 style="font-family:'Fraunces',serif;font-weight:700;color:var(--red-deep);text-align:center;margin-bottom:12px">What to expect</h2>
-      <ul style="list-style:none;padding:0;margin:0;display:grid;gap:8px;font-family:'Fraunces',serif;font-size:.98rem;color:var(--ink)">
-        <li style="padding-left:26px;position:relative">📖 <span style="position:absolute;left:0">📖</span> A copy of the book to take home</li>
-        <li style="padding-left:26px;position:relative">🎨 <span style="position:absolute;left:0">🎨</span> Two art sessions — decorate your own Bug-Off Box</li>
-        <li style="padding-left:26px;position:relative">🎤 <span style="position:absolute;left:0">🎤</span> Speakers, worship, and a keynote from Kari</li>
-        <li style="padding-left:26px;position:relative">🍴 <span style="position:absolute;left:0">🍴</span> Lunch + fellowship together</li>
-        <li style="padding-left:26px;position:relative">💚 <span style="position:absolute;left:0">💚</span> A whole lot of new friends</li>
+      <ul style="list-style:none;padding:0;margin:0;display:grid;gap:10px;font-family:'Fraunces',serif;font-size:.98rem;color:var(--ink)">
+        <li style="padding-left:32px;position:relative"><span style="position:absolute;left:0;top:1px">📖</span>Copies of the book available for purchase</li>
+        <li style="padding-left:32px;position:relative"><span style="position:absolute;left:0;top:1px">🎨</span>Your very own Bug Off Box and activities</li>
+        <li style="padding-left:32px;position:relative"><span style="position:absolute;left:0;top:1px">🎤</span>Speakers, worship, and a keynote from Kari</li>
+        <li style="padding-left:32px;position:relative"><span style="position:absolute;left:0;top:1px">🍴</span>Lunch and fellowship together</li>
+        <li style="padding-left:32px;position:relative"><span style="position:absolute;left:0;top:1px">💚</span>A whole lot of new friends</li>
       </ul>
     </section>
-
-    ${agenda.length ? `
-    <section class="card">
-      <h2 style="font-family:'Fraunces',serif;font-weight:700;color:var(--ink);text-align:center;margin-bottom:6px">A little of the flow</h2>
-      <p style="font-family:'Fraunces',serif;font-style:italic;color:var(--ink-soft);font-size:.88rem;text-align:center;margin-bottom:14px">Pending final approval — but this is the shape of the day.</p>
-      <div style="display:grid;gap:6px">
-        ${agenda.map(row => `<div style="display:grid;grid-template-columns:100px 1fr;gap:12px;padding:6px 0;border-bottom:1px solid rgba(28,22,20,.06)"><div style="font-family:'Mulish',sans-serif;font-weight:800;font-size:.72rem;letter-spacing:.08em;color:var(--red);text-transform:uppercase">${esc(row.time)}</div><div style="font-family:'Fraunces',serif;font-size:.95rem;color:var(--ink)">${esc(row.activity)}</div></div>`).join('')}
-        ${event.agenda && event.agenda.length > 5 ? `<p style="font-family:'Fraunces',serif;font-style:italic;color:var(--ink-dim);font-size:.85rem;text-align:center;margin-top:8px">…and more</p>` : ''}
-      </div>
-    </section>` : ''}
 
     <form id="reg-form" autocomplete="on">
       <section class="card">
