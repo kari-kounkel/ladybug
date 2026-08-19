@@ -85,7 +85,7 @@ async function load(){
 }
 
 function render(data){
-  const {event, attendees, total_people} = data;
+  const {event, attendees, team_coming = [], total_people, attendee_total, team_total} = data;
   const rows = attendees.length === 0
     ? '<tr><td colspan="6" class="empty">No one has registered yet. Check back soon.</td></tr>'
     : attendees.map(a => `<tr>
@@ -97,6 +97,12 @@ function render(data){
         <td style="color:var(--ink-soft);font-size:.78rem;white-space:nowrap">${new Date(a.created_at).toLocaleDateString(undefined,{month:'short',day:'numeric'})}</td>
       </tr>`).join('');
 
+  const teamRows = team_coming.length === 0 ? '' : team_coming.map(m => `<tr>
+        <td><strong style="font-family:'Fraunces',serif">${esc(m.name)}</strong><div style="font-size:.72rem;color:var(--gold-deep);font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-top:2px">TEAM</div></td>
+        <td>${esc(m.email || '')}${m.phone ? '<br><span style="color:var(--ink-soft)">' + esc(m.phone) + '</span>' : ''}</td>
+        <td>${m.notes ? '<span style="color:var(--ink-soft);font-style:italic">' + esc(m.notes) + '</span>' : '<span style="color:var(--ink-dim)">—</span>'}</td>
+      </tr>`).join('');
+
   document.getElementById('app').innerHTML = `
     <div class="hdr">
       <p class="kicker">Attendee List</p>
@@ -104,16 +110,25 @@ function render(data){
       <p class="meta">${esc(prettyDate(event.event_date))}${event.time_range ? ' · ' + esc(event.time_range) : ''}</p>
       ${event.location ? `<p class="meta">${esc(event.location)}</p>` : ''}
       <div class="counts">
-        <div class="count"><div class="n">${attendees.length}</div><div class="l">Registrations</div></div>
-        <div class="count"><div class="n">${total_people}</div><div class="l">Total people</div></div>
+        <div class="count"><div class="n">${attendee_total ?? attendees.length}</div><div class="l">Registered</div></div>
+        <div class="count"><div class="n">${team_total ?? team_coming.length}</div><div class="l">Team attending</div></div>
+        <div class="count" style="border-color:var(--red);background:linear-gradient(180deg,#fff,#FCF1F2)"><div class="n">${total_people}</div><div class="l">Total people</div></div>
       </div>
     </div>
     <div class="card">
+      <h2 style="font-family:'Fraunces',serif;font-weight:700;font-size:1.1rem;color:var(--ink);padding:16px 20px 4px">Registered attendees (${attendees.length})</h2>
       <table>
         <thead><tr><th>Name</th><th>Contact</th><th style="text-align:center">Party</th><th>Church / City</th><th>Dietary / Notes</th><th>Registered</th></tr></thead>
         <tbody>${rows}</tbody>
       </table>
     </div>
+    ${team_coming.length ? `<div class="card">
+      <h2 style="font-family:'Fraunces',serif;font-weight:700;font-size:1.1rem;color:var(--ink);padding:16px 20px 4px">Team members attending (${team_coming.length})</h2>
+      <table>
+        <thead><tr><th>Name</th><th>Contact</th><th>Notes</th></tr></thead>
+        <tbody>${teamRows}</tbody>
+      </table>
+    </div>` : ''}
     <div class="print"><button onclick="window.print()">🖨 Print / save as PDF</button></div>`;
 }
 

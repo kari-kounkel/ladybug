@@ -33,14 +33,30 @@ export default async function handler(req, res) {
       .maybeSingle();
     if (!event) return res.status(404).json({ error: "not_found" });
 
-    const { data: attendees } = await supabase
-      .from("ladybug_attendees")
-      .select("name, email, phone, party_size, attending_with, home_church, city_state, dietary, notes, created_at")
-      .eq("event_id", event.id)
-      .order("created_at", { ascending: false });
+    const [{ data: attendees }, { data: team_coming }] = await Promise.all([
+      supabase
+        .from("ladybug_attendees")
+        .select("name, email, phone, party_size, attending_with, home_church, city_state, dietary, notes, created_at")
+        .eq("event_id", event.id)
+        .order("created_at", { ascending: false }),
+      supabase
+        .from("ladybug_team_members")
+        .select("name, email, phone, notes, updated_at")
+        .eq("event_id", event.id)
+        .eq("attendance_status", "coming")
+        .order("name"),
+    ]);
 
-    const total_people = (attendees || []).reduce((s, a) => s + (a.party_size || 1), 0);
-    return res.status(200).json({ event, attendees: attendees || [], total_people });
+    const attendeeTotal = (attendees || []).reduce((s, a) => s + (a.party_size || 1), 0);
+    const teamTotal = (team_coming || []).length;
+    return res.status(200).json({
+      event,
+      attendees: attendees || [],
+      team_coming: team_coming || [],
+      total_people: attendeeTotal + teamTotal,
+      attendee_total: attendeeTotal,
+      team_total: teamTotal,
+    });
   } catch (err) {
     return res.status(500).json({ error: "server_error", detail: err.message });
   }
