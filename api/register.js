@@ -20,7 +20,7 @@ function client() {
 async function getActiveEvent(supabase) {
   const { data } = await supabase
     .from("ladybug_team_events")
-    .select("id, slug, name, event_date, time_range, location")
+    .select("id, slug, name, event_date, time_range, location, agenda")
     .eq("active", true)
     .order("event_date", { ascending: false })
     .limit(1)

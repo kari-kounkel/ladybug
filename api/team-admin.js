@@ -69,7 +69,7 @@ async function loadEvent(supabase, slug) {
   const event = slug ? events.find((e) => e.slug === slug) : events[0];
   if (!event) return { events, event: null };
 
-  const [{ data: roles }, { data: members }, { data: signups }] = await Promise.all([
+  const [{ data: roles }, { data: members }, { data: signups }, { data: attendees }] = await Promise.all([
     supabase
       .from("ladybug_team_roles")
       .select("*")
@@ -92,6 +92,11 @@ async function loadEvent(supabase, slug) {
             .eq("event_id", event.id)
         ).data.map((m) => m.id).concat("00000000-0000-0000-0000-000000000000")
       ),
+    supabase
+      .from("ladybug_attendees")
+      .select("*")
+      .eq("event_id", event.id)
+      .order("created_at", { ascending: false }),
   ]);
 
   const signupsByMember = {};
@@ -115,7 +120,7 @@ async function loadEvent(supabase, slug) {
   }
   for (const k of Object.keys(tallies)) tallies[k].names.sort();
 
-  return { events, event, roles, members: enrichedMembers, tallies };
+  return { events, event, roles, members: enrichedMembers, tallies, attendees: attendees || [] };
 }
 
 export default async function handler(req, res) {

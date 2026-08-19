@@ -119,7 +119,7 @@ function renderLocked(msg){
 }
 
 function render(data){
-  const {events, event, roles, members, tallies} = data;
+  const {events, event, roles, members, tallies, attendees = []} = data;
   if (!event){
     document.getElementById('app').innerHTML = '<div class="wrap"><h1>No events yet</h1><p>Add one via the API.</p></div>';
     return;
@@ -194,7 +194,36 @@ function render(data){
       </section>
 
       <section class="card">
-        <h2>Members (${members.length})</h2>
+        <h2>Registered attendees (${attendees.length}${attendees.length ? ' · ' + attendees.reduce((s,a)=>s+(a.party_size||1),0) + ' people total' : ''})</h2>
+        <p class="sub">Public registrations from <strong>ladybug.karikounkel.com/register</strong>. Newest first.</p>
+        ${attendees.length === 0
+          ? '<p style="color:var(--ink-dim);font-style:italic;font-family:\'Fraunces\',serif;padding:12px 0">No one has registered yet.</p>'
+          : `<table>
+              <thead><tr><th>Name / contact</th><th>Party</th><th>Church / city</th><th>Dietary / notes</th><th>When</th></tr></thead>
+              <tbody>
+                ${attendees.map(a => `<tr>
+                  <td>
+                    <div style="font-family:'Fraunces',serif;font-weight:700;font-size:1rem">${esc(a.name)}</div>
+                    <div style="font-size:.78rem;color:var(--ink-soft)">${esc(a.email)}${a.phone ? ' · ' + esc(a.phone) : ''}</div>
+                  </td>
+                  <td style="font-size:.86rem">
+                    <div>${a.party_size || 1} ${(a.party_size || 1) === 1 ? 'person' : 'people'}</div>
+                    ${a.attending_with ? `<div style="color:var(--ink-soft);font-style:italic">with ${esc(a.attending_with)}</div>` : ''}
+                  </td>
+                  <td style="font-size:.86rem">${a.home_church ? esc(a.home_church) + '<br>' : ''}${a.city_state ? '<span style="color:var(--ink-soft)">' + esc(a.city_state) + '</span>' : ''}${!a.home_church && !a.city_state ? '<span style="color:var(--ink-dim)">—</span>' : ''}</td>
+                  <td style="font-size:.82rem">
+                    ${a.dietary ? '<div><strong style="color:var(--red-deep)">Diet:</strong> ' + esc(a.dietary) + '</div>' : ''}
+                    ${a.notes ? '<div style="margin-top:4px;color:var(--ink-soft);font-style:italic">' + esc(a.notes) + '</div>' : ''}
+                    ${!a.dietary && !a.notes ? '<span style="color:var(--ink-dim)">—</span>' : ''}
+                  </td>
+                  <td style="font-size:.78rem;color:var(--ink-soft);white-space:nowrap">${new Date(a.created_at).toLocaleDateString(undefined,{month:'short',day:'numeric'})}<br>${new Date(a.created_at).toLocaleTimeString(undefined,{hour:'numeric',minute:'2-digit'})}</td>
+                </tr>`).join('')}
+              </tbody>
+            </table>`}
+      </section>
+
+      <section class="card">
+        <h2>Team members (${members.length})</h2>
         <table>
           <thead><tr><th>Name / contact</th><th>Signed up for</th><th style="text-align:right">Actions</th></tr></thead>
           <tbody>${membersHtml}</tbody>
