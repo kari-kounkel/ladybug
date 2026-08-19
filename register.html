@@ -104,9 +104,19 @@ function prettyDate(iso){
 
 function render(data){
   const {event, registrations, total_people} = data;
-  const already = total_people
-    ? (total_people === 1 ? "You'll be the first to register. 🐞" : `You'll be joining ${total_people} others already registered.`)
+  const headcount = data.headcount ?? total_people;
+  const remaining = data.remaining;
+  const isFull = data.full === true;
+  const already = headcount
+    ? (headcount === 1 ? "You'll be the first person coming. 🐞" : `You'll be joining ${headcount} others already coming.`)
     : "";
+  const capNote = (remaining != null)
+    ? (isFull
+        ? '<p class="count-pill" style="background:rgba(177,18,38,.1);border-color:var(--red);color:var(--red-deep)"><strong>This event is full.</strong> Text Kari if you want on the waitlist.</p>'
+        : (remaining <= 15
+            ? `<p class="count-pill" style="background:rgba(194,154,59,.15);border-color:var(--gold);color:var(--gold-deep)"><strong>Only ${remaining} ${remaining === 1 ? 'spot' : 'spots'} left</strong> — capacity is ${data.capacity}.</p>`
+            : ''))
+    : '';
 
   wrap.innerHTML = `
     <p class="kicker">Register</p>
@@ -114,6 +124,7 @@ function render(data){
     <p class="event-meta">${esc(prettyDate(event.event_date))}${event.time_range ? ' · ' + esc(event.time_range) : ''}</p>
     ${event.location ? `<p class="event-loc">${esc(event.location)}</p>` : ''}
     ${already ? `<p class="count-pill">${esc(already)}</p>` : ''}
+    ${capNote}
 
     <section class="card" style="background:linear-gradient(180deg,#fff,#FCF1F2);border-color:var(--red-soft)">
       <h2 style="font-family:'Fraunces',serif;font-weight:700;color:var(--red-deep);text-align:center;margin-bottom:12px">What to expect</h2>
