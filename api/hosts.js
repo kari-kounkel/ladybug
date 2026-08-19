@@ -39,12 +39,9 @@ export default async function handler(req, res) {
         .select("name, email, phone, party_size, attending_with, home_church, city_state, dietary, notes, created_at")
         .eq("event_id", event.id)
         .order("created_at", { ascending: false }),
-      supabase
-        .from("ladybug_team_members")
-        .select("name, email, phone, notes, updated_at")
-        .eq("event_id", event.id)
-        .eq("attendance_status", "coming")
-        .order("name"),
+      // Team is "attending" if EITHER they RSVP'd coming OR they picked any role
+      // (role-picking is a stronger commitment than the RSVP toggle).
+      supabase.rpc("ladybug_team_attending", { p_event_id: event.id }),
     ]);
 
     const attendeeTotal = (attendees || []).reduce((s, a) => s + (a.party_size || 1), 0);
