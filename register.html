@@ -197,6 +197,11 @@ function render(data){
         method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload)
       });
       const j = await r.json();
+      if (r.status === 409 && j.error === 'capacity_exceeded'){
+        btn.disabled = false; btn.textContent = 'Save my spot 🐞';
+        showError(`Sorry — only ${j.remaining} ${j.remaining === 1 ? 'spot is' : 'spots are'} left and you asked for ${j.party_size}. Try a smaller party size, or text Kari to be added to the waitlist.`);
+        return;
+      }
       if (!r.ok || !j.ok) throw new Error(j.detail || j.error || 'save failed');
       showThanks(payload.name);
       if (typeof gtag === 'function') gtag('event', 'ladybug_registration', {event_slug: event.slug});
