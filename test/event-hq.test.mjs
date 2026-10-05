@@ -132,7 +132,7 @@ adminDom.window.fetch=async(url,opts={})=>{
 for(const script of adminDom.window.document.querySelectorAll('script:not([src])'))adminDom.window.eval(script.textContent);
 adminDom.window.eval(fs.readFileSync('event-hq.js','utf8'));
 await new Promise(r=>setTimeout(r,40));
-assert.match(adminDom.window.document.body.textContent,/41 stored places/);
+assert.match(adminDom.window.document.body.textContent,/30 people on the guest list/);
 assert.match(adminDom.window.document.body.textContent,/Laurie Geisse/);
 assert.match(adminDom.window.document.body.textContent,/Attendance needs confirmation/);
 adminDom.window.document.querySelector('[data-copy=everyone]').click();

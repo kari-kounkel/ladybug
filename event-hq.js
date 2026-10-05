@@ -10,8 +10,8 @@ function renderHQ(data) {
   const main=document.querySelector('main.wrap');
   main.querySelector('h1').textContent='Ladybug Event HQ';
   const summary=card('People, places and email delivery',
-    '<p><strong>'+a.total_places+' stored places · '+a.unique_addresses+' unique delivery addresses</strong></p>'+
-    '<p>'+a.public_records+' guest registrations represent '+a.guest_places+' places; '+a.team_people+' participating team members. Shared email addresses do not merge people.</p>'+
+    '<p><strong>'+a.public_records+' people on the guest list · '+a.unique_addresses+' unique delivery addresses</strong></p>'+
+    '<p>'+a.public_records+' named guest registrations; '+a.team_people+' participating team members shown separately. Companion names may already appear in the list, so party sizes are not added to the people count. Shared email addresses do not merge people.</p>'+
     '<div class="actions">'+['guests','team','everyone'].map(k=>'<button class="btn small" data-copy="'+k+'">Copy '+({guests:'Guests',team:'Team',everyone:'Everyone'}[k])+' email list ('+a.emails[k].length+')</button>').join('')+'</div>'+
     '<p id="copy-result" role="status"></p><textarea id="email-fallback" aria-label="Email list for manual copying" hidden readonly></textarea>'+
     a.attendance_flags.map(f=>'<div class="hq-warning"><strong>Attendance needs confirmation: '+f.names.map(esc).join(' / ')+'</strong><p>'+f.places+' stored places may represent two people. '+esc(f.message)+'</p></div>').join('')+
