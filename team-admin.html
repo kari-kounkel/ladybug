@@ -214,7 +214,7 @@ function render(data){
       </section>
 
       <section class="card">
-        <h2>Registered attendees (${attendees.length}${attendees.length ? ' · ' + attendees.reduce((s,a)=>s+(a.party_size||1),0) + ' people total' : ''})</h2>
+        <h2>Registered attendees (${attendees.length}${attendees.length ? ' · ' + attendees.reduce((s,a)=>s+(a.party_size||1),0) + ' reported party places (includes listed companions)' : ''})</h2>
         <p class="sub">Registrations from <strong>ladybug.karikounkel.com/register</strong> + admin-added. Newest first.</p>
         ${attendees.length === 0
           ? '<p style="color:var(--ink-dim);font-style:italic;font-family:\'Fraunces\',serif;padding:12px 0">No one has registered yet.</p>'
