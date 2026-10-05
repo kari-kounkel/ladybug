@@ -121,7 +121,11 @@ async function loadEvent(supabase, slug) {
   }
   for (const k of Object.keys(tallies)) tallies[k].names.sort();
 
-  return { events, event, roles, members: enrichedMembers, tallies, attendees: attendees || [], assignments: signups, audience: audience(attendees || [], enrichedMembers) };
+  const adminAudience=audience(attendees || [], enrichedMembers);
+  // Kari confirmed these two guests are attending together, not four people.
+  const resolvedPair=['fdf4631c-7c2c-4a67-9249-d25050ca4964','1770c3e7-d62a-47b3-b774-8b2089938f2f'];
+  adminAudience.attendance_flags=adminAudience.attendance_flags.filter(flag=>!flag.ids.every(id=>resolvedPair.includes(id)));
+  return { events, event, roles, members: enrichedMembers, tallies, attendees: attendees || [], assignments: signups, audience: adminAudience };
 }
 
 export default async function handler(req, res) {
