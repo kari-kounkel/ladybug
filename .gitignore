@@ -9,3 +9,9 @@ node_modules
 .vercel
 cover-preview/
 
+
+.private/
+.local-backups/
+excavation-2026-10-04/
+STATUS.md
+CLAUDE.md

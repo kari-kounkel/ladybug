@@ -3,16 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!-- Google Analytics 4 -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-T1PLCXES2Y"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-T1PLCXES2Y');
-</script>
+
 <title>Team Sign-Up · Ladybug, Ladybug</title>
 <meta name="robots" content="noindex">
+<meta name="referrer" content="no-referrer">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,400;1,9..144,500;1,9..144,600&family=Mulish:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
@@ -191,9 +185,12 @@ function renderNamePicker(data){
   });
 }
 
+let lastContext = null;
 let currentRoles = [];    // cached at render time so save handlers can read them
 let currentMemberName = '';
 function renderPage(data){
+  data = {...lastContext,...data};
+  lastContext = data;
   const { event, roles, member, my_signups, tallies } = data;
   currentRoles = roles;
   currentMemberName = member.name || '';
@@ -228,15 +225,17 @@ function renderPage(data){
       <div class="field"><label for="notes">Notes for Kari (optional)</label><textarea id="notes" name="notes" placeholder="Anything Kari should know — allergies, kids you'll bring, times you can't stay">${esc(member.notes || '')}</textarea></div>
     </section>
 
-    ${member.is_admin ? `<div class="packet-card" style="background:linear-gradient(180deg,#fff,#FBF5EB);border-color:var(--gold-deep)"><div class="pl"><h3>🔑 Admin Overview</h3><p>Jump to the admin dashboard — see everyone's signups + tallies.</p></div><a href="/team-admin?t=${esc(token)}" style="background:var(--gold-deep);border-color:var(--gold-deep)">Open Admin →</a></div>` : ''}
+    ${member.is_admin ? `<div class="packet-card" style="background:linear-gradient(180deg,#fff,#FBF5EB);border-color:var(--gold-deep)"><div class="pl"><h3>🔑 Admin Overview</h3><p>Jump to the admin dashboard — see everyone's signups + tallies.</p></div><a href="/team-admin" style="background:var(--gold-deep);border-color:var(--gold-deep)">Open Admin →</a></div>` : ''}
     ${member.packet_url ? `<div class="packet-card"><div class="pl"><h3>📖 Your Rooted Conversation Guide</h3><p>Your podcast packet — read before we record. Link expires in 24 hours, so save it to your device.</p></div><a href="${esc(member.packet_url)}" target="_blank" rel="noopener" download>Download PDF</a></div>` : ''}
 
+    ${event.hq_details?.team_arrival ? '<section class="card"><h2>Team arrival / setup</h2><p>'+esc(event.hq_details.team_arrival)+'</p></section>' : ''}
+    ${event.team_updates?.length ? '<section class="card"><h2>Team updates</h2>'+event.team_updates.map(u=>'<h3>'+esc(u.title)+'</h3><p style="white-space:pre-wrap">'+esc(u.body)+'</p>').join('')+'</section>' : ''}
     ${event.agenda && event.agenda.length ? `
     <section class="card">
       <h2>The day's agenda</h2>
       <p class="sub">Here's the flow for October 10th — <strong style="color:var(--red-deep)">pending final approval from the hosts.</strong></p>
       <div class="agenda">
-        ${event.agenda.map(item => `<div class="agenda-row"><div class="t">${esc(item.time)}</div><div class="a">${esc(item.activity)}</div></div>`).join('')}
+        ${event.agenda.map(item => `<div class="agenda-row"><div class="t">${esc(item.time)}</div><div class="a">${esc(item.activity)}${item.end ? ' — ends '+esc(item.end) : ''}${item.description ? '<p>'+esc(item.description)+'</p>' : ''}${item.responsible?.length ? '<p>Responsible: '+item.responsible.map(id => esc((data.team_names || []).find(m=>m.id===id)?.name || '')).join(', ')+'</p>' : ''}</div></div>`).join('')}
       </div>
     </section>` : ''}
 
@@ -354,7 +353,6 @@ loadPage();
 </script>
 
 
-<!-- Ask Kari widget -->
-<script src="https://chat.karikounkel.com/widget.js" defer></script>
+
 </body>
 </html>

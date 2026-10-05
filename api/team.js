@@ -10,6 +10,7 @@
 // tables — this function is the only public entry point, so validation
 // lives here.
 
+import { sharedEvent } from "../lib/event-hq.js";
 import { createClient } from "@supabase/supabase-js";
 
 const clean = (s) => (s || "").replace(/^[﻿\s]+|\s+$/g, "");
@@ -71,7 +72,7 @@ async function loadMemberContext(supabase, token) {
   const memberIds = allMembers.map((m) => m.id);
   const { data: allSignups, error: asErr } = await supabase
     .from("ladybug_team_signups")
-    .select("member_id, role_key, created_at")
+    .select("member_id, role_key, created_at, status")
     .in("member_id", memberIds.length ? memberIds : ["00000000-0000-0000-0000-000000000000"]);
   if (asErr) throw asErr;
 
@@ -89,7 +90,7 @@ async function loadMemberContext(supabase, token) {
     .filter((s) => s.member_id === member.id)
     .map((s) => s.role_key);
 
-  return { event, roles, member, mySignups, tallies };
+  return { event: sharedEvent(event), roles, member, mySignups, tallies, myProgress: allSignups.filter(s => s.member_id === member.id).map(({role_key,status}) => ({role_key,status})), teamNames: allMembers };
 }
 
 export default async function handler(req, res) {
@@ -115,11 +116,13 @@ export default async function handler(req, res) {
         .limit(1)
         .maybeSingle();
       if (!event) return res.status(404).json({ error: "no_active_event" });
-      const { data: members } = await supabase
+      const { data: members, error: listError } = await supabase
         .from("ladybug_team_members")
         .select("name, token")
         .eq("event_id", event.id)
+        .eq("is_admin", false)
         .order("name");
+      if (listError) throw listError;
       return res.status(200).json({ event, members: members || [] });
     } catch (err) {
       return res.status(500).json({ error: "server_error", detail: err.message });
@@ -148,6 +151,8 @@ export default async function handler(req, res) {
           is_admin: !!ctx.member.is_admin,
         },
         my_signups: ctx.mySignups,
+        my_progress: ctx.myProgress,
+        team_names: ctx.teamNames,
         tallies: ctx.tallies,
       });
     }
@@ -183,22 +188,26 @@ export default async function handler(req, res) {
         const roleKey = body.add_role.trim();
         const validRole = initial.roles.some((r) => r.role_key === roleKey);
         if (validRole) {
-          await supabase
+          const { error: signupError } = await supabase
             .from("ladybug_team_signups")
-            .upsert({ member_id: memberId, role_key: roleKey }, { onConflict: "member_id,role_key" });
+            .upsert({ member_id: memberId, role_key: roleKey }, { onConflict: "member_id,role_key", ignoreDuplicates: true });
+          if (signupError) throw signupError;
         }
       }
       if (body.remove_role && typeof body.remove_role === "string") {
-        await supabase
+        const { error: removalError } = await supabase
           .from("ladybug_team_signups")
           .delete()
           .eq("member_id", memberId)
           .eq("role_key", body.remove_role.trim());
+        if (removalError) throw removalError;
       }
 
       const ctx = await loadMemberContext(supabase, token);
       return res.status(200).json({
         ok: true,
+        event: ctx.event,
+        roles: ctx.roles,
         member: {
           name: ctx.member.name,
           phone: ctx.member.phone,
@@ -207,8 +216,11 @@ export default async function handler(req, res) {
           attendance_status: ctx.member.attendance_status,
           packet_url: ctx.member._packet_url,
           packet_filename: ctx.member.packet_filename,
+          is_admin: !!ctx.member.is_admin,
         },
         my_signups: ctx.mySignups,
+        my_progress: ctx.myProgress,
+        team_names: ctx.teamNames,
         tallies: ctx.tallies,
       });
     }

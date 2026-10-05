@@ -1,0 +1,702 @@
+{
+  "event": {
+    "id": "00000000-0000-4000-8000-000000000001",
+    "slug": "oct-10-2026",
+    "name": "Ladybug Day",
+    "event_date": "2026-10-10",
+    "time_range": "8:30 AM – 1:00 PM",
+    "location": "4282 114th St NW, Maple Lake, MN 55358",
+    "active": true,
+    "hosts_token": "test-hosts-token",
+    "agenda": [
+      {
+        "time": "8:30 AM",
+        "activity": "Arrival / Social"
+      },
+      {
+        "time": "9:15 AM",
+        "activity": "Welcome / Theme Song"
+      },
+      {
+        "time": "9:30 AM",
+        "activity": "Speakers"
+      },
+      {
+        "time": "10:15 AM",
+        "activity": "Art Session"
+      },
+      {
+        "time": "11:00 AM",
+        "activity": "Kari's Keynote"
+      },
+      {
+        "time": "11:40 AM",
+        "activity": "Art Session / Wrap Up"
+      },
+      {
+        "time": "12:00 PM",
+        "activity": "Parade / Activity"
+      },
+      {
+        "time": "12:30 PM",
+        "activity": "Lunch / Social"
+      },
+      {
+        "time": "1:00 PM",
+        "activity": "Ends"
+      }
+    ],
+    "hq_details": {
+      "venue": "Silver Creek"
+    },
+    "team_updates": []
+  },
+  "roles": [
+    {
+      "id": "role-0",
+      "event_id": "00000000-0000-4000-8000-000000000001",
+      "role_key": "welcome",
+      "name": "Welcome Team",
+      "description": "Arrive early, greet guests, hand out name tags + schedules, help everyone find a seat.",
+      "min_needed": 4,
+      "max_needed": 6,
+      "icon": "💖",
+      "sort_order": 1,
+      "time_slot": "8:00 – 9:15 AM"
+    },
+    {
+      "id": "role-1",
+      "event_id": "00000000-0000-4000-8000-000000000001",
+      "role_key": "book",
+      "name": "Book & Resource Table",
+      "description": "Staff the book table between activities — hand out books, take payments, answer questions.",
+      "min_needed": 3,
+      "max_needed": 4,
+      "icon": "📖",
+      "sort_order": 2,
+      "time_slot": "8:30 AM – 1:00 PM (as needed)"
+    },
+    {
+      "id": "role-2",
+      "event_id": "00000000-0000-4000-8000-000000000001",
+      "role_key": "art",
+      "name": "Art & Craft Guides",
+      "description": "Guide the two art sessions — Bug-Off Box decorating (session 1) + speaker-tied craft (session 2). Provide supplies + encouragement.",
+      "min_needed": 6,
+      "max_needed": 10,
+      "icon": "🎨",
+      "sort_order": 3,
+      "time_slot": "10:15 – 10:45 AM · 11:40 AM – 12:00 PM"
+    },
+    {
+      "id": "role-3",
+      "event_id": "00000000-0000-4000-8000-000000000001",
+      "role_key": "speakers",
+      "name": "Speakers & Sharers",
+      "description": "Short authentic talks — each tied to a chapter/flower. Kari coordinates the lineup based on who can come.",
+      "min_needed": 3,
+      "max_needed": 4,
+      "icon": "🎤",
+      "sort_order": 5,
+      "time_slot": "9:30 – 10:15 AM"
+    },
+    {
+      "id": "role-4",
+      "event_id": "00000000-0000-4000-8000-000000000001",
+      "role_key": "prayer_speakers",
+      "name": "Prayer Over the Speakers",
+      "description": "A short spoken prayer over the speaker block — you take the mic just before the speakers do. Part of the program.",
+      "min_needed": 3,
+      "max_needed": 5,
+      "icon": "🙏",
+      "sort_order": 6,
+      "time_slot": "9:25 AM (right before Speakers)"
+    },
+    {
+      "id": "role-5",
+      "event_id": "00000000-0000-4000-8000-000000000001",
+      "role_key": "photos",
+      "name": "Photos & Memories",
+      "description": "Capture candids and posed shots throughout — for our memory book and future promo.",
+      "min_needed": 2,
+      "max_needed": 3,
+      "icon": "📷",
+      "sort_order": 7,
+      "time_slot": "8:30 AM – 1:00 PM (all day)"
+    }
+  ],
+  "members": [
+    {
+      "id": "00000000-0000-4000-8001-000000000001",
+      "event_id": "00000000-0000-4000-8000-000000000001",
+      "name": "Team Member 1",
+      "email": "team0@example.test",
+      "phone": "",
+      "notes": "",
+      "attendance_status": null,
+      "first_signup_at": null,
+      "is_admin": false,
+      "is_host": false,
+      "token": "test-member-token-0",
+      "packet_filename": null,
+      "signups": []
+    },
+    {
+      "id": "00000000-0000-4000-8001-000000000002",
+      "event_id": "00000000-0000-4000-8000-000000000001",
+      "name": "Team Member 2",
+      "email": "team1@example.test",
+      "phone": "",
+      "notes": "",
+      "attendance_status": null,
+      "first_signup_at": "2026-08-18T03:22:39.940668-05:00",
+      "is_admin": false,
+      "is_host": false,
+      "token": "test-member-token-1",
+      "packet_filename": null,
+      "signups": [
+        "photos",
+        "book"
+      ]
+    },
+    {
+      "id": "00000000-0000-4000-8001-000000000003",
+      "event_id": "00000000-0000-4000-8000-000000000001",
+      "name": "Team Member 3",
+      "email": "team2@example.test",
+      "phone": "",
+      "notes": "",
+      "attendance_status": "coming",
+      "first_signup_at": "2026-08-17T21:11:19.522105-05:00",
+      "is_admin": false,
+      "is_host": false,
+      "token": "test-member-token-2",
+      "packet_filename": null,
+      "signups": [
+        "speakers",
+        "art"
+      ]
+    },
+    {
+      "id": "00000000-0000-4000-8001-000000000004",
+      "event_id": "00000000-0000-4000-8000-000000000001",
+      "name": "Team Member 4",
+      "email": "team3@example.test",
+      "phone": "",
+      "notes": "",
+      "attendance_status": null,
+      "first_signup_at": null,
+      "is_admin": false,
+      "is_host": false,
+      "token": "test-member-token-3",
+      "packet_filename": null,
+      "signups": []
+    },
+    {
+      "id": "00000000-0000-4000-8001-000000000005",
+      "event_id": "00000000-0000-4000-8000-000000000001",
+      "name": "Team Member 5",
+      "email": "team4@example.test",
+      "phone": "",
+      "notes": "",
+      "attendance_status": "unsure",
+      "first_signup_at": "2026-08-27T17:24:32.542333-05:00",
+      "is_admin": false,
+      "is_host": false,
+      "token": "test-member-token-4",
+      "packet_filename": null,
+      "signups": [
+        "photos"
+      ]
+    },
+    {
+      "id": "00000000-0000-4000-8001-000000000006",
+      "event_id": "00000000-0000-4000-8000-000000000001",
+      "name": "Team Member 6",
+      "email": "team5@example.test",
+      "phone": "",
+      "notes": "",
+      "attendance_status": "coming",
+      "first_signup_at": "2026-08-18T22:21:52.303846-05:00",
+      "is_admin": false,
+      "is_host": false,
+      "token": "test-member-token-5",
+      "packet_filename": null,
+      "signups": [
+        "welcome",
+        "speakers"
+      ]
+    },
+    {
+      "id": "00000000-0000-4000-8001-000000000007",
+      "event_id": "00000000-0000-4000-8000-000000000001",
+      "name": "Team Member 7",
+      "email": "team6@example.test",
+      "phone": "",
+      "notes": "",
+      "attendance_status": "coming",
+      "first_signup_at": "2026-09-01T15:46:00.820288-05:00",
+      "is_admin": false,
+      "is_host": false,
+      "token": "test-member-token-6",
+      "packet_filename": null,
+      "signups": [
+        "art"
+      ]
+    },
+    {
+      "id": "00000000-0000-4000-8001-000000000008",
+      "event_id": "00000000-0000-4000-8000-000000000001",
+      "name": "Team Member 8",
+      "email": "team7@example.test",
+      "phone": "",
+      "notes": "",
+      "attendance_status": "coming",
+      "first_signup_at": "2026-08-17T20:51:59.865051-05:00",
+      "is_admin": true,
+      "is_host": false,
+      "token": "test-member-token-7",
+      "packet_filename": null,
+      "signups": [
+        "welcome",
+        "art",
+        "speakers",
+        "prayer_speakers"
+      ]
+    },
+    {
+      "id": "00000000-0000-4000-8001-000000000009",
+      "event_id": "00000000-0000-4000-8000-000000000001",
+      "name": "Laurie Geisse",
+      "email": "team8@example.test",
+      "phone": "",
+      "notes": "",
+      "attendance_status": "coming",
+      "first_signup_at": "2026-08-20T11:00:05.792954-05:00",
+      "is_admin": false,
+      "is_host": false,
+      "token": "test-member-token-8",
+      "packet_filename": null,
+      "signups": [
+        "photos",
+        "book"
+      ]
+    },
+    {
+      "id": "00000000-0000-4000-8001-000000000010",
+      "event_id": "00000000-0000-4000-8000-000000000001",
+      "name": "Team Member 10",
+      "email": "team9@example.test",
+      "phone": "",
+      "notes": "",
+      "attendance_status": "coming",
+      "first_signup_at": "2026-08-18T16:53:29.534516-05:00",
+      "is_admin": false,
+      "is_host": false,
+      "token": "test-member-token-9",
+      "packet_filename": null,
+      "signups": [
+        "welcome",
+        "art",
+        "book"
+      ]
+    },
+    {
+      "id": "00000000-0000-4000-8001-000000000011",
+      "event_id": "00000000-0000-4000-8000-000000000001",
+      "name": "Team Member 11",
+      "email": "team10@example.test",
+      "phone": "",
+      "notes": "",
+      "attendance_status": null,
+      "first_signup_at": null,
+      "is_admin": false,
+      "is_host": false,
+      "token": "test-member-token-10",
+      "packet_filename": null,
+      "signups": []
+    },
+    {
+      "id": "00000000-0000-4000-8001-000000000012",
+      "event_id": "00000000-0000-4000-8000-000000000001",
+      "name": "Team Member 12",
+      "email": "team11@example.test",
+      "phone": "",
+      "notes": "",
+      "attendance_status": "coming",
+      "first_signup_at": "2026-08-17T20:56:13.267184-05:00",
+      "is_admin": false,
+      "is_host": false,
+      "token": "test-member-token-11",
+      "packet_filename": null,
+      "signups": [
+        "welcome",
+        "book",
+        "prayer_speakers",
+        "photos"
+      ]
+    }
+  ],
+  "attendees": [
+    {
+      "id": "guest-0",
+      "event_id": "00000000-0000-4000-8000-000000000001",
+      "name": "Guest 1",
+      "email": "shared@example.test",
+      "phone": "",
+      "notes": "",
+      "party_size": 1,
+      "status": "registered",
+      "attending_with": "",
+      "created_at": "2026-10-04T18:51:52.184459-05:00"
+    },
+    {
+      "id": "guest-1",
+      "event_id": "00000000-0000-4000-8000-000000000001",
+      "name": "Mary Tessmer",
+      "email": "shared@example.test",
+      "phone": "",
+      "notes": "",
+      "party_size": 2,
+      "status": "registered",
+      "attending_with": "Judy Dahle",
+      "created_at": "2026-10-02T09:07:59.008998-05:00"
+    },
+    {
+      "id": "guest-2",
+      "event_id": "00000000-0000-4000-8000-000000000001",
+      "name": "Judy M Dahle",
+      "email": "shared@example.test",
+      "phone": "",
+      "notes": "",
+      "party_size": 2,
+      "status": "registered",
+      "attending_with": "Mary Tessmer",
+      "created_at": "2026-10-02T08:27:55.592208-05:00"
+    },
+    {
+      "id": "guest-3",
+      "event_id": "00000000-0000-4000-8000-000000000001",
+      "name": "Guest 4",
+      "email": "guest3@example.test",
+      "phone": "",
+      "notes": "",
+      "party_size": 1,
+      "status": "registered",
+      "attending_with": "",
+      "created_at": "2026-09-29T16:07:09.293896-05:00"
+    },
+    {
+      "id": "guest-4",
+      "event_id": "00000000-0000-4000-8000-000000000001",
+      "name": "Guest 5",
+      "email": "guest4@example.test",
+      "phone": "",
+      "notes": "",
+      "party_size": 1,
+      "status": "registered",
+      "attending_with": "",
+      "created_at": "2026-09-27T16:41:01.055015-05:00"
+    },
+    {
+      "id": "guest-5",
+      "event_id": "00000000-0000-4000-8000-000000000001",
+      "name": "Guest 6",
+      "email": "guest5@example.test",
+      "phone": "",
+      "notes": "",
+      "party_size": 1,
+      "status": "registered",
+      "attending_with": "",
+      "created_at": "2026-09-20T15:29:43.796242-05:00"
+    },
+    {
+      "id": "guest-6",
+      "event_id": "00000000-0000-4000-8000-000000000001",
+      "name": "Guest 7",
+      "email": "guest6@example.test",
+      "phone": "",
+      "notes": "",
+      "party_size": 1,
+      "status": "registered",
+      "attending_with": "",
+      "created_at": "2026-09-17T08:24:18.211605-05:00"
+    },
+    {
+      "id": "guest-7",
+      "event_id": "00000000-0000-4000-8000-000000000001",
+      "name": "Guest 8",
+      "email": "guest7@example.test",
+      "phone": "",
+      "notes": "",
+      "party_size": 1,
+      "status": "registered",
+      "attending_with": "",
+      "created_at": "2026-09-14T08:36:41.958501-05:00"
+    },
+    {
+      "id": "guest-8",
+      "event_id": "00000000-0000-4000-8000-000000000001",
+      "name": "Guest 9",
+      "email": "guest8@example.test",
+      "phone": "",
+      "notes": "",
+      "party_size": 1,
+      "status": "registered",
+      "attending_with": "",
+      "created_at": "2026-09-14T08:35:45.908498-05:00"
+    },
+    {
+      "id": "guest-9",
+      "event_id": "00000000-0000-4000-8000-000000000001",
+      "name": "Guest 10",
+      "email": "guest9@example.test",
+      "phone": "",
+      "notes": "",
+      "party_size": 1,
+      "status": "registered",
+      "attending_with": "",
+      "created_at": "2026-09-14T08:34:53.561077-05:00"
+    },
+    {
+      "id": "guest-10",
+      "event_id": "00000000-0000-4000-8000-000000000001",
+      "name": "Guest 11",
+      "email": "guest10@example.test",
+      "phone": "",
+      "notes": "",
+      "party_size": 1,
+      "status": "registered",
+      "attending_with": "",
+      "created_at": "2026-09-14T08:33:44.569179-05:00"
+    },
+    {
+      "id": "guest-11",
+      "event_id": "00000000-0000-4000-8000-000000000001",
+      "name": "Guest 12",
+      "email": "guest11@example.test",
+      "phone": "",
+      "notes": "",
+      "party_size": 1,
+      "status": "registered",
+      "attending_with": "",
+      "created_at": "2026-09-07T09:11:14.990653-05:00"
+    },
+    {
+      "id": "guest-12",
+      "event_id": "00000000-0000-4000-8000-000000000001",
+      "name": "Guest 13",
+      "email": "guest12@example.test",
+      "phone": "",
+      "notes": "",
+      "party_size": 1,
+      "status": "registered",
+      "attending_with": "",
+      "created_at": "2026-09-07T09:09:37.850696-05:00"
+    },
+    {
+      "id": "guest-13",
+      "event_id": "00000000-0000-4000-8000-000000000001",
+      "name": "Guest 14",
+      "email": "guest13@example.test",
+      "phone": "",
+      "notes": "",
+      "party_size": 1,
+      "status": "registered",
+      "attending_with": "",
+      "created_at": "2026-09-07T09:08:19.654507-05:00"
+    },
+    {
+      "id": "guest-14",
+      "event_id": "00000000-0000-4000-8000-000000000001",
+      "name": "Guest 15",
+      "email": "guest14@example.test",
+      "phone": "",
+      "notes": "",
+      "party_size": 1,
+      "status": "registered",
+      "attending_with": "",
+      "created_at": "2026-09-07T09:07:09.807363-05:00"
+    },
+    {
+      "id": "guest-15",
+      "event_id": "00000000-0000-4000-8000-000000000001",
+      "name": "Guest 16",
+      "email": "guest15@example.test",
+      "phone": "",
+      "notes": "",
+      "party_size": 1,
+      "status": "registered",
+      "attending_with": "",
+      "created_at": "2026-09-07T09:05:57.963254-05:00"
+    },
+    {
+      "id": "guest-16",
+      "event_id": "00000000-0000-4000-8000-000000000001",
+      "name": "Guest 17",
+      "email": "guest16@example.test",
+      "phone": "",
+      "notes": "",
+      "party_size": 1,
+      "status": "registered",
+      "attending_with": "",
+      "created_at": "2026-09-07T09:04:42.124504-05:00"
+    },
+    {
+      "id": "guest-17",
+      "event_id": "00000000-0000-4000-8000-000000000001",
+      "name": "Guest 18",
+      "email": "guest17@example.test",
+      "phone": "",
+      "notes": "",
+      "party_size": 1,
+      "status": "registered",
+      "attending_with": "",
+      "created_at": "2026-09-07T09:03:43.221962-05:00"
+    },
+    {
+      "id": "guest-18",
+      "event_id": "00000000-0000-4000-8000-000000000001",
+      "name": "Guest 19",
+      "email": "guest18@example.test",
+      "phone": "",
+      "notes": "",
+      "party_size": 1,
+      "status": "registered",
+      "attending_with": "",
+      "created_at": "2026-09-07T09:02:26.041753-05:00"
+    },
+    {
+      "id": "guest-19",
+      "event_id": "00000000-0000-4000-8000-000000000001",
+      "name": "Guest 20",
+      "email": "guest19@example.test",
+      "phone": "",
+      "notes": "",
+      "party_size": 1,
+      "status": "registered",
+      "attending_with": "",
+      "created_at": "2026-09-07T09:01:04.535133-05:00"
+    },
+    {
+      "id": "guest-20",
+      "event_id": "00000000-0000-4000-8000-000000000001",
+      "name": "Guest 21",
+      "email": "guest20@example.test",
+      "phone": "",
+      "notes": "",
+      "party_size": 1,
+      "status": "registered",
+      "attending_with": "",
+      "created_at": "2026-09-07T08:59:52.906584-05:00"
+    },
+    {
+      "id": "guest-21",
+      "event_id": "00000000-0000-4000-8000-000000000001",
+      "name": "Guest 22",
+      "email": "guest21@example.test",
+      "phone": "",
+      "notes": "",
+      "party_size": 1,
+      "status": "registered",
+      "attending_with": "",
+      "created_at": "2026-09-07T08:57:01.994297-05:00"
+    },
+    {
+      "id": "guest-22",
+      "event_id": "00000000-0000-4000-8000-000000000001",
+      "name": "Guest 23",
+      "email": "guest22@example.test",
+      "phone": "",
+      "notes": "",
+      "party_size": 1,
+      "status": "registered",
+      "attending_with": "",
+      "created_at": "2026-09-06T18:03:10.428018-05:00"
+    },
+    {
+      "id": "guest-23",
+      "event_id": "00000000-0000-4000-8000-000000000001",
+      "name": "Guest 24",
+      "email": "guest23@example.test",
+      "phone": "",
+      "notes": "",
+      "party_size": 1,
+      "status": "registered",
+      "attending_with": "",
+      "created_at": "2026-09-05T17:50:21.376368-05:00"
+    },
+    {
+      "id": "guest-24",
+      "event_id": "00000000-0000-4000-8000-000000000001",
+      "name": "Guest 25",
+      "email": "guest24@example.test",
+      "phone": "",
+      "notes": "",
+      "party_size": 1,
+      "status": "registered",
+      "attending_with": "",
+      "created_at": "2026-09-05T17:13:17.667721-05:00"
+    },
+    {
+      "id": "guest-25",
+      "event_id": "00000000-0000-4000-8000-000000000001",
+      "name": "Guest 26",
+      "email": "guest25@example.test",
+      "phone": "",
+      "notes": "",
+      "party_size": 1,
+      "status": "registered",
+      "attending_with": "",
+      "created_at": "2026-09-05T08:12:51.16533-05:00"
+    },
+    {
+      "id": "guest-26",
+      "event_id": "00000000-0000-4000-8000-000000000001",
+      "name": "Guest 27",
+      "email": "guest26@example.test",
+      "phone": "",
+      "notes": "",
+      "party_size": 1,
+      "status": "registered",
+      "attending_with": "",
+      "created_at": "2026-09-05T06:05:50.226643-05:00"
+    },
+    {
+      "id": "guest-27",
+      "event_id": "00000000-0000-4000-8000-000000000001",
+      "name": "Guest 28",
+      "email": "guest27@example.test",
+      "phone": "",
+      "notes": "",
+      "party_size": 1,
+      "status": "registered",
+      "attending_with": "",
+      "created_at": "2026-08-27T17:43:00.759793-05:00"
+    },
+    {
+      "id": "guest-28",
+      "event_id": "00000000-0000-4000-8000-000000000001",
+      "name": "Guest 29",
+      "email": "guest28@example.test",
+      "phone": "",
+      "notes": "",
+      "party_size": 1,
+      "status": "registered",
+      "attending_with": "",
+      "created_at": "2026-08-24T15:54:31.700032-05:00"
+    },
+    {
+      "id": "guest-29",
+      "event_id": "00000000-0000-4000-8000-000000000001",
+      "name": "Guest 30",
+      "email": "guest29@example.test",
+      "phone": "",
+      "notes": "",
+      "party_size": 1,
+      "status": "registered",
+      "attending_with": "",
+      "created_at": "2026-08-23T22:12:27.298747-05:00"
+    }
+  ]
+}

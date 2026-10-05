@@ -3,17 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!-- Google Analytics 4 -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-T1PLCXES2Y"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-T1PLCXES2Y');
-</script>
+
 
 <title>Team Admin · Ladybug, Ladybug</title>
 <meta name="robots" content="noindex">
+<meta name="referrer" content="no-referrer">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,400;1,9..144,500;1,9..144,600&family=Mulish:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
@@ -60,6 +54,7 @@ tr:hover td{background:#FBF5EB}
 .spinner{width:36px;height:36px;border:3px solid rgba(177,18,38,.18);border-top-color:var(--red);border-radius:50%;margin:80px auto;animation:spin .9s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
 .actions{display:flex;gap:6px;flex-wrap:wrap}
+textarea{width:100%;min-height:85px;padding:10px;border:1px solid #ccc;border-radius:8px;font:inherit}.hq-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}.hq-row,.task-item{padding:14px;border:1px solid var(--card-edge);border-radius:10px;margin:12px 0}label{display:block;margin:8px 0}label input,label select{display:block;width:100%;padding:9px;font:inherit}select[multiple]{min-height:130px}.hq-warning{background:#fff4db;border:1px solid #b5851d;border-radius:10px;padding:14px;margin:15px 0}.task-group h3{margin:20px 0 8px}dialog{width:min(650px,95vw);max-height:90vh;overflow:auto;border:1px solid #ccc;border-radius:14px;padding:24px;margin:auto}dialog::backdrop{background:#0006}dialog .field{margin:10px 0}#copy-result{margin-top:10px}
 </style>
 </head>
 <body>
@@ -81,13 +76,13 @@ let currentSlug = params.get('event') || '';
 async function api(method, body){
   const qs = new URLSearchParams();
   if (currentSlug) qs.set('event', currentSlug);
-  if (teamToken) qs.set('t', teamToken);
+
   const url = '/api/team-admin' + (qs.toString() ? '?' + qs.toString() : '');
   const headers = {'Content-Type':'application/json'};
   if (adminKey) headers['x-admin-key'] = adminKey;
   if (teamToken) headers['x-team-token'] = teamToken;
   const opt = {method, headers};
-  if (body) opt.body = JSON.stringify(body);
+  if (body) opt.body = JSON.stringify({event_slug:currentSlug,...body});
   const r = await fetch(url, opt);
   const j = await r.json().catch(()=>({error:'bad_json'}));
   if (!r.ok) throw Object.assign(new Error(j.error || 'error'), {status:r.status, body:j});
@@ -255,6 +250,7 @@ function render(data){
         </table>
       </section>
     </main>`;
+  renderHQ(data);
 }
 
 async function addAttendee(){
@@ -314,7 +310,7 @@ boot();
 </script>
 
 
-<!-- Ask Kari widget -->
-<script src="https://chat.karikounkel.com/widget.js" defer></script>
+
+<script src="/event-hq.js"></script>
 </body>
 </html>

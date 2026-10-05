@@ -5,7 +5,13 @@
   "description": "Landing page + buy flow for Ladybug, Ladybug (Fast Camel Press)",
   "type": "module",
   "dependencies": {
-    "@supabase/supabase-js": "^2.45.4",
-    "stripe": "^17.3.1"
+    "@supabase/supabase-js": "2.45.4",
+    "stripe": "17.3.1"
+  },
+  "devDependencies": {
+    "jsdom": "27.0.1"
+  },
+  "scripts": {
+    "test": "node --experimental-vm-modules test/event-hq.test.mjs"
   }
 }
