@@ -237,14 +237,19 @@ footer a:hover{border-color:var(--gold-deep)}
   .wisdom-track{animation:none;width:auto}
   .wisdom-track img{scroll-snap-align:center}
 }
-.home-nav{display:flex;flex-wrap:wrap;justify-content:center;gap:14px 24px;padding-top:24px;padding-bottom:12px;font-size:.88rem}.home-nav a{color:var(--red);font-weight:700;text-underline-offset:4px}.hero-cta{display:flex;flex-wrap:wrap;justify-content:center;gap:14px}.hero-cta .secondary{background:var(--paper);color:var(--red)}section[id]{scroll-margin-top:24px}
+.site-header{background:var(--paper);border-bottom:1px solid var(--card-edge)}.header-inner{display:flex;align-items:center;justify-content:space-between;gap:24px;padding-top:22px;padding-bottom:22px}.site-brand{display:flex;flex-direction:column;flex-shrink:0;text-decoration:none;color:var(--red)}.brand-name{font-family:'Fraunces',serif;font-size:1.65rem;font-weight:700;line-height:1.2}.brand-line{font-size:.65rem;letter-spacing:.1em;color:var(--ink-soft);margin-top:6px}.home-nav{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:10px 18px;font-size:.8rem}@media(max-width:760px){.header-inner{flex-direction:column;gap:18px;text-align:center;padding-top:18px;padding-bottom:18px}.home-nav{justify-content:center;gap:10px 18px}.brand-name{font-size:1.5rem}}.home-nav a{color:var(--red);font-weight:700;text-underline-offset:4px}.hero-cta{display:flex;flex-wrap:wrap;justify-content:center;gap:14px}.hero-cta .secondary{background:var(--paper);color:var(--red)}section[id]{scroll-margin-top:24px}
 </style>
 </head>
 <body>
 <div class="grain"></div>
-<nav class="home-nav wrap" aria-label="Main navigation">
+<header class="site-header">
+  <div class="header-inner wrap">
+    <a class="site-brand" href="/" aria-label="Ladybug, Ladybug home"><span class="brand-name">Ladybug, Ladybug</span><span class="brand-line">Keeping It Classy in a Buggy World</span></a>
+    <nav class="home-nav" aria-label="Main navigation">
   <a href="#about">Learn about Ladybug</a><a href="/share-your-garden">Tell Your Story</a><a href="#gatherings">Future Gatherings</a><a href="#resources">Books &amp; Resources</a>
 </nav>
+  </div>
+</header>
 
 <!-- ===== HERO ===== -->
 <section class="hero wrap">
