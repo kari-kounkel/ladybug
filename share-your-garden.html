@@ -76,9 +76,9 @@ footer{text-align:center;padding:30px 28px;color:var(--ink-dim);font-size:.78rem
 </nav>
 
 <main class="wrap">
-  <p class="kicker">Show us your garden</p>
-  <h1>Tell me what you grew.</h1>
-  <p class="lede">Which bloom found you this season? Which one are you still tending? Take your time — the page won't run out of room.</p>
+  <p class="kicker">Chapter 13 · You Are the Thirteenth Ladybug</p>
+  <h1>Tell Your Story</h1>
+  <p class="lede">Your chapter belongs here. No finished garden required. Which bloom found you this season? Which one are you still tending? Take your time — the page won't run out of room.</p>
 
   <form id="garden-form" autocomplete="on">
     <div class="field">
@@ -104,7 +104,7 @@ footer{text-align:center;padding:30px 28px;color:var(--ink-dim);font-size:.78rem
     </div>
 
     <div class="actions">
-      <button class="btn" type="submit" id="submit">Send my garden 🐞</button>
+      <button class="btn" type="submit" id="submit">Send My Story 🐞</button>
     </div>
 
     <div class="error" id="error" role="alert"></div>
@@ -113,7 +113,7 @@ footer{text-align:center;padding:30px 28px;color:var(--ink-dim);font-size:.78rem
 
   <div class="thanks" id="thanks" aria-live="polite">
     <div class="bug">🐞</div>
-    <h2>Your garden is in the inbox.</h2>
+    <h2>Your story is in the inbox.</h2>
     <p>Thank you for sending it. I'll read every word.</p>
     <p>If you said yes to being featured, I'll let you know if your bloom finds a home on the site.</p>
     <a class="home-link" href="/">← Back to the book</a>
@@ -172,7 +172,7 @@ form.addEventListener('submit', async (e) => {
 
   if (error) {
     submitBtn.disabled = false;
-    submitBtn.textContent = 'Send my garden 🐞';
+    submitBtn.textContent = 'Send My Story 🐞';
     showError("Something went sideways saving your story. Try again? If it keeps failing, email kari@karikounkel.com and we'll catch it that way.");
     console.error(error);
     return;

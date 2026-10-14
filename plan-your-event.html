@@ -58,9 +58,9 @@ section.step{background:#fff;border:1.5px solid var(--card-edge);border-radius:2
 .act.included{border-color:var(--gold);background:linear-gradient(180deg,#fff,#FFFBF1)}
 .act-row{display:flex;align-items:flex-start;gap:14px}
 .act-row input[type=checkbox]{margin-top:5px;width:20px;height:20px;accent-color:var(--red);flex:0 0 auto;cursor:pointer}
-.act-row label{flex:1;cursor:pointer}
+.act-row label{flex:1;min-width:0;cursor:pointer}
 .act-title{font-family:'Fraunces',serif;font-weight:700;color:var(--ink);font-size:1.06rem;display:flex;justify-content:space-between;gap:12px;align-items:baseline;flex-wrap:wrap}
-.act-mins{font-family:'Mulish',sans-serif;font-weight:600;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-deep);white-space:nowrap}
+.act-mins{font-family:'Mulish',sans-serif;font-weight:600;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-deep);white-space:normal;overflow-wrap:anywhere}
 .act .desc{font-size:.94rem;color:var(--ink-soft);margin-top:4px;line-height:1.5}
 .act .badge-included{display:inline-block;font-family:'Mulish',sans-serif;font-weight:800;font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-deep);background:rgba(194,154,59,.15);padding:3px 8px;border-radius:999px;margin-left:6px;vertical-align:middle}
 .act.coordinated{background:linear-gradient(180deg,#fff,#FBF5EB);border-color:rgba(194,154,59,.4)}
@@ -73,7 +73,7 @@ section.step{background:#fff;border:1.5px solid var(--card-edge);border-radius:2
 .act .tips ul{list-style:none;padding:0;margin:0}
 .act .tips li{font-family:'Fraunces',serif;font-size:.94rem;color:var(--ink);padding-left:20px;position:relative;margin-bottom:6px;line-height:1.4}
 .act .tips li::before{content:"🐞";position:absolute;left:0;font-size:.7rem;top:5px}
-.act .tips a.amzn{display:inline-block;font-family:'Mulish',sans-serif;font-weight:700;font-size:.74rem;letter-spacing:.06em;color:var(--gold-deep);text-decoration:none;border-bottom:1px solid rgba(194,154,59,.4);margin-left:6px;transition:color .2s,border-color .2s;white-space:nowrap}
+.act .tips a.amzn{display:inline-block;font-family:'Mulish',sans-serif;font-weight:700;font-size:.74rem;letter-spacing:.06em;color:var(--gold-deep);text-decoration:none;border-bottom:1px solid rgba(194,154,59,.4);margin-left:6px;transition:color .2s,border-color .2s;white-space:normal;overflow-wrap:anywhere}
 .act .tips a.amzn:hover{color:var(--red);border-bottom-color:var(--red)}
 .act .tips .amzn-note{display:block;font-family:'Mulish',sans-serif;font-size:.66rem;color:var(--ink-dim);font-style:italic;margin-top:8px;letter-spacing:.04em;line-height:1.5}
 /* Sprinkle-in-more-ladybug list */
@@ -123,8 +123,8 @@ footer{text-align:center;padding:30px 28px;color:var(--ink-dim);font-size:.78rem
 
 <main class="wrap">
   <p class="kicker">Plan your event</p>
-  <h1>Bring the Ladybugs to your ladies.</h1>
-  <p class="lede">A women's day, a retreat, a Sunday-school cap-off, a fundraiser. Pick the shape that fits your time and your group — every attendee leaves with the book and a Bug-Off Box she decorated herself.</p>
+  <h1>Bring Ladybug to Your Group</h1>
+  <p class="lede">Ladybug gatherings are paid programming for churches, groups, and organizations. Share your interests below. Final formats and pricing are still being developed; selections are conversation starters, not confirmed packages.</p>
 
   <form id="event-form" autocomplete="on">
 
@@ -148,14 +148,14 @@ footer{text-align:center;padding:30px 28px;color:var(--ink-dim);font-size:.78rem
 
     <section class="step">
       <h2>3 · How many ladies + how many books?</h2>
-      <p class="sub">For groups under 100, Kari speaks for a <strong>free-will offering</strong>. Books are <strong>$20 each</strong>, and you choose how many to provide (some groups give one per attendee, some make them optional, some sell them at the door).</p>
+      <p class="sub">Tell us your estimated group size and interest in books. Programming, books, and materials will be scoped together; final pricing will be shared when available.</p>
       <div class="row" style="max-width:520px">
         <div class="field">
           <label for="attendees">Estimated attendees</label>
           <input id="attendees" name="attendees" type="number" min="5" max="500" value="20" required>
         </div>
         <div class="field">
-          <label for="books">Books for guests (at $20 each)</label>
+          <label for="books">Books for guests (estimated quantity)</label>
           <input id="books" name="books" type="number" min="0" max="500" value="20">
         </div>
       </div>
@@ -182,7 +182,7 @@ footer{text-align:center;padding:30px 28px;color:var(--ink-dim);font-size:.78rem
 
     <section class="step">
       <h2>5 · Tell us about you</h2>
-      <p class="sub">Kari reads every inquiry herself. She'll reach out within 48 hours.</p>
+      <p class="sub">Kari reads every inquiry herself. She will follow up about availability and scope.</p>
       <div class="row">
         <div class="field">
           <label for="host-name">Your name</label>
@@ -222,8 +222,8 @@ footer{text-align:center;padding:30px 28px;color:var(--ink-dim);font-size:.78rem
     <div class="total-bar" id="total-bar">
       <div class="left">
         <span class="summary"><span id="dur-summary">Pick a duration to start</span></span>
-        <span class="amount" id="total">$0</span>
-        <span class="per" id="breakdown">Plus free-will offering for Kari's time</span>
+        <span class="amount" id="total">Pricing to come</span>
+        <span class="per" id="breakdown">Programming and pricing to be confirmed</span>
       </div>
       <div class="right">
         <button class="btn" type="submit" id="submit">Send to Kari →</button>
@@ -231,14 +231,14 @@ footer{text-align:center;padding:30px 28px;color:var(--ink-dim);font-size:.78rem
     </div>
 
     <div class="error" id="error" role="alert"></div>
-    <p class="note">Numbers above cover hard costs only (books, supplies you ask Kari to bring). Kari's time is a free-will offering for groups under 100 — you decide what's fair. For groups over 100, Kari will scope a custom quote when she replies.</p>
+    <p class="note">This is an inquiry, not a booking or price commitment. Final formats, availability, and fees will be confirmed separately.</p>
   </form>
 
   <div class="thanks" id="thanks" aria-live="polite">
     <div class="bug">🐞</div>
     <h2>Your event request is in.</h2>
     <p>Thank you. Kari reads every one of these herself.</p>
-    <p>You'll hear back within 48 hours with a more detailed quote, available dates, and what to do next.</p>
+    <p>Kari will follow up about your group, availability, and scope. Final formats and pricing will be shared when available.</p>
     <a class="home-link" href="/">← Back to the book</a>
   </div>
 </main>
@@ -252,16 +252,12 @@ const SUPABASE_URL = 'https://lheytkgixafdhluuvrbg.supabase.co';
 const SUPABASE_KEY = 'sb_publishable_rX_Sim_EpCNyPpBL7pbH0w_FUr_DVce';
 const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 
-/* Activity catalog. Everything is a choice. Most pieces are free / free-will
-   offering / host-DIY — only books (handled separately as a numeric input,
-   not in this list) carry a hard per-attendee price. The `costLabel` is
-   what the host sees on each row; the tally only sums things with positive
-   `costPerAttendee` or `flatCost`. */
+/* Existing activity ideas for host inquiries; final formats and fees are pending. */
 const ACTIVITIES = [
   {
     id: 'song', title: 'Welcome circle + theme song', mins: 10, minHours: 1,
     desc: 'Open with the anthem and a short welcome. Sets the tone in under ten minutes.',
-    costLabel: 'Free',
+    costLabel: 'Scope and fee to be confirmed',
     tips: [
       'String lights overhead set the mood instantly <a class="amzn" href="https://www.amazon.com/s?k=warm+white+string+lights+indoor&tag=karikounke077-20" target="_blank" rel="noopener nofollow">→ shop string lights</a>',
       'Round tables of 6–8 work better than long banquet rows'
@@ -270,7 +266,7 @@ const ACTIVITIES = [
   {
     id: 'open', title: 'Kari opens — "The Halfsies, the holy aunties, and you"', mins: 25, minHours: 1,
     desc: "Kari's keynote: meet the Legacy Ladies, hear the heart of the book, find your seat at the table.",
-    costLabel: 'Free-will offering',
+    costLabel: 'Scope and fee to be confirmed',
     tips: [
       'Single handheld wireless mic is plenty for groups under 80 <a class="amzn" href="https://www.amazon.com/s?k=wireless+handheld+microphone+system&tag=karikounke077-20" target="_blank" rel="noopener nofollow">→ shop wireless mics</a>',
       'A small flower arrangement on the speaker table is all the staging you need <a class="amzn" href="https://www.amazon.com/s?k=faux+silk+flower+arrangement&tag=karikounke077-20" target="_blank" rel="noopener nofollow">→ shop faux florals</a>'
@@ -279,7 +275,7 @@ const ACTIVITIES = [
   {
     id: 'boxes', title: 'Decorate your own Bug-Off Box™', mins: 35, minHours: 2,
     desc: 'Every guest decorates a small brown box (with a lid!) that fills throughout the event with crafts, verses, and keepsakes from each speaker.',
-    costLabel: 'Host DIY (tips below)',
+    costLabel: 'Scope and fee to be confirmed',
     tips: [
       'Small brown kraft boxes WITH LIDS (~4–6 inches works perfectly) <a class="amzn" href="https://www.amazon.com/s?k=kraft+gift+boxes+with+lids+small&tag=karikounke077-20" target="_blank" rel="noopener nofollow">→ shop kraft boxes</a>',
       'Mod podge, foam brushes, glue dots, scrapbook paper, ribbons <a class="amzn" href="https://www.amazon.com/s?k=mod+podge+craft+kit&tag=karikounke077-20" target="_blank" rel="noopener nofollow">→ shop craft basics</a>',
@@ -292,7 +288,7 @@ const ACTIVITIES = [
     id: 'station-pick', title: 'Contributor craft stations', mins: 45, minHours: 3,
     coordinated: true,
     desc: 'Each of the 12 contributors has her own chapter and her own small craft to add to the Bug-Off Box. Kari arranges the lineup with you based on which contributors can travel to your event.',
-    costLabel: 'Kari coordinates · free-will per contributor',
+    costLabel: 'Scope and fee to be confirmed',
     tips: [
       'Iris — Trust: a tiny iris pressed into a verse card',
       'Marigold — Think: a pocket affirmation deck',
@@ -311,7 +307,7 @@ const ACTIVITIES = [
   {
     id: 'aphid', title: 'Aphid Alley — snack + mini-vendor lounge', mins: 30, minHours: 3,
     desc: 'A scattered "garden" perimeter with picnic snacks, vendor tables, mini nail / hand-massage stations. Built-in social break between speakers.',
-    costLabel: 'Host DIY (tips below)',
+    costLabel: 'Scope and fee to be confirmed',
     tips: [
       'Tulle draped low overhead = instant grass canopy <a class="amzn" href="https://www.amazon.com/s?k=tulle+roll+bolt+green&tag=karikounke077-20" target="_blank" rel="noopener nofollow">→ shop tulle</a>',
       'String lights + paper lanterns + a few mismatched picnic blankets <a class="amzn" href="https://www.amazon.com/s?k=paper+lanterns+decorative&tag=karikounke077-20" target="_blank" rel="noopener nofollow">→ shop lanterns</a>',
@@ -325,7 +321,7 @@ const ACTIVITIES = [
     id: 'rotation', title: 'Speaker rotation — 2–3 contributors share', mins: 60, minHours: 4,
     coordinated: true,
     desc: 'Short talks from contributors, each tied to her flower and her chapter. Lineup depends on who can travel — Kari sorts this out after you confirm the date.',
-    costLabel: 'Kari coordinates · free-will per speaker',
+    costLabel: 'Scope and fee to be confirmed',
     tips: [
       'Each speaker = 15–18 minutes, with a 5-minute station-craft break after',
       "Keep all speakers on the same mic — don't keep swapping audio gear <a class=\"amzn\" href=\"https://www.amazon.com/s?k=dual+wireless+handheld+microphone&tag=karikounke077-20\" target=\"_blank\" rel=\"noopener nofollow\">→ shop dual-mic systems</a>",
@@ -335,7 +331,7 @@ const ACTIVITIES = [
   {
     id: 'meal', title: 'Catered or potluck lunch in the gathering space', mins: 50, minHours: 4,
     desc: 'Sit-down meal at the round tables. Kari mingles. Conversation deepens.',
-    costLabel: 'Host arranges',
+    costLabel: 'Scope and fee to be confirmed',
     tips: [
       'Potluck assignment by table is easier than a centralized buffet',
       'Light fare wins: salads, sandwiches, a few warm sides',
@@ -346,7 +342,7 @@ const ACTIVITIES = [
   {
     id: 'parade', title: 'Closing parade through the building', mins: 15, minHours: 6,
     desc: 'A short walk-with-music procession through your space — out to evening service, into the dining hall, wherever fits your venue. The book\'s closing image, made real.',
-    costLabel: 'Free',
+    costLabel: 'Scope and fee to be confirmed',
     tips: [
       'Hand each lady a paper flower as she walks out <a class="amzn" href="https://www.amazon.com/s?k=paper+flowers+bulk+single+stem&tag=karikounke077-20" target="_blank" rel="noopener nofollow">→ shop paper flowers</a>',
       'Cue up the anthem on a portable Bluetooth speaker <a class="amzn" href="https://www.amazon.com/s?k=portable+bluetooth+speaker+loud&tag=karikounke077-20" target="_blank" rel="noopener nofollow">→ shop speakers</a>',
@@ -355,7 +351,7 @@ const ACTIVITIES = [
   {
     id: 'dinner', title: 'Surprise dinner — served by the men in their lives', mins: 75, minHours: 6,
     desc: 'Quietly coordinated with your husbands / sons / brothers ahead of time. They prep a simple dinner while the women event happens; when the ladies parade back in, dinner is on the table and they serve.',
-    costLabel: 'Host coordinates',
+    costLabel: 'Scope and fee to be confirmed',
     tips: [
       'Two-week heads-up to the men, plus a Google Doc with the menu',
       'Simple wins: pasta bar, taco bar, soup + bread',
@@ -426,7 +422,7 @@ function updateTotal(){
   const attendees = Math.max(0, parseInt(attendeesEl.value, 10) || 0);
   const books = Math.max(0, parseInt(booksEl.value, 10) || 0);
   const bookTotal = books * BOOK_PRICE;
-  totalEl.textContent = '$' + bookTotal.toLocaleString();
+  totalEl.textContent = 'Pricing to come';
 
   const pickedCount = checked.size;
   if (chosenHours === 0) {
@@ -435,8 +431,8 @@ function updateTotal(){
     durSummaryEl.textContent = `${pickedCount} thing${pickedCount === 1 ? '' : 's'} picked · ${attendees} ladies · ${chosenHours} hr`;
   }
   const parts = [];
-  if (books > 0) parts.push(`<strong>${books} books</strong> × $${BOOK_PRICE}`);
-  parts.push("plus free-will offering for Kari's time");
+  if (books > 0) parts.push(`<strong>${books} books requested</strong>`);
+  parts.push("paid programming · final quote pending");
   breakdownEl.innerHTML = parts.join(' · ');
 }
 
@@ -492,7 +488,7 @@ form.addEventListener('submit', async (e) => {
     selections: {
       book_price: BOOK_PRICE,
       books_ordered: books,
-      kari_time: 'free-will offering',
+      kari_time: 'paid programming; final quote pending',
       activities: pickedActivities
     },
     notes: $('notes').value.trim() || null,

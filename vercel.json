@@ -32,5 +32,17 @@
         }
       ]
     }
+  ],
+  "redirects": [
+    {
+      "source": "/register",
+      "destination": "/#gatherings",
+      "permanent": false
+    },
+    {
+      "source": "/register.html",
+      "destination": "/#gatherings",
+      "permanent": false
+    }
   ]
 }
